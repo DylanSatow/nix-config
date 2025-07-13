@@ -1,7 +1,16 @@
 { pkgs, self, homebrew-core, homebrew-cask, ... }: {
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
-  environment.systemPackages = [ pkgs.vim pkgs.neovim pkgs.nixfmt ];
+
+  environment.systemPackages = [ 
+    pkgs.vim 
+    pkgs.neovim 
+    pkgs.nixfmt-rfc-style
+
+    pkgs.claude-code
+  ];
+
+  nixpkgs.config.allowUnfree = true;
 
   homebrew = {
     enable = true;
@@ -10,6 +19,8 @@
       { name = "kitty"; }
       { name = "visual-studio-code"; }
       { name = "spotify"; }
+      { name = "rectangle"; }
+      { name = "claude"; }
     ];
   };
 
@@ -24,6 +35,8 @@
     mineffect = "scale"; # Minimize effect: "genie", "scale", "suck"
     show-process-indicators = true; # Show dots under running apps
   };
+
+  system.defaults.WindowManager.EnableTilingByEdgeDrag = false;
 
   system.primaryUser = "dylan"; # Set main user for dock
 
