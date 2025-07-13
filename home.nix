@@ -24,6 +24,15 @@
     # Change to ~/home directory for new terminal sessions
     # but skip if we're in a specific working directory (e.g., VS Code terminal)
     initContent = ''
+      # Override cd to go to /Users/dylan/home when no arguments provided
+      function cd() {
+        if [[ $# -eq 0 ]]; then
+          builtin cd "/Users/dylan/home"
+        else
+          builtin cd "$@"
+        fi
+      }
+      
       # Only change directory if we're in the default home directory
       # and not already in a subdirectory (preserves editor terminal behavior)
       if [[ "$PWD" == "$HOME" && -z "$VSCODE_INJECTION" ]]; then
@@ -56,71 +65,73 @@
 
   programs.vscode = {
     enable = true;
-    extensions = with pkgs.vscode-extensions; [
-      # Catppuccin theme
-      catppuccin.catppuccin-vsc
-      catppuccin.catppuccin-vsc-icons
-      
-      # Vim extension
-      vscodevim.vim
-      
-      # Remote explorer
-      ms-vscode-remote.remote-containers
-      ms-vscode-remote.remote-ssh
-      ms-vscode-remote.remote-wsl
-      ms-vscode-remote.vscode-remote-extensionpack
-      
-      # Material product icons
-      pkief.material-icon-theme
-      pkief.material-product-icons
-      
-      # Language extensions
-      ms-python.python
-      ms-python.pylint
-      ms-python.black-formatter
-      bbenoist.nix
-      golang.go
-      ms-vscode.cpptools
-      ms-vscode.cpptools-extension-pack
-      ms-vscode.cmake-tools
-    ];
-    
-    userSettings = {
-      # Catppuccin theme configuration
-      "workbench.colorTheme" = "Catppuccin Macchiato";
-      "workbench.iconTheme" = "catppuccin-macchiato";
-      "workbench.productIconTheme" = "material-product-icons";
-      
-      # Sidebar on right
-      "workbench.sideBar.location" = "right";
-      
-      # Vim configuration
-      "vim.useSystemClipboard" = true;
-      "vim.hlsearch" = true;
-      "vim.insertModeKeyBindings" = [
-        {
-          "before" = ["j" "j"];
-          "after" = ["<Esc>"];
-        }
+    profiles.default = {
+      extensions = with pkgs.vscode-extensions; [
+        # Catppuccin theme
+        catppuccin.catppuccin-vsc
+        catppuccin.catppuccin-vsc-icons
+        
+        # Vim extension
+        vscodevim.vim
+        
+        # Remote explorer
+        ms-vscode-remote.remote-containers
+        ms-vscode-remote.remote-ssh
+        ms-vscode-remote.remote-wsl
+        ms-vscode-remote.vscode-remote-extensionpack
+        
+        # Material product icons
+        pkief.material-icon-theme
+        pkief.material-product-icons
+        
+        # Language extensions
+        ms-python.python
+        ms-python.pylint
+        ms-python.black-formatter
+        bbenoist.nix
+        golang.go
+        ms-vscode.cpptools
+        ms-vscode.cpptools-extension-pack
+        ms-vscode.cmake-tools
       ];
       
-      # Editor settings
-      "editor.fontSize" = 14;
-      "editor.fontFamily" = "JetBrainsMono Nerd Font";
-      "editor.lineNumbers" = "on";
-      "editor.minimap.enabled" = true;
-      
-      # Python settings
-      "python.defaultInterpreterPath" = "/usr/bin/python3";
-      "python.formatting.provider" = "black";
-      
-      # Go settings
-      "go.formatTool" = "goimports";
-      "go.useLanguageServer" = true;
-      
-      # C/C++ settings
-      "C_Cpp.default.cppStandard" = "c++17";
-      "C_Cpp.default.cStandard" = "c11";
+      userSettings = {
+        # Catppuccin theme configuration
+        "workbench.colorTheme" = "Catppuccin Macchiato";
+        "workbench.iconTheme" = "catppuccin-macchiato";
+        "workbench.productIconTheme" = "material-product-icons";
+        
+        # Sidebar on right
+        "workbench.sideBar.location" = "right";
+        
+        # Vim configuration
+        "vim.useSystemClipboard" = true;
+        "vim.hlsearch" = true;
+        "vim.insertModeKeyBindings" = [
+          {
+            "before" = ["j" "j"];
+            "after" = ["<Esc>"];
+          }
+        ];
+        
+        # Editor settings
+        "editor.fontSize" = 14;
+        "editor.fontFamily" = "JetBrainsMono Nerd Font";
+        "editor.lineNumbers" = "on";
+        "editor.minimap.enabled" = true;
+        
+        # Python settings
+        "python.defaultInterpreterPath" = "/usr/bin/python3";
+        "python.formatting.provider" = "black";
+        
+        # Go settings
+        "go.formatTool" = "goimports";
+        "go.useLanguageServer" = true;
+        
+        # C/C++ settings
+        "C_Cpp.default.cppStandard" = "c++17";
+        "C_Cpp.default.cStandard" = "c11";
+      };
     };
   };
 
