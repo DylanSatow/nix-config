@@ -5,6 +5,36 @@
     profiles.dylan = {
       isDefault = true;
       
+      # Bookmarks
+      bookmarks.force = true;
+      bookmarks.settings = [
+        {
+          name = "Google Maps";
+          url = "https://maps.google.com";
+          keyword = "maps";
+        }
+        {
+          name = "Nix Home Manager";
+          url = "https://nix-community.github.io/home-manager/";
+          keyword = "hm";
+        }
+        {
+          name = "Nix Darwin Manual";
+          url = "https://nix-darwin.github.io/nix-darwin/manual/";
+          keyword = "darwin";
+        }
+        {
+          name = "GitHub";
+          url = "https://github.com";
+          keyword = "gh";
+        }
+        {
+          name = "YouTube";
+          url = "https://youtube.com";
+          keyword = "yt";
+        }
+      ];
+      
       # Extensions
       extensions = {
         packages = with pkgs; [
@@ -23,7 +53,6 @@
         # Minimal UI
         "browser.tabs.inTitlebar" = 1;
         "browser.uidensity" = 1; # Compact density
-        "browser.toolbars.bookmarks.visibility" = "never";
         
         # Privacy & Performance
         "privacy.trackingprotection.enabled" = true;
@@ -62,6 +91,11 @@
         "gfx.font_rendering.cleartype_params.force_gdi_classic_for_families" = "";
         "gfx.font_rendering.cleartype_params.force_gdi_classic_max_size" = 6;
         "gfx.font_rendering.directwrite.use_gdi_table_loading" = false;
+        
+        # URL bar suggestions - only show bookmarks, not history
+        "browser.urlbar.suggest.history" = false;
+        "browser.urlbar.suggest.bookmark" = true;
+        "browser.urlbar.suggest.openpage" = false;
       };
       
       # Custom CSS for even cleaner look
