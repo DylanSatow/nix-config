@@ -2,31 +2,33 @@
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
 
-  environment.systemPackages = [ 
-    pkgs.vim 
-    pkgs.neovim 
-    pkgs.nixfmt-rfc-style
-    
+  environment.systemPackages = [
+    pkgs.vim
+    pkgs.neovim
+    pkgs.neovide
+    pkgs.nixpkgs-fmt
+
+    # Unstable
     pkgs.unstable.claude-code
   ];
 
   homebrew = {
     enable = true;
+    onActivation.cleanup = "zap";
     casks = [
       "firefox"
       "kitty"
-      "spotify" 
-      "rectangle" 
-      "claude" 
-      "visual-studio-code" 
-      "obsidian" 
-      "todoist" 
+      "spotify"
+      "rectangle"
+      "claude"
+      "visual-studio-code"
+      "obsidian"
+      "todoist"
       "slack"
       "zoom"
       "discord"
       "steam"
       "raycast"
-      "copyclip"
     ];
   };
 
@@ -40,7 +42,7 @@
     orientation = "bottom"; # Position: "bottom", "left", "right"
     mineffect = "scale"; # Minimize effect: "genie", "scale", "suck"
     show-process-indicators = true; # Show dots under running apps
-    
+
     # Configure specific apps in dock
     persistent-apps = [
       { app = "/Applications/Firefox.app"; }
@@ -52,6 +54,14 @@
   };
 
   system.defaults.WindowManager.EnableTilingByEdgeDrag = false;
+
+  # Finder configuration
+  system.defaults.finder = {
+    FXPreferredViewStyle = "clmv"; # Column view
+    NewWindowTarget = "Other"; # Open new windows in custom location
+    NewWindowTargetPath = "file:///Users/dylan/home/"; # Start in home directory
+    ShowPathbar = true; # Show path breadcrumbs
+  };
 
   # Control Center configuration
   system.defaults.controlcenter.BatteryShowPercentage = true;
