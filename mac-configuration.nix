@@ -35,11 +35,20 @@
     autohide = true;
     launchanim = false;
     show-recents = false; # Don't show recent apps
-    tilesize = 48; # Icon size (default is 64)
+    tilesize = 64; # Icon size (increased from 48 to 64)
     magnification = false; # Enable magnification on hover
     orientation = "bottom"; # Position: "bottom", "left", "right"
     mineffect = "scale"; # Minimize effect: "genie", "scale", "suck"
     show-process-indicators = true; # Show dots under running apps
+    
+    # Configure specific apps in dock
+    persistent-apps = [
+      { app = "/Applications/Firefox.app"; }
+      { app = "/System/Applications/Mail.app"; }
+      { app = "/Applications/Kitty.app"; }
+      { app = "/Applications/Visual Studio Code.app"; }
+      { app = "/Applications/Claude.app"; }
+    ];
   };
 
   system.defaults.WindowManager.EnableTilingByEdgeDrag = false;
