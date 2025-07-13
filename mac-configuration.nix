@@ -6,11 +6,9 @@
     pkgs.vim 
     pkgs.neovim 
     pkgs.nixfmt-rfc-style
-
-    pkgs.claude-code
+    
+    pkgs.unstable.claude-code
   ];
-
-  nixpkgs.config.allowUnfree = true;
 
   homebrew = {
     enable = true;

@@ -15,12 +15,23 @@
 
   programs.zsh = {
     enable = true;
-    loginExtra = "cd ~/home";
 
     oh-my-zsh = {
         enable = true;
         theme = "robbyrussell";
     };
+
+    # Change to ~/home directory for new terminal sessions
+    # but skip if we're in a specific working directory (e.g., VS Code terminal)
+    initContent = ''
+      # Only change directory if we're in the default home directory
+      # and not already in a subdirectory (preserves editor terminal behavior)
+      if [[ "$PWD" == "$HOME" && -z "$VSCODE_INJECTION" ]]; then
+        if [[ -d "$HOME/home" ]]; then
+          cd "$HOME/home"
+        fi
+      fi
+    '';
   };
 
   programs.kitty = {
