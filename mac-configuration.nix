@@ -13,14 +13,20 @@
   homebrew = {
     enable = true;
     casks = [
-      { name = "firefox"; }
-      { name = "kitty"; }
-      { name = "spotify"; }
-      { name = "rectangle"; }
-      { name = "claude"; }
-      { name = "visual-studio-code"; }
-      { name = "obsidian"; }
-      { name = "todoist"; }
+      "firefox"
+      "kitty"
+      "spotify" 
+      "rectangle" 
+      "claude" 
+      "visual-studio-code" 
+      "obsidian" 
+      "todoist" 
+      "slack"
+      "zoom"
+      "discord"
+      "steam"
+      "raycast"
+      "copyclip"
     ];
   };
 
