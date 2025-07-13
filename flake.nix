@@ -56,7 +56,7 @@
           nixpkgs.overlays = [ unstable-overlay ];
           nixpkgs.config.allowUnfree = true;
         }
-        ./mac-configuration.nix 
+        ./darwin/darwin.nix 
         nix-homebrew.darwinModules.nix-homebrew 
         home-manager.darwinModules.home-manager
         {
@@ -66,7 +66,7 @@
           };
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.users.dylan = import ./home.nix;
+          home-manager.users.dylan = import ./home-manager/home.nix;
         }
       ];
 	    specialArgs = { inherit self homebrew-core homebrew-cask; };
