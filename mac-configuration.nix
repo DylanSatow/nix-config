@@ -17,10 +17,10 @@
     casks = [
       { name = "firefox"; }
       { name = "kitty"; }
-      { name = "visual-studio-code"; }
       { name = "spotify"; }
       { name = "rectangle"; }
       { name = "claude"; }
+      { name = "visual-studio-code"; }
     ];
   };
 
@@ -37,6 +37,11 @@
   };
 
   system.defaults.WindowManager.EnableTilingByEdgeDrag = false;
+
+  # Disable accent popup when holding keys (enables key repeat)
+  system.defaults.NSGlobalDomain.ApplePressAndHoldEnabled = false;
+  system.defaults.NSGlobalDomain.KeyRepeat = 2; # Fast key repeat rate (1 is fastest, 2 is very fast)
+  system.defaults.NSGlobalDomain.InitialKeyRepeat = 15; # Short delay before repeat starts
 
   system.primaryUser = "dylan"; # Set main user for dock
 
