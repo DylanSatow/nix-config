@@ -21,6 +21,10 @@
         theme = "robbyrussell";
     };
 
+    shellAliases = {
+      nrb = "sudo darwin-rebuild switch --flake /Users/dylan/home/nix-config#dylanix";
+    };
+
     # Change to ~/home directory for new terminal sessions
     # but skip if we're in a specific working directory (e.g., VS Code terminal)
     initContent = ''

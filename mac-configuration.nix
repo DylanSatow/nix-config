@@ -36,6 +36,9 @@
 
   system.defaults.WindowManager.EnableTilingByEdgeDrag = false;
 
+  # Control Center configuration
+  system.defaults.controlcenter.BatteryShowPercentage = true;
+
   # Disable accent popup when holding keys (enables key repeat)
   system.defaults.NSGlobalDomain.ApplePressAndHoldEnabled = false;
   system.defaults.NSGlobalDomain.KeyRepeat = 2; # Fast key repeat rate (1 is fastest, 2 is very fast)
