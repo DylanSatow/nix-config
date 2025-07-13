@@ -19,6 +19,8 @@
       { name = "rectangle"; }
       { name = "claude"; }
       { name = "visual-studio-code"; }
+      { name = "obsidian"; }
+      { name = "todoist"; }
     ];
   };
 
