@@ -15,7 +15,6 @@
       "zoom"
       "discord"
       "steam"
-      "raycast"
     ];
   };
 

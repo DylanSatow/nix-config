@@ -17,6 +17,10 @@
     userEmail = "dylansatow531@gmail.com";
   };
 
+  home.sessionVariables = {
+    EDITOR = "nvim";
+  };
+
 
 
   # This value determines the Home Manager release that your

@@ -1,4 +1,16 @@
 { config, pkgs, ... }: {
+  # Neovim
+  programs.neovim = {
+    enable = true;
+    defaultEditor = false; # We'll set this in home.nix
+  };
+
+  # Link nvim config directory
+  xdg.configFile."nvim" = {
+    source = ./nvim;
+    recursive = true;
+  };
+
   programs.vscode = {
     enable = true;
     profiles.default = {
