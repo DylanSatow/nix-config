@@ -15,7 +15,7 @@
         }
         {
           name = "Nix Home Manager";
-          url = "https://nix-community.github.io/home-manager/";
+          url = "https://home-manager-options.extranix.com/";
           keyword = "hm";
         }
         {
@@ -32,6 +32,16 @@
           name = "YouTube";
           url = "https://youtube.com";
           keyword = "yt";
+        }
+        {
+          name = "Smithery";
+          url = "https://smithery.ai/";
+          keyword = "smth";
+        }
+        {
+          name = "Reddit";
+          url = "https://reddit.com";
+          keyword = "red";
         }
       ];
       

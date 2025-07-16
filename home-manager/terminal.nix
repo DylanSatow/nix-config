@@ -33,6 +33,12 @@
     '';
   };
 
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true;
+    nix-direnv.enable = true;
+  };
+
   programs.kitty = {
     enable = true;
     themeFile = "Catppuccin-Macchiato";

@@ -17,6 +17,7 @@
       "discord"
       "steam"
       "alt-tab"
+      "displaylink"
     ];
   };
 

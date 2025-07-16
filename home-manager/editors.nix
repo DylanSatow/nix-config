@@ -1,12 +1,46 @@
 { config, pkgs, ... }: {
-  # Neovim
+
+  # Neovim text editor configuration
   programs.neovim = {
     enable = true;
-    defaultEditor = false; # We'll set this in home.nix
+    package = pkgs.neovim-unwrapped;
+    defaultEditor = false;
+    withNodeJs = true;
+    withPython3 = true;
+    withRuby = true;
+
+    extraPackages = with pkgs; [
+      alejandra
+      black
+      golangci-lint
+      gopls
+      gotools
+      hadolint
+      isort
+      lua-language-server
+      markdownlint-cli
+      nixd
+      nodePackages.bash-language-server
+      nodePackages.prettier
+      pyright
+      ruff
+      shellcheck
+      shfmt
+      stylua
+      terraform-ls
+      tflint
+      vscode-langservers-extracted
+      yaml-language-server
+    ];
   };
 
-  # Link nvim config directory
-  xdg.configFile.nvim.source = ./nvim;
+  # source lua config from this repo
+  xdg.configFile = {
+    "nvim" = {
+      source = ./lazyvim;
+      recursive = true;
+    };
+  };
 
   programs.vscode = {
     enable = true;
