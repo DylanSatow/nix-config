@@ -4,6 +4,7 @@
     onActivation.cleanup = "zap";
     casks = [
       "firefox"
+      "google-chrome"
       "kitty"
       "spotify"
       "rectangle"
@@ -15,6 +16,7 @@
       "zoom"
       "discord"
       "steam"
+      "alt-tab"
     ];
   };
 
