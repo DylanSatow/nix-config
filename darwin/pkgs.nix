@@ -1,5 +1,7 @@
 { pkgs, ... }: {
   environment.systemPackages = [
+    pkgs.go
+
     pkgs.vim
     pkgs.neovim
     pkgs.neovide

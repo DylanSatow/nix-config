@@ -14,6 +14,8 @@
     # Change to ~/home directory for new terminal sessions
     # but skip if we're in a specific working directory (e.g., VS Code terminal)
     initContent = ''
+      export PATH=$PATH:/Users/dylan/go/bin/
+
       # Override cd to go to /Users/dylan/home when no arguments provided
       function cd() {
         if [[ $# -eq 0 ]]; then

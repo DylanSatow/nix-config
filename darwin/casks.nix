@@ -11,7 +11,6 @@
       "claude"
       "visual-studio-code"
       "obsidian"
-      "todoist"
       "slack"
       "zoom"
       "discord"

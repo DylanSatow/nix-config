@@ -1,34 +1,24 @@
 { config, lib, pkgs, ... }: {
 
   programs.neovim = {
-    extraPackages = with pkgs; [
-      # LazyVim
-      lua-language-server
-      stylua
-      # Telescope
-      ripgrep
-    ];
-
-    plugins = with pkgs.vimPlugins; [
-      lazy-nvim
-    ];
+    enable = true;
+    defaultEditor = true;
+    viAlias = true;
+    vimAlias = true;
+    vimdiffAlias = true;
+    
+    # Let LazyVim manage all plugins
+    plugins = [ ];
+    
+    # Use the LazyVim configuration files
+    extraLuaConfig = ''
+      -- Set the path to the LazyVim config directory
+      vim.opt.runtimepath:prepend("${./nvim}")
+      
+      -- Bootstrap lazy.nvim and LazyVim
+      require("config.lazy")
+    '';
   };
-
-  # https://github.com/nvim-treesitter/nvim-treesitter#i-get-query-error-invalid-node-type-at-position
-  xdg.configFile."nvim/parser".source =
-    let
-      parsers = pkgs.symlinkJoin {
-        name = "treesitter-parsers";
-        paths = (pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins: with plugins; [
-          c
-          lua
-        ])).dependencies;
-      };
-    in
-    "${parsers}/parser";
-
-  # Normal LazyVim config here, see https://github.com/LazyVim/starter/tree/main/lua
-  xdg.configFile."nvim/".source = ./nvim;
 
   programs.vscode = {
     enable = true;
