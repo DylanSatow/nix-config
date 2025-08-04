@@ -4,5 +4,6 @@
     ./pkgs.nix
     ./casks.nix
     ./system.nix
+    ./hotkeys.nix
   ];
 }

@@ -8,6 +8,7 @@
     pkgs.nixpkgs-fmt
     pkgs.direnv
     pkgs.nnn
+    pkgs.skhd
 
     # Unstable
     pkgs.unstable.claude-code

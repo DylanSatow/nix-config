@@ -17,6 +17,7 @@
       "steam"
       "alt-tab"
       "displaylink"
+      "karabiner-elements"
     ];
   };
 
