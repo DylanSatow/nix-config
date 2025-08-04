@@ -47,6 +47,43 @@
   };
   in
   {
+    # Development shells available with: nix develop
+    devShells.${system} = {
+      default = nixpkgs.legacyPackages.${system}.mkShell {
+        buildInputs = with nixpkgs.legacyPackages.${system}; [
+          # Python development
+          python3
+          python3Packages.pip
+          python3Packages.virtualenv
+          python3Packages.poetry
+          
+          # Rust development  
+          rustc
+          cargo
+          rustfmt
+          clippy
+          
+          # Go development
+          go
+          gopls
+          
+          # Common development tools
+          git
+          curl
+          jq
+          tree
+        ];
+        
+        shellHook = ''
+          echo "🚀 Development shell activated!"
+          echo "Available tools:"
+          echo "  Python: $(python3 --version)"
+          echo "  Rust: $(rustc --version)"
+          echo "  Go: $(go version)"
+        '';
+      };
+    };
+
     # Build darwin flake using:
     # $ darwin-rebuild build --flake .#dylanix
     darwinConfigurations."dylanix" = nix-darwin.lib.darwinSystem {
@@ -66,6 +103,7 @@
           };
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
+          home-manager.backupFileExtension = null;
           home-manager.users.dylan = import ./home-manager/home.nix;
         }
       ];

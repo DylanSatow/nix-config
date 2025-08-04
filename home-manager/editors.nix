@@ -5,20 +5,14 @@
     defaultEditor = true;
     viAlias = true;
     vimAlias = true;
-    vimdiffAlias = true;
-    
-    # Let LazyVim manage all plugins
-    plugins = [ ];
-    
-    # Use the LazyVim configuration files
-    extraLuaConfig = ''
-      -- Set the path to the LazyVim config directory
-      vim.opt.runtimepath:prepend("${./nvim}")
-      
-      -- Bootstrap lazy.nvim and LazyVim
-      require("config.lazy")
-    '';
   };
+
+  # Link nvim configuration
+  home.file.".config/nvim" = {
+    source = ./nvim;
+    recursive = true;
+  };
+
 
   programs.vscode = {
     enable = true;

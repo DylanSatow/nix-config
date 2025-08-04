@@ -21,6 +21,24 @@
     EDITOR = "nvim";
   };
 
+  # Language servers and development tools
+  home.packages = with pkgs; [
+    # Fonts
+    nerd-fonts.jetbrains-mono
+    
+    # Language servers
+    nil                          # Nix LSP
+    pyright                      # Python LSP
+    typescript-language-server   # TypeScript/JavaScript LSP
+    gopls                        # Go LSP
+    rust-analyzer               # Rust LSP
+    clang-tools                 # C/C++ LSP (includes clangd)
+    lua-language-server         # Lua LSP
+    vscode-langservers-extracted # JSON, HTML, CSS, ESLint LSPs
+    yaml-language-server        # YAML LSP
+    bash-language-server        # Bash LSP
+  ];
+
 
 
   # This value determines the Home Manager release that your
