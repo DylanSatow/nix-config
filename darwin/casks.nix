@@ -29,6 +29,6 @@
       "homebrew/homebrew-core" = homebrew-core;
       "homebrew/homebrew-cask" = homebrew-cask;
     };
-    mutableTaps = false;
+    mutableTaps = true;
   };
 }

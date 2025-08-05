@@ -102,10 +102,11 @@
         "gfx.font_rendering.cleartype_params.force_gdi_classic_max_size" = 6;
         "gfx.font_rendering.directwrite.use_gdi_table_loading" = false;
         
-        # URL bar suggestions - only show bookmarks, not history
-        "browser.urlbar.suggest.history" = false;
+        # URL bar suggestions - enable autocomplete
+        "browser.urlbar.suggest.history" = true;
         "browser.urlbar.suggest.bookmark" = true;
-        "browser.urlbar.suggest.openpage" = false;
+        "browser.urlbar.suggest.openpage" = true;
+        "browser.urlbar.suggest.searches" = true;
       };
       
       # Custom CSS for even cleaner look

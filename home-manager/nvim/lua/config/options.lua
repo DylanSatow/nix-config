@@ -11,8 +11,8 @@ if vim.g.neovide then
 end
 
 -- Enable terminal clearing
-vim.api.nvim_create_autocmd("TermOpen", {
-  pattern = "*",
+vim.api.nvim_create_autocmd({"TermOpen", "BufEnter"}, {
+  pattern = "term://*",
   callback = function()
     -- unbind <c-l> in terminal
     vim.api.nvim_buf_set_keymap(0, "t", "<C-l>", "<C-l>", { noremap = true, silent = true })
