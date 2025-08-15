@@ -28,6 +28,7 @@
       "$fileManager" = "nautilus";
       "$menu" = "rofi -show drun";
       "$browser" = "firefox";
+      "$life" = "obsidian";
 
       monitor = [
         ",preferred,auto,1"
