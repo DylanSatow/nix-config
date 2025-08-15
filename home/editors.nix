@@ -8,7 +8,7 @@
   };
 
   home.file.".config/nvim" = {
-    source = ../home-manager/nvim;
+    source = ./nvim;
     recursive = true;
   };
 
