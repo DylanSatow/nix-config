@@ -27,6 +27,19 @@
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
 
+  programs.hyprland = {
+    enable = true;
+    xwayland.enable = true;
+  };
+
+  xdg.portal = {
+    enable = true;
+    extraPortals = with pkgs; [ 
+      xdg-desktop-portal-hyprland 
+      xdg-desktop-portal-gtk
+    ];
+  };
+
   services.xserver.xkb = {
     layout = "us";
     variant = "";
