@@ -7,5 +7,6 @@
     direnv
 
     unstable.claude-code
+    unstable.gemini-cli
   ];
 }
