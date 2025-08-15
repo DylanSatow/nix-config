@@ -87,4 +87,8 @@
   
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
+
+  environment.etc."xdg/user-dirs.defaults".text = ''
+    DOWNLOAD=Downloads
+  '';
 }
