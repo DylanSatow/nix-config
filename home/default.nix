@@ -4,10 +4,10 @@
     ./browsers.nix
     ./terminal.nix
     ./development.nix
-  ] ++ (if !pkgs.stdenv.isDarwin then [ ./hyprland.nix ] else []);
+  ];
 
   home.username = "dylan";
-  home.homeDirectory = if pkgs.stdenv.isDarwin then "/Users/dylan" else "/home/dylan";
+  home.homeDirectory = "/home/dylan";
 
   programs.git = {
     enable = true;

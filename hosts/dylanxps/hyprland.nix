@@ -30,7 +30,7 @@
 
   security.pam.services.hyprlock = {};
 
-  programs.waybar.enable = true;
+  programs.hyprland.enable = true;
   
   security.polkit.enable = true;
   

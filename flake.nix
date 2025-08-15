@@ -102,7 +102,7 @@
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.backupFileExtension = null;
-          home-manager.users.dylan = import ./home;
+          home-manager.users.dylan = import ./home/darwin.nix;
         }
       ];
       specialArgs = { inherit self homebrew-core homebrew-cask; };
@@ -122,7 +122,7 @@
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.backupFileExtension = "backup";
-          home-manager.users.dylan = import ./home;
+          home-manager.users.dylan = import ./home/linux.nix;
         }
       ];
     };
