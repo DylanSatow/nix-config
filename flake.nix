@@ -28,6 +28,9 @@
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs-linux";
     };
+    stylix = {
+      url = "github:danth/stylix/release-25.05";
+    };
   };
 
   outputs = inputs@{ 
@@ -41,6 +44,7 @@
     nix-homebrew, 
     homebrew-core, 
     homebrew-cask,
+    stylix,
   }:
   let
     darwinSystem = "aarch64-darwin";
@@ -117,6 +121,7 @@
         }
         ./shared/packages.nix
         ./hosts/dylanxps
+        stylix.nixosModules.stylix
         home-manager-linux.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = true;

@@ -28,7 +28,6 @@
   services.xserver.desktopManager.gnome.enable = true;
 
   programs.hyprland = {
-    enable = true;
     xwayland.enable = true;
   };
 
@@ -69,4 +68,23 @@
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   system.stateVersion = "25.05";
+
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd Hyprland";
+        user = "greeter";
+      };
+    };
+  };
+
+  security.pam.services.hyprlock = {};
+
+  security.polkit.enable = true;
+  
+  services.gnome.gnome-keyring.enable = true;
+  
+  hardware.bluetooth.enable = true;
+  services.blueman.enable = true;
 }

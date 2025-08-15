@@ -1,7 +1,8 @@
 { config, pkgs, ... }: {
   imports = [
     ./default.nix
-    ./hyprland.nix
+    ./hyprland
+    ./stylix.nix
   ];
 
   home.homeDirectory = "/home/dylan";
