@@ -121,13 +121,14 @@
         }
         ./shared/packages.nix
         ./hosts/dylanxps
-        stylix.nixosModules.stylix
         home-manager-linux.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.backupFileExtension = "backup";
-          home-manager.users.dylan = import ./home/linux.nix;
+          home-manager.users.dylan = {
+            imports = [ ./home/linux.nix stylix.homeModules.stylix ];
+          };
         }
       ];
     };

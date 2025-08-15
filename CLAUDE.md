@@ -22,19 +22,34 @@ This nix-config follows a unified, declarative approach using Nix flakes that su
 │   │   └── hotkeys.nix         # skhd hotkey configurations
 │   └── dylanxps/               # NixOS laptop configuration (x86_64-linux)
 │       ├── default.nix         # Main nixos entry point
-│       ├── hardware.nix        # Hardware configuration
+│       ├── hardware.nix        # Hardware configuration (auto-generated)
 │       └── system.nix          # NixOS system settings
-├── home/                       # Shared user-level (home-manager) modules
-│   ├── default.nix             # Main home-manager entry point
+├── home/                       # User-level (home-manager) modules
+│   ├── default.nix             # Shared home-manager base configuration
+│   ├── darwin.nix              # macOS-specific home-manager entry point
+│   ├── linux.nix               # NixOS-specific home-manager entry point
 │   ├── editors.nix             # Editor configurations (neovim, vscode)
 │   ├── browsers.nix            # Browser configurations (firefox)
 │   ├── terminal.nix            # Terminal and shell configurations
 │   ├── development.nix         # Language servers and dev tools
-│   └── nvim/                   # Neovim configuration directory
+│   ├── rofi.nix                # Rofi launcher configuration
+│   ├── waybar.nix              # Waybar status bar configuration
+│   ├── stylix.nix              # System-wide theming configuration
+│   ├── hyprland/               # Hyprland window manager configuration
+│   │   ├── default.nix         # Main hyprland module
+│   │   ├── hyprland.nix        # Core hyprland settings
+│   │   ├── binds.nix           # Keybindings configuration
+│   │   ├── exec-once.nix       # Startup applications
+│   │   ├── hypridle.nix        # Idle management
+│   │   ├── hyprlock.nix        # Screen locking
+│   │   ├── mako.nix            # Notification daemon
+│   │   └── windowrules.nix     # Window management rules
+│   ├── nvim/                   # Neovim configuration directory
+│   └── wallpapers/             # System wallpapers
 ├── shared/                     # Shared system configurations
 │   ├── packages.nix            # Common packages across systems
 │   └── overlays.nix            # Shared overlays and package overrides
-├── example_config/             # Reference configurations for future use
+├── example_config/             # Reference configurations (ZaneyOS-based)
 └── launch-neovide-nix-config.sh # Helper script for neovide
 ```
 
@@ -59,31 +74,56 @@ This nix-config follows a unified, declarative approach using Nix flakes that su
 #### Host-Specific Configuration
 **macOS (`hosts/dylanix/`)**:
 - **default.nix**: Entry point that imports all other darwin modules
-- **system.nix**: macOS system defaults (Dock, Finder, keyboard settings)
+- **system.nix**: macOS system defaults (Dock, Finder, keyboard, window management)
 - **packages.nix**: System-wide package installations
-- **homebrew.nix**: Homebrew configuration and GUI applications
+- **homebrew.nix**: Homebrew configuration and GUI applications (nix-homebrew integration)
 - **hotkeys.nix**: Global hotkey configurations using skhd
 
 **NixOS (`hosts/dylanxps/`)**:
 - **default.nix**: Entry point that imports hardware and system modules
 - **hardware.nix**: Hardware-specific configuration (DO NOT MODIFY manually)
-- **system.nix**: NixOS system settings (boot, networking, desktop environment)
+- **system.nix**: NixOS system settings (boot, networking, Hyprland, GNOME, audio, bluetooth)
 
-#### Shared User Configuration (`home/`)
-- **default.nix**: Entry point that imports all home-manager modules
+#### User Configuration (`home/`)
+- **default.nix**: Shared home-manager base configuration
+- **darwin.nix**: macOS-specific home-manager entry point (imports default.nix)
+- **linux.nix**: NixOS-specific home-manager entry point (imports default.nix + hyprland + stylix)
 - **editors.nix**: Editor configurations (Neovim, VS Code with extensions)
 - **browsers.nix**: Browser configurations with bookmarks and settings
 - **terminal.nix**: Shell (zsh), terminal (kitty), and CLI tool configurations
 - **development.nix**: Language servers, development tools, and fonts
+- **rofi.nix**: Application launcher configuration
+- **waybar.nix**: Status bar configuration (Linux only)
+- **stylix.nix**: System-wide theming and color scheme
+- **hyprland/**: Complete Hyprland window manager configuration (Linux only)
 
 ### Technology Stack
 - **Base**: Nix flakes with nix-darwin (macOS) and NixOS (Linux)
 - **Package Management**: 
   - Nixpkgs stable (25.05-darwin for macOS, nixos-25.05 for Linux)
-  - Unstable overlay for latest packages
+  - Unstable overlay for latest packages (claude-code, gemini-cli)
 - **GUI Applications**: Homebrew casks (macOS only)
 - **User Environment**: home-manager for dotfiles and user packages (both systems)
-- **System**: skhd for hotkeys (macOS), various system defaults
+- **Desktop Environment**: 
+  - **macOS**: Native macOS with skhd hotkeys
+  - **NixOS**: Hyprland compositor with GNOME fallback, greetd login manager
+- **System Services**: pipewire (audio), bluetooth, network-manager
+- **Theming**: Stylix for system-wide consistent theming
+
+### Flake Architecture
+The `flake.nix` defines a multi-system configuration with:
+
+- **Inputs**: 
+  - Separate nixpkgs for each platform (nixpkgs-25.05-darwin, nixos-25.05)
+  - Platform-specific home-manager versions
+  - nix-homebrew for macOS package management
+  - stylix for theming (NixOS only)
+  - Unstable overlay for latest packages
+
+- **Outputs**:
+  - `darwinConfigurations.dylanix`: macOS M1 configuration
+  - `nixosConfigurations.dylanxps`: Dell XPS 13 Intel configuration
+  - Development shell with Python, Rust, Go toolchains
 
 ### Build Commands
 **macOS (dylanix)**:
@@ -119,6 +159,22 @@ This nix-config follows a unified, declarative approach using Nix flakes that su
 - Use `pkgs.stdenv.isDarwin` to detect macOS vs Linux
 - Place platform-specific logic in shared configurations when possible
 - Keep truly platform-specific configurations in host directories
+- **macOS**: Uses homebrew casks for GUI apps, skhd for hotkeys
+- **NixOS**: Uses Hyprland with full wayland setup, stylix theming
+
+### Known Issues & Areas Requiring Attention
+
+#### Current Configuration Issues
+1. **Mako notification daemon** uses deprecated configuration format (needs migration to `settings = {}` structure)
+2. **Stylix color access** inconsistency - some modules use `config.stylix.colors.baseXX`, others use `config.stylix.base16Scheme.baseXX`
+3. **Stylix module import** warning - should use `stylix.homeModules.stylix` instead of deprecated `homeManagerModules`
+4. **Platform-specific paths** in rofi.nix hardcoded to Linux path structure
+5. **Firefox profile configuration** missing for stylix theming
+
+#### Warnings During Build
+- Home-manager configuration warnings when using `useGlobalPkgs`
+- Missing Firefox profile names for stylix integration
+- Git repository contains unstaged changes (configuration in flux)
 
 ### Code Style Requirements
 - **No comments** unless explicitly requested by user
@@ -139,6 +195,9 @@ This nix-config follows a unified, declarative approach using Nix flakes that su
 - Check for any build errors and fix them before considering changes complete
 - Verify configurations work as expected
 - Remember that rebuild commands differ between systems
+- **Important**: Configuration paths differ between systems:
+  - **macOS**: `/Users/dylan/home/nix-config`
+  - **NixOS**: `/home/dylan/home/nix-config`
 
 ### File Modification Strategy
 1. Read existing files to understand current patterns

@@ -3,7 +3,6 @@
 {
   wayland.windowManager.hyprland.settings = {
     exec-once = [
-      "waybar"
       "mako"
       "swww-daemon"
       "nm-applet --indicator"

@@ -15,8 +15,14 @@
         name = "Noto Sans";
       };
       monospace = {
-        package = pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; };
+        package = pkgs.nerd-fonts.jetbrains-mono;
         name = "JetBrainsMono Nerd Font";
+      };
+      sizes = {
+        applications = 12;
+        terminal = 14;
+        desktop = 12;
+        popups = 12;
       };
     };
   };

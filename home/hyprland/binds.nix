@@ -5,11 +5,14 @@
     bind = [
       # Applications
       "$mod, Return, exec, $terminal"
+      "$mod, E, exec, $fileManager"
+      "$mod, R, exec, $menu"
+      "$mod, B, exec, $browser"
+
+
       "$mod, Q, killactive"
       "$mod SHIFT, M, exit"
-      "$mod, E, exec, $fileManager"
       "$mod, V, togglefloating"
-      "$mod, R, exec, $menu"
       "$mod, P, pseudo"
       "$mod, J, togglesplit"
       "$mod, F, fullscreen"

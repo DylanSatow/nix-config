@@ -26,7 +26,8 @@
       "$mod" = "SUPER";
       "$terminal" = "kitty";
       "$fileManager" = "nautilus";
-      "$menu" = "rofi -show drun -theme config";
+      "$menu" = "rofi -show drun";
+      "$browser" = "firefox";
 
       monitor = [
         ",preferred,auto,1"
@@ -52,8 +53,7 @@
         gaps_out = 20;
         border_size = 2;
         
-        "col.active_border" = "rgb(${config.lib.stylix.colors.base08}) rgb(${config.lib.stylix.colors.base0C}) 45deg";
-        "col.inactive_border" = "rgb(${config.lib.stylix.colors.base01})";
+        
         
         resize_on_border = false;
         allow_tearing = false;
@@ -65,10 +65,6 @@
         active_opacity = 1.0;
         inactive_opacity = 1.0;
         
-        drop_shadow = true;
-        shadow_range = 4;
-        shadow_render_power = 3;
-        "col.shadow" = "rgba(1a1a1aee)";
         
         blur = {
           enabled = true;
@@ -98,12 +94,12 @@
       };
 
       master = {
-        new_is_master = true;
+        new_status = "master";
       };
 
       misc = {
         force_default_wallpaper = -1;
-        disable_hyprland_logo = false;
+        
       };
 
       

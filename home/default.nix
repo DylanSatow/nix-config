@@ -4,6 +4,7 @@
     ./browsers.nix
     ./terminal.nix
     ./development.nix
+    ./rofi.nix
   ];
 
   home.username = "dylan";

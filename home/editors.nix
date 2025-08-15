@@ -40,10 +40,6 @@
       ];
       
       userSettings = {
-        "workbench.colorTheme" = "Catppuccin Macchiato";
-        "workbench.iconTheme" = "catppuccin-macchiato";
-        "workbench.productIconTheme" = "material-product-icons";
-        
         "workbench.sideBar.location" = "right";
         
         "vim.useSystemClipboard" = true;
@@ -55,8 +51,6 @@
           }
         ];
         
-        "editor.fontSize" = 14;
-        "editor.fontFamily" = "JetBrainsMono Nerd Font";
         "editor.lineNumbers" = "on";
         "editor.minimap.enabled" = true;
         

@@ -48,11 +48,11 @@
         bold_font = "auto";
         italic_font = "auto";
         bold_italic_font = "auto";
-        font_size = 19.0;
+        
 
         cursor_shape = "beam";
         cursor_trail = 1;
-        background_opacity = 1;
+        
         background_blur = 30;
     };
   };
