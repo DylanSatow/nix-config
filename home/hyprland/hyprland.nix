@@ -29,6 +29,7 @@
       "$menu" = "rofi -show drun";
       "$browser" = "firefox";
       "$life" = "obsidian";
+      "$code" = "neovide";
 
       monitor = [
         ",preferred,auto,1"

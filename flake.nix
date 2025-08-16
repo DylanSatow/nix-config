@@ -71,6 +71,11 @@
           go
           gopls
           
+          gcc
+          clang
+          cmake
+          pkg-config
+          
           git
           curl
           jq
@@ -83,6 +88,47 @@
           echo "  Python: $(python3 --version)"
           echo "  Rust: $(rustc --version)"
           echo "  Go: $(go version)"
+          echo "  GCC: $(gcc --version | head -n1)"
+          echo "  Clang: $(clang --version | head -n1)"
+        '';
+      };
+    };
+
+    devShells.${linuxSystem} = {
+      default = nixpkgs-linux.legacyPackages.${linuxSystem}.mkShell {
+        buildInputs = with nixpkgs-linux.legacyPackages.${linuxSystem}; [
+          python3
+          python3Packages.pip
+          python3Packages.virtualenv
+          python3Packages.poetry
+          
+          rustc
+          cargo
+          rustfmt
+          clippy
+          
+          go
+          gopls
+          
+          gcc
+          clang
+          cmake
+          pkg-config
+          
+          git
+          curl
+          jq
+          tree
+        ];
+        
+        shellHook = ''
+          echo "🚀 Development shell activated!"
+          echo "Available tools:"
+          echo "  Python: $(python3 --version)"
+          echo "  Rust: $(rustc --version)"
+          echo "  Go: $(go version)"
+          echo "  GCC: $(gcc --version | head -n1)"
+          echo "  Clang: $(clang --version | head -n1)"
         '';
       };
     };
