@@ -61,7 +61,7 @@
           python3
           python3Packages.pip
           python3Packages.virtualenv
-          python3Packages.poetry
+          python3Packages.poetry-core
           
           rustc
           cargo
@@ -83,6 +83,7 @@
         ];
         
         shellHook = ''
+          export PS1="\[\033[1;34m\][dev-shell]\[\033[0m\] \[\033[1;32m\]\u@\h\[\033[0m\]:\[\033[1;34m\]\w\[\033[0m\]\$ "
           echo "🚀 Development shell activated!"
           echo "Available tools:"
           echo "  Python: $(python3 --version)"
@@ -100,7 +101,7 @@
           python3
           python3Packages.pip
           python3Packages.virtualenv
-          python3Packages.poetry
+          python3Packages.poetry-core
           
           rustc
           cargo
@@ -122,6 +123,7 @@
         ];
         
         shellHook = ''
+          export PS1="\[\033[1;34m\][dev-shell]\[\033[0m\] \[\033[1;32m\]\u@\h\[\033[0m\]:\[\033[1;34m\]\w\[\033[0m\]\$ "
           echo "🚀 Development shell activated!"
           echo "Available tools:"
           echo "  Python: $(python3 --version)"
