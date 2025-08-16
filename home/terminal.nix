@@ -10,7 +10,7 @@
     shellAliases = if pkgs.stdenv.isDarwin then {
       nrb = "sudo darwin-rebuild switch --flake /Users/dylan/home/nix-config#dylanix";
     } else {
-      nrb = "sudo nixos-rebuild switch --flake /home/dylan/home/nix-config#dylanxps";
+      nrb = "sudo nixos-rebuild switch --flake /home/dylan/nix-config#dylanxps";
     };
 
     initContent = if pkgs.stdenv.isDarwin then ''

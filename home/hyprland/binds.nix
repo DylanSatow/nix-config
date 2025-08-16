@@ -10,12 +10,11 @@
       "$mod, B, exec, $browser"
       "$mod, O, exec, $life" # Open Obsidian/Emacs/whatever I use for managing my life down the line 
       "$mod, C, exec, $code"
+      "$mod, V, exec, $vscode"
 
 
       "$mod, Q, killactive"
       "$mod SHIFT, M, exit"
-      "$mod, V, togglefloating"
-      "$mod, P, pseudo"
       "$mod, J, togglesplit"
       "$mod, F, fullscreen"
 

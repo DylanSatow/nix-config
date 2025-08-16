@@ -30,6 +30,7 @@
       "$browser" = "firefox";
       "$life" = "obsidian";
       "$code" = "neovide";
+      "$vscode" = "code";
 
       monitor = [
         ",preferred,auto,1"

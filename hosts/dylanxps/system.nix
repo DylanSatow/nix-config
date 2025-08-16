@@ -59,9 +59,11 @@
     isNormalUser = true;
     description = "dylansatow";
     extraGroups = [ "networkmanager" "wheel" ];
+    shell = pkgs.zsh;
   };
 
   programs.firefox.enable = true;
+  programs.zsh.enable = true;
 
   nixpkgs.config.allowUnfree = true;
 

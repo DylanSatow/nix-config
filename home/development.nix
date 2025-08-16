@@ -2,19 +2,23 @@
   home.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
     
+    # C/C++ development tools
     gcc
     cmake
     pkg-config
+    gdb
+    valgrind
     
-    nil
-    pyright
-    typescript-language-server
-    gopls
-    rust-analyzer
-    clang-tools
-    lua-language-server
-    vscode-langservers-extracted
-    yaml-language-server
-    bash-language-server
+    # Go development tools
+    delve
+    
+    # Rust development tools
+    rustfmt
+    clippy
+    
+    # Python development tools
+    python3Packages.black
+    python3Packages.flake8
+    python3Packages.pip
   ];
 }

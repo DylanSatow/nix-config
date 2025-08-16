@@ -13,9 +13,19 @@
           keyword = "maps";
         }
         {
-          name = "Nix Home Manager";
+          name = "Nix Home Manager Search";
           url = "https://home-manager-options.extranix.com/";
-          keyword = "hm";
+          keyword = "hms";
+        }
+        {
+          name = "Google Drive";
+          url = "https://drive.google.com/drive/?pli=1";
+          keyword = "drv";
+        }
+        {
+          name = "Nix Packages Search";
+          url = "https://search.nixos.org/packages/";
+          keyword = "nps";
         }
         {
           name = "Nix Darwin Manual";

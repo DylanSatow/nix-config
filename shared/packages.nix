@@ -1,7 +1,6 @@
 { pkgs, ... }: {
   environment.systemPackages = with pkgs; [
-
-    # Terminal Utils
+    # Terminal utilities
     vim
     neovim
     git
@@ -14,6 +13,29 @@
     fd
     lazygit
 
+    # Language runtimes
+    nodejs
+    python3
+    go
+    clang
+    rustc
+    cargo
+    lua
+    typescript
+
+    # Language servers
+    pyright
+    gopls
+    rust-analyzer
+    typescript-language-server
+    lua-language-server
+    nil
+    clang-tools
+    vscode-langservers-extracted
+    yaml-language-server
+    bash-language-server
+
+    # AI tools
     unstable.claude-code
     unstable.gemini-cli
   ];

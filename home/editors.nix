@@ -44,6 +44,31 @@
         
         "vim.useSystemClipboard" = true;
         "vim.hlsearch" = true;
+        "vim.useCtrlKeys" = false;
+        "vim.handleKeys" = {
+          "<C-w>" = false;
+          "<C-t>" = false;
+          "<C-n>" = false;
+          "<C-s>" = false;
+          "<C-z>" = false;
+          "<C-y>" = false;
+          "<C-x>" = false;
+          "<C-c>" = false;
+          "<C-v>" = false;
+          "<C-a>" = false;
+          "<C-f>" = false;
+          "<C-h>" = false;
+          "<C-k>" = false;
+          "<C-p>" = false;
+          "<C-r>" = false;
+          "<C-g>" = false;
+          "<C-d>" = false;
+          "<C-u>" = false;
+          "<C-b>" = false;
+          "<C-j>" = false;
+          "<C-o>" = false;
+          "<C-i>" = false;
+        };
         "vim.insertModeKeyBindings" = [
           {
             "before" = ["j" "j"];
