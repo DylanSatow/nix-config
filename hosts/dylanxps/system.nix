@@ -87,8 +87,16 @@
   
   services.gnome.gnome-keyring.enable = true;
   
-  hardware.bluetooth.enable = true;
   services.blueman.enable = true;
+
+  hardware.bluetooth = {
+    enable = true;
+    config  = {
+      General = {
+        Enable = "Source,Sink,Media,Socket";
+      };
+    };
+  };
 
   environment.etc."xdg/user-dirs.defaults".text = ''
     DOWNLOAD=Downloads

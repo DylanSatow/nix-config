@@ -31,6 +31,9 @@
     stylix = {
       url = "github:danth/stylix/release-25.05";
     };
+    nixos-hardware = {
+      url = "github:NixOS/nixos-hardware/master";
+    };
   };
 
   outputs = inputs@{ 
@@ -45,6 +48,7 @@
     homebrew-core, 
     homebrew-cask,
     stylix,
+    nixos-hardware,
   }:
   let
     darwinSystem = "aarch64-darwin";
@@ -169,6 +173,7 @@
         }
         ./shared/packages.nix
         ./hosts/dylanxps
+        nixos-hardware.nixosModules.dell-xps-13-7390
         home-manager-linux.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
