@@ -4,11 +4,10 @@
     ./browsers.nix
     ./terminal.nix
     ./development.nix
-    ./rofi.nix
   ];
 
   home.username = "dylan";
-  home.homeDirectory = "/home/dylan";
+  home.homeDirectory = if pkgs.stdenv.isDarwin then "/Users/dylan" else "/home/dylan";
 
   programs.git = {
     enable = true;

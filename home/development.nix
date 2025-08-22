@@ -7,7 +7,6 @@
     cmake
     pkg-config
     gdb
-    valgrind
     
     # Go development tools
     delve
@@ -20,5 +19,5 @@
     python3Packages.black
     python3Packages.flake8
     python3Packages.pip
-  ];
+  ] ++ (if pkgs.stdenv.isLinux then [ valgrind ] else []);
 }

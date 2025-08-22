@@ -4,6 +4,7 @@
     ./hyprland
     ./stylix.nix
     ./waybar.nix
+    ./rofi.nix
   ];
 
   home.homeDirectory = "/home/dylan";

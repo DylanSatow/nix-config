@@ -7,7 +7,7 @@
       "google-chrome"
       "kitty"
       "spotify"
-      "rectangle"
+      "nikitabobko/tap/aerospace"
       "claude"
       "visual-studio-code"
       "obsidian"
@@ -15,9 +15,7 @@
       "zoom"
       "discord"
       "steam"
-      "alt-tab"
       "displaylink"
-      "karabiner-elements"
     ];
   };
 
