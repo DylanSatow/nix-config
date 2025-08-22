@@ -16,6 +16,7 @@
       "discord"
       "steam"
       "displaylink"
+      "nordvpn"
     ];
   };
 
