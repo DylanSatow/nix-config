@@ -17,6 +17,7 @@
       "steam"
       "displaylink"
       "nordvpn"
+      "superhuman"
     ];
   };
 

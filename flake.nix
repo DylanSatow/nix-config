@@ -185,5 +185,26 @@
         }
       ];
     };
+
+    nixosConfigurations."dylanpc" = nixpkgs-linux.lib.nixosSystem {
+      system = linuxSystem;
+      modules = [
+        {
+          nixpkgs.overlays = [ (overlaysModule.unstable-overlay linuxSystem) ];
+          nixpkgs.config.allowUnfree = true;
+        }
+        ./shared/packages.nix
+        ./hosts/dylanpc
+        home-manager-linux.nixosModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.backupFileExtension = "backup";
+          home-manager.users.dylan = {
+            imports = [ ./home/linux.nix stylix.homeModules.stylix ];
+          };
+        }
+      ];
+    };
   };
 }
