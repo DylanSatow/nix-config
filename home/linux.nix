@@ -1,11 +1,11 @@
 { config, pkgs, ... }: {
-  imports = [
-    ./default.nix
-    ./hyprland
-    ./stylix.nix
-    ./waybar.nix
-    ./rofi.nix
-  ];
+    imports = [
+        ./default.nix
+        ./hyprland
+        ./stylix.nix
+        ./waybar.nix
+        ./rofi.nix
+    ];
 
-  home.homeDirectory = "/home/dylan";
+    home.homeDirectory = "/home/dylan";
 }

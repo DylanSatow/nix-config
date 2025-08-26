@@ -1,13 +1,13 @@
 { pkgs, ... }: {
-  environment.systemPackages = [
-    pkgs.spotify
-    pkgs.obsidian
+    environment.systemPackages = [
+        pkgs.spotify
+        pkgs.obsidian
 
-    # Core system utils 
-    pkgs.zip
-    pkgs.unzip
+        # Core system utils 
+        pkgs.zip
+        pkgs.unzip
 
-    # Tutorials 
-    pkgs.bootdev-cli
-  ];
+        # Tutorials 
+        pkgs.bootdev-cli
+    ];
 }

@@ -1,15 +1,15 @@
 { pkgs, ... }: {
-  environment.systemPackages = [
-    pkgs.go
+    environment.systemPackages = [
+        pkgs.go
 
-    pkgs.vim
-    pkgs.neovim
-    pkgs.neovide
-    pkgs.nixpkgs-fmt
-    pkgs.direnv
-    pkgs.nnn
-    pkgs.skhd
+        pkgs.vim
+        pkgs.neovim
+        pkgs.neovide
+        pkgs.nixpkgs-fmt
+        pkgs.direnv
+        pkgs.nnn
+        pkgs.skhd
 
-    pkgs.unstable.claude-code
-  ];
+        pkgs.unstable.claude-code
+    ];
 }

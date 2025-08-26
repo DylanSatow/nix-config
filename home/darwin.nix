@@ -1,8 +1,8 @@
 { config, pkgs, ... }: {
-  imports = [
-    ./default.nix
-    ./aerospace.nix
-  ];
+    imports = [
+        ./default.nix
+        ./aerospace.nix
+    ];
 
-  home.homeDirectory = "/Users/dylan";
+    home.homeDirectory = "/Users/dylan";
 }

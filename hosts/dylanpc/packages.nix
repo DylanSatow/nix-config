@@ -1,13 +1,32 @@
 { pkgs, ... }: {
-  environment.systemPackages = [
-    pkgs.spotify
-    pkgs.obsidian
+    # Steam Settings
+    programs.steam.enable = true;
+    programs.steam.gamescopeSession.enable = true;
+    programs.gamemode.enable = true;
 
-    # Core system utils 
-    pkgs.zip
-    pkgs.unzip
+    environment.sessionVariables = {
+            STEAM_EXTRA_COMPAT_TOOLS_PATH = 
+                "/home/dylan/.steam/root/compatibilitytools.d";
+    };
 
-    # Tutorials 
-    pkgs.bootdev-cli
-  ];
+    # To enable gamemode, add the following to launch options for steam games
+    # gamemoderun %command%
+    # mangohud %command%
+    # gamescope %command%
+
+    environment.systemPackages = with pkgs; [
+        spotify
+        obsidian
+
+        # Core system utils 
+        zip
+        unzip
+
+        # Tutorials 
+        bootdev-cli
+
+        # Gaming
+        mangohud 
+        protonup
+    ];
 }
