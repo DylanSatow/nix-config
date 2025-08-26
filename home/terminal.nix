@@ -7,10 +7,10 @@
                 theme = "robbyrussell";
         };
 
-        shellAliases = if pkgs.stdenv.isDarwin then {
-            nrb = "sudo darwin-rebuild switch --flake /Users/dylan/home/nix-config#dylanix";
-        } else {
-            nrb = "sudo nixos-rebuild switch --flake /home/dylan/nix-config#dylanxps";
+        shellAliases = {
+            nrb-darwin = "sudo darwin-rebuild switch --flake /Users/dylan/home/nix-config#dylanix";
+            nrb-xps = "sudo nixos-rebuild switch --flake /home/dylan/nix-config#dylanxps";
+            nrb-pc = "sudo nixos-rebuild switch --flake /home/dylan/nix-config#dylanpc";
         };
 
         initContent = if pkgs.stdenv.isDarwin then ''

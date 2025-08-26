@@ -40,8 +40,8 @@
             ];
             
             userSettings = {
-                "workbench.colorTheme" = "Catppuccin Macchiato";
-                "workbench.iconTheme" = "catppuccin-macchiato";
+                "workbench.colorTheme" = lib.mkDefault "Catppuccin Macchiato";
+                "workbench.iconTheme" = lib.mkDefault "catppuccin-macchiato";
                 "workbench.sideBar.location" = "right";
                 
                 "vim.useSystemClipboard" = true;

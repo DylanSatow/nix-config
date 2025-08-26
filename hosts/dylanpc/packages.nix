@@ -17,6 +17,7 @@
     environment.systemPackages = with pkgs; [
         spotify
         obsidian
+        discord
 
         # Core system utils 
         zip
