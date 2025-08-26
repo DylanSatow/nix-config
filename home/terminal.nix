@@ -45,7 +45,7 @@
     themeFile = "Catppuccin-Macchiato";
     settings = {
         font_family = "JetBrainsMono Nerd Font";
-        font_size = 30;
+        font_size = 12;
         bold_font = "auto";
         italic_font = "auto";
         bold_italic_font = "auto";
