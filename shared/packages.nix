@@ -34,6 +34,7 @@
         vscode-langservers-extracted
         yaml-language-server
         bash-language-server
+        ruff
 
         # AI tools
         unstable.claude-code
