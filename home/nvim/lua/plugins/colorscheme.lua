@@ -1,11 +1,4 @@
 return {
-  {
-    "ellisonleao/gruvbox.nvim",
-  },
-  {
-    "LazyVim/LazyVim",
-    opts = {
-      colorscheme = "gruvbox",
-    },
-  },
+  -- Colorscheme plugins can be added here if needed
+  -- LazyVim will use its default colorscheme (tokyonight) unless specified
 }
