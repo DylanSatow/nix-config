@@ -18,6 +18,7 @@
         spotify
         obsidian
         discord
+        lmstudio
 
         # Core system utils 
         zip

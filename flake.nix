@@ -167,15 +167,13 @@
         nixosConfigurations."dylanxps" = nixpkgs-linux.lib.nixosSystem {
             system = linuxSystem;
             modules = [
-                {
-                    nixpkgs.overlays = [ (overlaysModule.unstable-overlay linuxSystem) ];
-                    nixpkgs.config.allowUnfree = true;
-                }
                 ./shared/packages.nix
                 ./hosts/dylanxps
                 nixos-hardware.nixosModules.dell-xps-13-7390
                 home-manager-linux.nixosModules.home-manager
                 {
+                    nixpkgs.overlays = [ (overlaysModule.unstable-overlay linuxSystem) ];
+                    nixpkgs.config.allowUnfree = true;
                     home-manager.useGlobalPkgs = true;
                     home-manager.useUserPackages = true;
                     home-manager.backupFileExtension = "backup";
@@ -189,14 +187,12 @@
         nixosConfigurations."dylanpc" = nixpkgs-linux.lib.nixosSystem {
             system = linuxSystem;
             modules = [
-                {
-                    nixpkgs.overlays = [ (overlaysModule.unstable-overlay linuxSystem) ];
-                    nixpkgs.config.allowUnfree = true;
-                }
                 ./shared/packages.nix
                 ./hosts/dylanpc
                 home-manager-linux.nixosModules.home-manager
                 {
+                    nixpkgs.overlays = [ (overlaysModule.unstable-overlay linuxSystem) ];
+                    nixpkgs.config.allowUnfree = true;
                     home-manager.useGlobalPkgs = true;
                     home-manager.useUserPackages = true;
                     home-manager.backupFileExtension = "backup";

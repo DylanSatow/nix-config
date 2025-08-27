@@ -69,8 +69,6 @@
     programs.firefox.enable = true;
     programs.zsh.enable = true;
 
-    nixpkgs.config.allowUnfree = true;
-
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
     system.stateVersion = "25.05";
@@ -95,7 +93,7 @@
 
     hardware.bluetooth = {
         enable = true;
-        config    = {
+        settings = {
             General = {
                 Enable = "Source,Sink,Media,Socket";
             };
