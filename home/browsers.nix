@@ -14,7 +14,7 @@
                 }
                 {
                     name = "Nix Home Manager Search";
-                    url = "https://home-manager-options.extranix.com/";
+                    url = "https://home-manager-options.extranix.com";
                     keyword = "hms";
                 }
                 {
@@ -24,7 +24,7 @@
                 }
                 {
                     name = "Nix Packages Search";
-                    url = "https://search.nixos.org/packages/";
+                    url = "https://search.nixos.org/packages";
                     keyword = "nps";
                 }
                 {

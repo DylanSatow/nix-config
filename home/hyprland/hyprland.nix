@@ -1,8 +1,5 @@
 { config, pkgs, ... }:
-
 {
-    
-
     home.packages = with pkgs; [
         waybar
         rofi-wayland
@@ -112,16 +109,6 @@
                 hide_on_key_press = false;
                 inactive_timeout = 0;
             };
-
-            
-
-            
-
-            
-
-            
         };
     };
-
-    
 }
