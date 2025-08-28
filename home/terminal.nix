@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, hostname ? "", ... }: {
     programs.zsh = {
         enable = true;
 
@@ -45,7 +45,7 @@
         themeFile = "Catppuccin-Macchiato";
         settings = {
                 font_family = "JetBrainsMono Nerd Font";
-                font_size = 12;
+                font_size = if hostname == "dylanix" then 20 else 12;
                 bold_font = "auto";
                 italic_font = "auto";
                 bold_italic_font = "auto";

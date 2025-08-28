@@ -159,9 +159,10 @@
                     home-manager.useUserPackages = true;
                     home-manager.backupFileExtension = null;
                     home-manager.users.dylan = import ./home/darwin.nix;
+                    home-manager.extraSpecialArgs = { hostname = "dylanix"; };
                 }
             ];
-            specialArgs = { inherit self homebrew-core homebrew-cask; };
+            specialArgs = { inherit self homebrew-core homebrew-cask; hostname = "dylanix"; };
         };
 
         nixosConfigurations."dylanxps" = nixpkgs-linux.lib.nixosSystem {
@@ -180,8 +181,10 @@
                     home-manager.users.dylan = {
                         imports = [ ./home/linux.nix stylix.homeModules.stylix ];
                     };
+                    home-manager.extraSpecialArgs = { hostname = "dylanxps"; };
                 }
             ];
+            specialArgs = { hostname = "dylanxps"; };
         };
 
         nixosConfigurations."dylanpc" = nixpkgs-linux.lib.nixosSystem {
@@ -199,8 +202,10 @@
                     home-manager.users.dylan = {
                         imports = [ ./home/linux.nix stylix.homeModules.stylix ];
                     };
+                    home-manager.extraSpecialArgs = { hostname = "dylanpc"; };
                 }
             ];
+            specialArgs = { hostname = "dylanpc"; };
         };
     };
 }
