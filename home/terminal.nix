@@ -8,9 +8,11 @@
         };
 
         shellAliases = {
-            nrb-darwin = "sudo darwin-rebuild switch --flake /Users/dylan/home/nix-config#dylanix";
-            nrb-xps = "sudo nixos-rebuild switch --flake /home/dylan/nix-config#dylanxps";
-            nrb-pc = "sudo nixos-rebuild switch --flake /home/dylan/nix-config#dylanpc";
+            nrb = {
+                dylanix = "sudo darwin-rebuild switch --flake ~/home/nix-config#dylanix";
+                dylanxps = "sudo nixos-rebuild switch --flake ~/nix-config#dylanxps";
+                dylanpc = "sudo nixos-rebuild switch --flake ~/nix-config#dylanpc";
+            }.${hostname};
         };
 
         initContent = if pkgs.stdenv.isDarwin then ''
@@ -44,17 +46,22 @@
         enable = true;
         themeFile = "Catppuccin-Macchiato";
         settings = {
-                font_family = "JetBrainsMono Nerd Font";
-                font_size = if hostname == "dylanix" then 20 else 12;
-                bold_font = "auto";
-                italic_font = "auto";
-                bold_italic_font = "auto";
-                
+            font_family = "JetBrainsMono Nerd Font";
+            font_size = {
+                dylanix = 20;
+                dylanxps = 16;
+                dylanpc = 12;
+            }.${hostname} or 12;
+    
+            bold_font = "auto";
+            italic_font = "auto";
+            bold_italic_font = "auto";
+            
 
-                cursor_shape = "beam";
-                cursor_trail = 1;
-                
-                background_blur = 30;
+            cursor_shape = "beam";
+            cursor_trail = 1;
+            
+            background_blur = 30;
         };
     };
 }

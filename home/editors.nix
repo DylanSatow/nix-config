@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }: {
+{ config, lib, pkgs, hostname ? "", ... }: {
 
     programs.neovim = {
         enable = true;
@@ -46,6 +46,19 @@
                 
                 "vim.useSystemClipboard" = true;
                 "vim.hlsearch" = true;
+                
+                "editor.lineNumbers" = "on";
+                "editor.minimap.enabled" = true;
+                
+                "python.defaultInterpreterPath" = "/usr/bin/python3";
+                "python.formatting.provider" = "black";
+                
+                "go.formatTool" = "goimports";
+                "go.useLanguageServer" = true;
+                
+                "C_Cpp.default.cppStandard" = "c++17";
+                "C_Cpp.default.cStandard" = "c11";
+            } // (if hostname != "dylanix" then {
                 "vim.useCtrlKeys" = false;
                 "vim.handleKeys" = {
                     "<C-w>" = false;
@@ -77,19 +90,7 @@
                         "after" = ["<Esc>"];
                     }
                 ];
-                
-                "editor.lineNumbers" = "on";
-                "editor.minimap.enabled" = true;
-                
-                "python.defaultInterpreterPath" = "/usr/bin/python3";
-                "python.formatting.provider" = "black";
-                
-                "go.formatTool" = "goimports";
-                "go.useLanguageServer" = true;
-                
-                "C_Cpp.default.cppStandard" = "c++17";
-                "C_Cpp.default.cStandard" = "c11";
-            };
+            } else {});
         };
     };
 }
