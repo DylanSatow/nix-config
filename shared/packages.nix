@@ -39,9 +39,5 @@
         # AI tools
         unstable.claude-code
         unstable.gemini-cli
-
-        # VPN
-        mullvad-vpn
-        mullvad
     ];
 }
