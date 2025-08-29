@@ -32,5 +32,8 @@
         # Gaming
         mangohud 
         protonup
+
+        # Gpu Programming
+        cudaPackages.cuda_nvcc
     ];
 }
