@@ -9,5 +9,11 @@
 
     home.homeDirectory = "/home/dylan";
     
+    xdg.userDirs = {
+        enable = true;
+        desktop = null;
+        documents = null;
+    };
+    
     stylix.targets.firefox.profileNames = [ "dylan" ];
 }
