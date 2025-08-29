@@ -18,7 +18,9 @@
         spotify
         obsidian
         discord
-        lmstudio
+        docker
+        docker-compose
+        docker-client
 
         # Core system utils 
         zip

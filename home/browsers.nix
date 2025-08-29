@@ -103,6 +103,9 @@
                 "browser.urlbar.suggest.bookmark" = true;
                 "browser.urlbar.suggest.openpage" = true;
                 "browser.urlbar.suggest.searches" = true;
+                
+                "dom.webnotifications.enabled" = false;
+                "permissions.default.desktop-notification" = 2;
             };
             
             userChrome = ''
