@@ -8,7 +8,7 @@
             "nm-applet --indicator"
             "blueman-applet"
             "hypridle"
-            "swww img ~/home/nix-config/home/wallpapers/Rainnight.jpg"
+            "swww img ~/home/nix-config/home/wallpapers/jazz.jpg"
         ];
     };
 }

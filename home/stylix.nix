@@ -3,7 +3,7 @@
 {
     stylix = {
         enable = true;
-        image = ./wallpapers/Rainnight.jpg;
+        image = ./wallpapers/jazz.jpg;
         base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
         fonts = {
             serif = {

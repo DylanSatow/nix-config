@@ -21,6 +21,9 @@
         docker
         docker-compose
         docker-client
+        btop
+        networkmanagerapplet
+        surge-XT 
 
         # Core system utils 
         zip
