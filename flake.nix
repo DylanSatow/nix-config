@@ -60,7 +60,7 @@
                     nixpkgs.overlays = [ (overlaysModule.unstable-overlay "aarch64-darwin") ];
                     nixpkgs.config.allowUnfree = true;
                 }
-                ./shared/packages.nix
+                ./shared/default.nix
                 ./hosts/dylanix
                 nix-homebrew.darwinModules.nix-homebrew 
                 home-manager.darwinModules.home-manager
@@ -84,7 +84,7 @@
         nixosConfigurations.dylanxps = nixpkgs-linux.lib.nixosSystem {
             system = "x86_64-linux";
             modules = [
-                ./shared/packages.nix
+                ./shared/default.nix
                 ./hosts/dylanxps
                 nixos-hardware.nixosModules.dell-xps-13-7390
                 home-manager-linux.nixosModules.home-manager
@@ -106,7 +106,7 @@
         nixosConfigurations.dylanpc = nixpkgs-linux.lib.nixosSystem {
             system = "x86_64-linux";
             modules = [
-                ./shared/packages.nix
+                ./shared/default.nix
                 ./hosts/dylanpc
                 home-manager-linux.nixosModules.home-manager
                 {
