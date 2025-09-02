@@ -12,7 +12,6 @@
     xdg.userDirs = {
         enable = true;
         desktop = null;
-        documents = null;
     };
     
     stylix.targets.firefox.profileNames = [ "dylan" ];

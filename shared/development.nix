@@ -32,5 +32,6 @@
         clang-tools
         nil
         lua-language-server
+        gopls
     ];
 }

@@ -10,6 +10,16 @@ return {
                 clangd = { mason = false },
                 nil_ls = { mason = false },
                 lua_ls = { mason = false },
+                gopls = { mason = false },
+            },
+        },
+    },
+    {
+        "stevearc/conform.nvim",
+        optional = true,
+        opts = {
+            formatters_by_ft = {
+                nix = { "nixfmt" },
             },
         },
     },

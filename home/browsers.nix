@@ -52,6 +52,11 @@
                     url = "https://reddit.com";
                     keyword = "red";
                 }
+                {
+                    name = "Canvas";
+                    url = "https://courseworks2.columbia.edu/";
+                    keyword = "canvas";
+                }
             ];
             
             extensions = {
