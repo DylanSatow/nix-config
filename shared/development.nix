@@ -1,5 +1,9 @@
 { pkgs, ... } : {
     environment.systemPackages = with pkgs; [
+
+        # Jetbrains Mono
+        nerd-fonts.jetbrains-mono
+
         # Terminal utilities
         vim
         neovim

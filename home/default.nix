@@ -3,8 +3,7 @@
         ./editors.nix
         ./browsers.nix
         ./terminal.nix
-        # Removed dev, kept for testing
-        #./development.nix
+        ./development.nix
     ];
 
     home.username = "dylan";

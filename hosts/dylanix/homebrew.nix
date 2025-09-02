@@ -18,6 +18,7 @@
             "displaylink"
             "nordvpn"
             "superhuman"
+            "surge-xt"
         ];
     };
 
