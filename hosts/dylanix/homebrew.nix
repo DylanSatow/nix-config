@@ -19,6 +19,7 @@
             "nordvpn"
             "superhuman"
             "surge-xt"
+            "docker"
         ];
     };
 
