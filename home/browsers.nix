@@ -57,6 +57,11 @@
                     url = "https://courseworks2.columbia.edu/";
                     keyword = "canvas";
                 }
+                {
+                    name = "Google Calendar";
+                    url="https://calendar.google.com";
+                    keyword = "gcal";
+                }
             ];
             
             extensions = {
