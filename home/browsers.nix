@@ -62,6 +62,11 @@
                     url="https://calendar.google.com";
                     keyword = "gcal";
                 }
+                {
+                    name = "Gmail";
+                    url="https://mail.google.com";
+                    keyword = "mail";
+                }
             ];
             
             extensions = {
