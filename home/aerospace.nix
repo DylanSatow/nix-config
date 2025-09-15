@@ -35,6 +35,7 @@
             alt-c = 'exec-and-forget open -a "Neovide"'
             alt-v = 'exec-and-forget open -a "Visual Studio Code"'
             alt-o = 'exec-and-forget open -a "Obsidian"'
+            alt-w = 'exec-and-forget open -a "Warp"'
 
             # Window management
             alt-q = 'close'

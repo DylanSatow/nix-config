@@ -20,6 +20,8 @@
             "superhuman"
             "surge-xt"
             "docker"
+            "remarkable"
+            "warp"
         ];
     };
 
