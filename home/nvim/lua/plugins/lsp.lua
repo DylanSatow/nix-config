@@ -15,6 +15,14 @@ return {
         },
     },
     {
+        "neovim/nvim-treesitter",
+        opts = {
+            ensure_installed = {
+                "nix",
+            }
+        }
+    },
+    {
         "stevearc/conform.nvim",
         optional = true,
         opts = {
