@@ -1,16 +1,7 @@
 { config, lib, pkgs, hostname ? "", ... }: {
-
-    programs.neovim = {
-        enable = true;
-        defaultEditor = true;
-        viAlias = true;
-        vimAlias = true;
-    };
-
-    home.file.".config/nvim" = {
-        source = ./nvim;
-        recursive = true;
-    };
+    imports = [
+        ./nvim/nvim.nix
+    ];
 
     programs.vscode = {
         enable = true;
