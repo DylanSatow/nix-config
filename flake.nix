@@ -136,6 +136,7 @@
                     };
                 }
             ];
+            extraSpecialArgs = { hostname = "dylanserver"; };
         };
     };
 }
