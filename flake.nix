@@ -123,5 +123,19 @@
             ];
             specialArgs = {};
         };
+
+        homeConfigurations.dylanserver = home-manager-linux.lib.homeManagerConfiguration {
+            pkgs = nixpkgs-linux.legacyPackages.x86_64-linux.extend (overlaysModule.unstable-overlay "x86_64-linux");
+            modules = [
+                ./home/server.nix
+                {
+                    home = {
+                        username = "dylan";
+                        homeDirectory = "/home/dylan";
+                        stateVersion = "25.05";
+                    };
+                }
+            ];
+        };
     };
 }
