@@ -134,6 +134,7 @@
                         homeDirectory = "/home/dylan";
                         stateVersion = "25.05";
                     };
+                    nixpkgs.config.allowUnfree = true;
                 }
             ];
             extraSpecialArgs = { hostname = "dylanserver"; };

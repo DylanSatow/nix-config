@@ -4,7 +4,7 @@
     ];
 
     programs.vscode = {
-        enable = true;
+        enable = hostname != "dylanserver";
         profiles.default = {
             extensions = with pkgs.vscode-extensions; [
                 catppuccin.catppuccin-vsc
