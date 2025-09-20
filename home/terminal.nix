@@ -12,6 +12,7 @@
                 dylanix = "sudo darwin-rebuild switch --flake ~/home/nix-config#dylanix";
                 dylanxps = "sudo nixos-rebuild switch --flake ~/nix-config#dylanxps";
                 dylanpc = "sudo nixos-rebuild switch --flake ~/nix-config#dylanpc";
+                dylanserver = "home-manager switch --extra-experimental-features 'nix-command flakes' --flake .#dylanserver";
             }.${hostname};
         };
 
