@@ -1,4 +1,3 @@
 # Dylanix 
 
-This is my nix config for my Mac (running Nix Darwin) and my Dell XPS 13 (running NixOS), and soon I'll add my desktop PC 
-(If Nvidia drivers actually work).
+My Multisystem nix config, including macbook pro (nix darwin), desktop PC, Dell XPS 13, and an Ubuntu VM (Nix Package Manager). Currently filtering AI slop
