@@ -125,13 +125,13 @@
         };
 
         homeConfigurations.dylanserver = home-manager-linux.lib.homeManagerConfiguration {
-            pkgs = nixpkgs-linux.legacyPackages.x86_64-linux.extend (overlaysModule.unstable-overlay "x86_64-linux");
+            pkgs = nixpkgs-linux.legacyPackages.aarch64-linux.extend (overlaysModule.unstable-overlay "aarch64-linux");
             modules = [
                 ./home/server.nix
                 {
                     home = {
-                        username = "dylan";
-                        homeDirectory = "/home/dylan";
+                        username = nixpkgs-linux.lib.mkForce "ubuntu";
+                        homeDirectory = nixpkgs-linux.lib.mkForce "/home/ubuntu";
                         stateVersion = "25.05";
                     };
                     nixpkgs.config.allowUnfree = true;
