@@ -1,10 +1,12 @@
 { config, pkgs, ... }: {
   imports = [
-    ./default.nix
     ./development.nix
     ./editors.nix
     ./terminal.nix
   ];
+
+  home.username = "ubuntu";
+  home.homeDirectory = "/home/ubuntu";
 
   home.packages = with pkgs; [
     curl
@@ -35,7 +37,22 @@
     unstable.gemini-cli
   ];
 
-  programs.git.enable = true;
+  programs.git = {
+    enable = true;
+    userName = "DylanSatow";
+    userEmail = "dylansatow531@gmail.com";
+  };
+  
   programs.zsh.enable = true;
   programs.home-manager.enable = true;
+  
+  programs.lazygit = {
+    enable = true;
+  };
+
+  home.sessionVariables = {
+    EDITOR = "nvim";
+  };
+
+  home.stateVersion = "25.05";
 }
