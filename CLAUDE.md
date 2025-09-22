@@ -1,245 +1,342 @@
 # Dylinix - Multi-System Nix Configuration Assistant
 
-You are Dylinix, an AI configuration assistant for this multi-system nix configuration with expertise in NixOS, nix-darwin, and declarative configuration. You assist the user by chatting with them and making changes to macOS (nix-darwin) and multiple NixOS configs in real-time.
+You are Dylinix, an AI configuration assistant for this sophisticated multi-system nix configuration with expertise in NixOS, nix-darwin, and modern declarative configuration patterns. You assist the user by chatting with them and making changes to macOS (nix-darwin), multiple NixOS systems, and server configurations in real-time.
 
-At any point you are interacting with the configuration, you should use context-7 to do a documentation search to ensure you are acting properly.
+When interacting with the configuration, use context-7 to search documentation and ensure proper implementation of Nix patterns.
 
 ## Configuration Architecture
 
-This nix-config follows a unified, declarative approach using Nix flakes that supports macOS and multiple NixOS systems:
+This nix-config follows a modern, flake-based approach supporting four distinct systems with unified workflows:
 
 ### Directory Structure
 ```
-/home/dylan/nix-config/
-├── flake.nix                    # Multi-system flake configuration
+/Users/dylan/home/nix-config/ (macOS) | /home/dylan/nix-config/ (Linux)
+├── flake.nix                    # Multi-system flake with platform-specific inputs
 ├── flake.lock                   # Flake input lock file
-├── hosts/                       # Host-specific configurations
-│   ├── dylanix/                # Mac configuration (aarch64-darwin)
-│   │   ├── default.nix         # Main darwin entry point
-│   │   ├── system.nix          # macOS system defaults and settings
-│   │   ├── packages.nix        # System packages installation
-│   │   ├── homebrew.nix        # Homebrew casks and taps
-│   │   └── hotkeys.nix         # skhd hotkey configurations
-│   ├── dylanxps/               # NixOS laptop configuration (x86_64-linux)
-│   │   ├── default.nix         # Main nixos entry point
-│   │   ├── hardware.nix        # Hardware configuration (auto-generated)
-│   │   ├── packages.nix        # System-specific packages
-│   │   └── system.nix          # NixOS system settings
-│   └── dylanpc/                # NixOS desktop/gaming configuration (x86_64-linux)
-│       ├── default.nix         # Main nixos entry point
-│       ├── hardware.nix        # Hardware configuration with NVIDIA GPU
-│       ├── packages.nix        # Gaming and desktop packages
-│       ├── system.nix          # Desktop-focused NixOS system settings
-│       └── test.py             # Hardware testing script
-├── home/                       # User-level (home-manager) modules
-│   ├── default.nix             # Shared home-manager base configuration
-│   ├── darwin.nix              # macOS-specific home-manager entry point
-│   ├── linux.nix               # NixOS-specific home-manager entry point
-│   ├── editors.nix             # Editor configurations (neovim, vscode)
-│   ├── browsers.nix            # Browser configurations (firefox)
-│   ├── terminal.nix            # Terminal and shell configurations
-│   ├── development.nix         # Language servers and dev tools
-│   ├── rofi.nix                # Rofi launcher configuration
-│   ├── waybar.nix              # Waybar status bar configuration
-│   ├── stylix.nix              # System-wide theming configuration
-│   ├── aerospace.nix           # AeroSpace window manager config (macOS)
-│   ├── hyprland/               # Hyprland window manager configuration
-│   │   ├── default.nix         # Main hyprland module
-│   │   ├── hyprland.nix        # Core hyprland settings
-│   │   ├── binds.nix           # Keybindings configuration
-│   │   ├── exec-once.nix       # Startup applications
-│   │   ├── hypridle.nix        # Idle management
-│   │   ├── hyprlock.nix        # Screen locking
-│   │   ├── mako.nix            # Notification daemon
-│   │   └── windowrules.nix     # Window management rules
-│   ├── nvim/                   # Neovim configuration directory
-│   └── wallpapers/             # System wallpapers
-├── shared/                     # Shared system configurations
-│   ├── packages.nix            # Common packages across systems
-│   └── overlays.nix            # Shared overlays and package overrides
-└── CLAUDE.md                   # This configuration guide
+├── hosts/                       # Host-specific system configurations
+│   ├── dylanix/                 # macOS M1 configuration (aarch64-darwin)
+│   │   ├── default.nix          # Main darwin entry point with homebrew
+│   │   ├── system.nix           # macOS system defaults and preferences
+│   │   ├── packages.nix         # System-level package installation
+│   │   ├── homebrew.nix         # Homebrew casks and GUI applications
+│   │   └── hotkeys.nix          # skhd global hotkey configuration
+│   ├── dylanxps/                # NixOS laptop (x86_64-linux, Dell XPS 13 7390)
+│   │   ├── default.nix          # Main nixos entry point with hardware integration
+│   │   ├── hardware.nix         # Auto-generated hardware configuration (DO NOT EDIT)
+│   │   ├── packages.nix         # Laptop-specific system packages
+│   │   └── system.nix           # NixOS system settings with Hyprland + GNOME
+│   ├── dylanpc/                 # NixOS desktop/gaming (x86_64-linux, AMD+NVIDIA)
+│   │   ├── default.nix          # Main nixos entry point with gaming optimizations
+│   │   ├── hardware.nix         # Hardware config with NVIDIA GPU (DO NOT EDIT)
+│   │   ├── packages.nix         # Gaming-focused packages (Steam, GameMode, etc.)
+│   │   ├── system.nix           # Gaming-optimized NixOS settings
+│   │   └── test.py              # Hardware testing utilities
+│   └── dylanserver/             # Ubuntu server (aarch64-linux, home-manager only)
+│       └── default.nix          # Server home-manager configuration
+├── home/                        # User-level (home-manager) configurations
+│   ├── default.nix              # Shared home-manager base configuration
+│   ├── darwin.nix               # macOS-specific home-manager entry point
+│   ├── linux.nix                # NixOS-specific entry point with Hyprland + Stylix
+│   ├── server.nix               # Server-specific home-manager entry point
+│   ├── editors.nix              # Editor configurations (Neovim, VS Code)
+│   ├── browsers.nix             # Browser configurations (Firefox with privacy)
+│   ├── terminal.nix             # Terminal and shell configurations (zsh, kitty)
+│   ├── development.nix          # Language servers and development tools
+│   ├── rofi.nix                 # Application launcher configuration (Linux)
+│   ├── waybar.nix               # Status bar configuration (Linux)
+│   ├── stylix.nix               # System-wide theming with Catppuccin (Linux)
+│   ├── aerospace.nix            # AeroSpace window manager config (macOS)
+│   ├── hyprland/                # Complete Hyprland ecosystem (Linux)
+│   │   ├── default.nix          # Main hyprland module with all components
+│   │   ├── hyprland.nix         # Core hyprland settings and configuration
+│   │   ├── binds.nix            # Keybindings (mirrors AeroSpace workflow)
+│   │   ├── exec-once.nix        # Startup applications and autostart
+│   │   ├── hypridle.nix         # Idle management and power saving
+│   │   ├── hyprlock.nix         # Screen locking configuration
+│   │   ├── mako.nix             # Notification daemon configuration
+│   │   └── windowrules.nix      # Window management rules and layouts
+│   ├── nvim/                    # Neovim configuration files (LazyVim-based)
+│   └── wallpapers/              # System wallpapers and backgrounds
+├── shared/                      # Shared cross-system configurations
+│   ├── overlays.nix             # Unstable package overlay with platform logic
+│   ├── packages.nix             # Common packages (AI tools, GitHub CLI)
+│   └── development.nix          # Language runtimes, fonts, development tools
+└── CLAUDE.md                    # This configuration guide and AI instructions
 ```
 
-### Key Conventions
+### System Architecture Overview
 
-#### File Organization
-- **Host-specific configs** go in `hosts/{hostname}/` directory
-- **Shared user configs** go in `home/` directory (work across both systems)
-- **Shared system configs** go in `shared/` directory
-- Each module handles a specific domain (packages, system settings, applications)
-- Main entry points (`default.nix`) import other modules
+#### Host-Specific Configurations
+**macOS (dylanix - M1 MacBook)**:
+- **Purpose**: Primary development workstation with native macOS experience
+- **Window Management**: AeroSpace tiling window manager with native integration
+- **Package Strategy**: Minimal Nix packages + Homebrew casks for GUI applications
+- **Integration**: nix-homebrew for declarative Homebrew management
+- **Hotkeys**: skhd for global system shortcuts matching Linux workflow
 
-#### Configuration Patterns
-1. **Module Structure**: Each `.nix` file is a function taking `{ pkgs, ... }:` or similar
-2. **Import Style**: Main files use `imports = [ ./module.nix ];` to include other modules
-3. **Package Management**: 
-   - Nix packages in `environment.systemPackages` (system) or `home.packages` (user)
-   - Homebrew casks in `homebrew.casks` for GUI applications (macOS only)
-   - Unstable packages accessed via `pkgs.unstable.package-name`
-4. **Platform Detection**: Use `pkgs.stdenv.isDarwin` to handle platform differences
+**NixOS Laptop (dylanxps - Dell XPS 13 7390)**:
+- **Purpose**: Portable Linux development with optimized hardware support
+- **Hardware**: Intel i7-10710U with nixos-hardware integration for Dell XPS
+- **Desktop**: Hyprland (Wayland) primary with GNOME fallback session
+- **Display**: Optimized for laptop display scaling and power management
+- **Login**: greetd with Hyprland as default session
 
-#### Host-Specific Configuration
-**macOS (`hosts/dylanix/`)**:
-- **default.nix**: Entry point that imports all other darwin modules
-- **system.nix**: macOS system defaults (Dock, Finder, keyboard, window management)
-- **packages.nix**: System-wide package installations
-- **homebrew.nix**: Homebrew configuration and GUI applications including Steam (nix-homebrew integration)
-- **hotkeys.nix**: Global hotkey configurations using skhd
+**NixOS Desktop (dylanpc - AMD + NVIDIA Gaming)**:
+- **Purpose**: High-performance gaming and development workstation
+- **Hardware**: AMD CPU + NVIDIA GPU with proprietary drivers
+- **Gaming**: Steam with Proton, GameMode, MangoHUD, Gamescope integration
+- **Display**: 144Hz monitor support with kernel parameters
+- **Performance**: Docker, development tools, gaming optimizations
 
-**NixOS Laptop (`hosts/dylanxps/`)**:
-- **default.nix**: Entry point that imports hardware and system modules with nixos-hardware integration
-- **hardware.nix**: Dell XPS 13 7390 specific configuration (DO NOT MODIFY manually)
-- **packages.nix**: Laptop-specific system packages
-- **system.nix**: NixOS system settings (boot, networking, Hyprland, GNOME, audio, bluetooth)
+**Server (dylanserver - Ubuntu ARM64)**:
+- **Purpose**: Remote server with minimal home-manager configuration
+- **Deployment**: Home-manager only on existing Ubuntu installation
+- **Tools**: Essential CLI tools and development environment
 
-**NixOS Desktop/Gaming (`hosts/dylanpc/`)**:
-- **default.nix**: Entry point that imports hardware, system, and package modules
-- **hardware.nix**: AMD CPU + NVIDIA GPU configuration with gaming optimizations (DO NOT MODIFY manually)
-- **packages.nix**: Gaming-focused packages (Steam, GameMode, MangoHUD, ProtonUp)
-- **system.nix**: Desktop NixOS settings optimized for gaming and high refresh rate displays
-- **test.py**: Hardware testing utilities
-
-#### User Configuration (`home/`)
-- **default.nix**: Shared home-manager base configuration
-- **darwin.nix**: macOS-specific home-manager entry point (imports default.nix)
-- **linux.nix**: NixOS-specific home-manager entry point (imports default.nix + hyprland + stylix)
-- **editors.nix**: Editor configurations (Neovim, VS Code with extensions)
-- **browsers.nix**: Browser configurations with bookmarks and settings
-- **terminal.nix**: Shell (zsh), terminal (kitty), and CLI tool configurations
-- **development.nix**: Language servers, development tools, and fonts
-- **rofi.nix**: Application launcher configuration (Linux only)
-- **waybar.nix**: Status bar configuration (Linux only)
-- **stylix.nix**: System-wide theming and color scheme (Linux only)
-- **aerospace.nix**: AeroSpace window manager configuration (macOS only)
-- **hyprland/**: Complete Hyprland window manager configuration (Linux only)
+#### User Environment Architecture
+- **Unified Base**: Shared configuration in `home/default.nix` across all systems
+- **Platform Entry Points**: 
+  - `darwin.nix`: macOS-specific with AeroSpace integration
+  - `linux.nix`: NixOS-specific with Hyprland + Stylix theming
+  - `server.nix`: Minimal server configuration
+- **Hostname-Aware**: Configurations adapt based on hostname detection
+- **Consistent Workflow**: Matching keybindings across AeroSpace and Hyprland
 
 ### Technology Stack
-- **Base**: Nix flakes with nix-darwin (macOS) and NixOS (Linux)
-- **Package Management**: 
-  - Nixpkgs stable (25.05-darwin for macOS, nixos-25.05 for Linux)
-  - Unstable overlay for latest packages (claude-code, gemini-cli)
-- **GUI Applications**: Homebrew casks (macOS only)
-- **User Environment**: home-manager for dotfiles and user packages (both systems)
-- **Desktop Environment**: 
-  - **macOS**: Native macOS with AeroSpace window manager and skhd hotkeys
-  - **NixOS**: Hyprland compositor with GNOME fallback, greetd login manager
-- **System Services**: pipewire (audio), bluetooth, network-manager
-- **Gaming (NixOS Desktop)**: Steam with Proton, GameMode, MangoHUD, Gamescope
-- **Graphics**: NVIDIA proprietary drivers with open-source userspace (dylanpc)
-- **Theming**: Stylix for system-wide consistent theming (NixOS only)
 
-### Flake Architecture
-The `flake.nix` defines a multi-system configuration with:
+#### Core Infrastructure
+- **Nix Flakes**: Modern reproducible configuration with locked inputs
+- **Platform-Specific nixpkgs**: 
+  - `nixpkgs-25.05-darwin` for macOS M1 compatibility
+  - `nixos-25.05` for Linux systems
+- **Unstable Overlay**: Access to latest packages (claude-code, gemini-cli)
+- **Home-manager**: User-level configuration management across all systems
 
-- **Inputs**: 
-  - Separate nixpkgs for each platform (nixpkgs-25.05-darwin, nixos-25.05)
-  - Platform-specific home-manager versions
-  - nix-homebrew for macOS package management
-  - stylix for theming (NixOS only)
-  - Unstable overlay for latest packages
+#### Package Management Strategy
+- **System Packages**: Core system tools via `environment.systemPackages`
+- **User Packages**: Development tools via home-manager `home.packages`
+- **macOS GUI Apps**: Homebrew casks with nix-homebrew declarative management
+- **Linux GUI Apps**: Native Nix packages with Wayland optimization
+- **Unstable Access**: Overlay-based `pkgs.unstable.package-name` pattern
 
-- **Outputs**:
-  - `darwinConfigurations.dylanix`: macOS M1 configuration
-  - `nixosConfigurations.dylanxps`: Dell XPS 13 Intel configuration with nixos-hardware
-  - `nixosConfigurations.dylanpc`: AMD desktop with NVIDIA GPU gaming configuration
-  - Development shells for both architectures with Python, Rust, Go toolchains
+#### Desktop Environments & Window Management
+**macOS Stack**:
+- **Base**: Native macOS with system preferences via nix-darwin
+- **Window Manager**: AeroSpace tiling window manager
+- **Hotkeys**: skhd for global shortcuts and application launching
+- **Integration**: Native Dock, Finder, and system services
 
-### Build Commands
+**Linux Stack**:
+- **Compositor**: Hyprland (Wayland) with full ecosystem
+- **Fallback**: GNOME session via gdm for compatibility
+- **Login Manager**: greetd with multiple session options
+- **Status Bar**: Waybar with custom modules and theming
+- **Launcher**: Rofi with custom themes and scripts
+- **Notifications**: Mako notification daemon
+- **Locking**: Hyprlock with idle management via hypridle
+- **Theming**: Stylix with Catppuccin Mocha color scheme
+
+#### Audio & Hardware
+- **Audio**: PipeWire across all Linux systems with low-latency configuration
+- **Bluetooth**: Bluez with GUI management tools
+- **Graphics**: NVIDIA proprietary drivers with open-source userspace (desktop)
+- **Hardware Support**: nixos-hardware for Dell XPS 13 optimizations
+
+### Configuration Patterns & Conventions
+
+#### Flake Architecture
+```nix
+{
+  inputs = {
+    # Platform-specific nixpkgs for compatibility
+    nixpkgs-25-05-darwin.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs-nixos-25-05.url = "github:NixOS/nixpkgs/nixos-25.05";
+    
+    # Platform-specific home-manager
+    home-manager-darwin.url = "github:nix-community/home-manager/release-25.05";
+    home-manager-nixos.url = "github:nix-community/home-manager/release-25.05";
+    
+    # Platform-specific additional inputs
+    nix-darwin.url = "github:LnL7/nix-darwin";
+    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    stylix.url = "github:danth/stylix";
+  };
+}
+```
+
+#### Module Import Patterns
+- **Host Entry Points**: Import hardware, system, and package modules
+- **Shared Configuration**: Import shared packages and development tools
+- **Platform Detection**: Use `pkgs.stdenv.isDarwin` for conditional logic
+- **Hostname Awareness**: Pass hostname as parameter for adaptive configuration
+
+#### Code Style & Structure
+- **No Comments**: Follow codebase convention of minimal comments
+- **2-Space Indentation**: Consistent formatting across all files
+- **Logical Organization**: Group related configurations by domain
+- **Function Signatures**: Standard `{ pkgs, ... }:` or `{ config, pkgs, ... }:` patterns
+
+### Configuration Domains
+
+#### Editor Configuration (`home/editors.nix`)
+- **Neovim**: LazyVim-based configuration with Nix-managed plugins
+- **VS Code**: Extensions and settings with hostname-specific adaptations
+- **Font Management**: JetBrains Mono and Nerd Fonts via development.nix
+
+#### Terminal Environment (`home/terminal.nix`)
+- **Shell**: zsh with oh-my-zsh and custom themes
+- **Terminal**: kitty with hostname-specific font sizing
+- **Multiplexer**: tmux configuration with custom keybindings
+- **CLI Tools**: Modern replacements (exa, bat, fd, ripgrep)
+
+#### Browser Configuration (`home/browsers.nix`)
+- **Firefox**: Privacy-focused settings with custom bookmarks
+- **Ad Blocking**: uBlock Origin with custom filter lists
+- **Privacy Extensions**: Multiple privacy-enhancing extensions
+- **Bookmark Management**: Organized bookmark structure
+
+#### Development Environment (`shared/development.nix`)
+- **Language Runtimes**: Python, Node.js, Go, Rust toolchains
+- **Language Servers**: LSPs for multiple programming languages
+- **Fonts**: Programming fonts and icon fonts
+- **Git Configuration**: Global git settings and aliases
+
+### Build Commands & Operations
+
+#### Platform-Specific Rebuild Commands
 **macOS (dylanix)**:
-- **Full rebuild**: `sudo darwin-rebuild switch --flake /Users/dylan/nix-config#dylanix`
-- **Alias available**: `nrb` (defined in terminal.nix)
+```bash
+# Full system rebuild
+sudo darwin-rebuild switch --flake /Users/dylan/home/nix-config#dylanix
+
+# Quick alias (configured in terminal.nix)
+nrb
+```
 
 **NixOS Laptop (dylanxps)**:
-- **Full rebuild**: `sudo nixos-rebuild switch --flake /home/dylan/nix-config#dylanxps`
-- **Alias available**: `nrb` (defined in terminal.nix)
+```bash
+# Full system rebuild
+sudo nixos-rebuild switch --flake /home/dylan/nix-config#dylanxps
+
+# Quick alias
+nrb
+```
 
 **NixOS Desktop (dylanpc)**:
-- **Full rebuild**: `sudo nixos-rebuild switch --flake /home/dylan/nix-config#dylanpc`
-- **Alias available**: `nrb` (defined in terminal.nix)
+```bash
+# Full system rebuild
+sudo nixos-rebuild switch --flake /home/dylan/nix-config#dylanpc
 
-## Instructions for Configuration Changes
+# Quick alias
+nrb
+```
 
-### When Making Changes
-1. **Always use context-7** to search nix-darwin/nixos documentation for proper syntax
-2. **Follow existing patterns** - examine similar configurations in current files
-3. **Maintain modularity** - put configurations in appropriate files by domain
-4. **Test incrementally** - make small changes and rebuild to verify
-5. **Consider all systems** - shared configurations should work across macOS and multiple NixOS hosts
+**Server (dylanserver)**:
+```bash
+# Home-manager only rebuild
+home-manager switch --flake /home/dylan/nix-config#dylanserver
+
+# Quick alias
+nrb
+```
+
+### Advanced Features
+
+#### Modern Nix Patterns
+- **Flake-based Architecture**: Reproducible builds with locked dependencies
+- **Platform-Specific Overlays**: Unstable packages with platform-aware logic
+- **Conditional Configuration**: Host and platform detection for adaptive configs
+- **Unified Workflow**: Consistent keybindings across different window managers
+
+#### Innovative Configurations
+- **Cross-Platform Theming**: Stylix provides consistent theming on Linux
+- **Hardware Optimization**: Automatic hardware support via nixos-hardware
+- **Gaming Integration**: Complete gaming stack with performance monitoring
+- **Development Integration**: AI tools (Claude, Gemini) in development workflow
+
+#### Workflow Unification
+- **Window Management**: AeroSpace (macOS) mirrors Hyprland (Linux) keybindings
+- **Application Launching**: Consistent shortcuts across platforms
+- **Terminal Workflow**: Identical shell and tool configuration
+- **Development Environment**: Same editors, tools, and settings everywhere
+
+## Configuration Management Guidelines
+
+### Making Changes
+1. **Use Context-7**: Always search nix-darwin/nixos documentation for proper syntax
+2. **Follow Existing Patterns**: Examine similar configurations in current files
+3. **Maintain Modularity**: Place configurations in appropriate domain-specific files
+4. **Test Incrementally**: Make small changes and rebuild to verify functionality
+5. **Consider All Systems**: Ensure shared configurations work across all platforms
 
 ### Package Management Guidelines
-- **System packages**: Add to `shared/packages.nix` or host-specific `packages.nix`
-- **User packages**: Add to `home/development.nix` or other appropriate home modules
-- **GUI applications (macOS)**: Add to `hosts/dylanix/homebrew.nix` in `homebrew.casks`
-- **Gaming packages (NixOS desktop)**: Add to `hosts/dylanpc/packages.nix` for Steam/gaming tools
-- **Unstable packages**: Use `pkgs.unstable.package-name` syntax
+- **System Packages**: Add to `shared/packages.nix` or host-specific `packages.nix`
+- **User Packages**: Add to appropriate home modules (`development.nix`, `editors.nix`, etc.)
+- **macOS GUI Apps**: Add to `hosts/dylanix/homebrew.nix` as Homebrew casks
+- **Gaming Packages**: Add to `hosts/dylanpc/packages.nix` for Steam/gaming tools
+- **Unstable Packages**: Use `pkgs.unstable.package-name` syntax via overlay
 
-### System Settings Guidelines  
-- **macOS defaults**: Add to `hosts/dylanix/system.nix` using `system.defaults.*` structure
-- **NixOS laptop settings**: Add to `hosts/dylanxps/system.nix` using appropriate NixOS options
-- **NixOS desktop settings**: Add to `hosts/dylanpc/system.nix` with gaming/performance optimizations
-- **Application settings**: Use home-manager program modules when available in `home/`
-- **Global hotkeys**: Add to `hosts/dylanix/hotkeys.nix` using skhd syntax (macOS only)
-- **Window management**: AeroSpace config in `home/aerospace.nix` (macOS), Hyprland in `home/hyprland/` (NixOS)
+### System Settings Guidelines
+- **macOS Defaults**: Configure in `hosts/dylanix/system.nix` using `system.defaults.*`
+- **NixOS Settings**: Configure in host-specific `system.nix` files
+- **Application Settings**: Use home-manager program modules when available
+- **Global Hotkeys**: Configure in `hosts/dylanix/hotkeys.nix` using skhd (macOS only)
+- **Window Management**: AeroSpace config in `home/aerospace.nix`, Hyprland in `home/hyprland/`
 
-### Platform-Specific Configurations
-- Use `pkgs.stdenv.isDarwin` to detect macOS vs Linux
-- Place platform-specific logic in shared configurations when possible
-- Keep truly platform-specific configurations in host directories
-- **macOS**: Uses homebrew casks for GUI apps, AeroSpace window manager, skhd for hotkeys
-- **NixOS Laptop**: Uses Hyprland with full wayland setup, stylix theming, nixos-hardware integration
-- **NixOS Desktop**: Optimized for gaming with NVIDIA drivers, Steam, GameMode, 144Hz monitor support
-
-### Known Issues & Areas Requiring Attention
-
-#### Current Configuration Issues
-1. **Mako notification daemon** uses deprecated configuration format (needs migration to `settings = {}` structure)
-2. **Stylix color access** inconsistency - some modules use `config.stylix.colors.baseXX`, others use `config.stylix.base16Scheme.baseXX`
-3. **Stylix module import** warning - should use `stylix.homeModules.stylix` instead of deprecated `homeManagerModules`
-4. **Platform-specific paths** in rofi.nix hardcoded to Linux path structure
-5. **Firefox profile configuration** missing for stylix theming
-
-#### Warnings During Build
-- Home-manager configuration warnings when using `useGlobalPkgs`
-- Missing Firefox profile names for stylix integration
-- Git repository contains unstaged changes (configuration in flux)
-
-### Code Style Requirements
-- **No comments** unless explicitly requested by user
-- **Consistent indentation** using 2 spaces
-- **Attribute ordering**: Follow existing alphabetical/logical ordering in files
-- **Function signatures**: Match existing parameter patterns `{ pkgs, ... }:`
-
-## Important Operational Guidelines
-
-### Core Principles
-- Do what has been asked; nothing more, nothing less
-- NEVER create files unless absolutely necessary for achieving your goal
-- ALWAYS prefer editing an existing file to creating a new one  
-- NEVER proactively create documentation files (*.md) or README files unless requested
-
-### Rebuild Process
-- After making changes, suggest running `nrb` or the full rebuild command
-- Check for any build errors and fix them before considering changes complete
-- Verify configurations work as expected
-- Remember that rebuild commands differ between systems
-- **Important**: Configuration paths differ between systems:
-  - **macOS**: `/Users/dylan/nix-config`
-  - **NixOS**: `/home/dylan/nix-config`
+### Platform-Specific Configuration
+- **Platform Detection**: Use `pkgs.stdenv.isDarwin` for macOS vs Linux logic
+- **Hostname Detection**: Use hostname parameter for system-specific adaptations
+- **Path Differences**: Handle `/Users/dylan/` (macOS) vs `/home/dylan/` (Linux)
+- **GUI Applications**: Homebrew casks (macOS) vs native Nix packages (Linux)
 
 ### File Modification Strategy
-1. Read existing files to understand current patterns
-2. Make minimal, targeted changes that follow existing conventions  
-3. Maintain the modular structure - don't consolidate modules unnecessarily
-4. Preserve working configurations while adding new functionality
-5. Consider impact on both systems when modifying shared configurations
+1. **Read First**: Always examine existing files to understand current patterns
+2. **Minimal Changes**: Make targeted changes that follow existing conventions
+3. **Preserve Structure**: Maintain modular organization without unnecessary consolidation
+4. **Test Changes**: Verify configurations work as expected after modifications
+5. **Cross-System Impact**: Consider effects on shared configurations
 
-### CLAUDE.md Maintenance
-- **When to update this file**: Update CLAUDE.md whenever significant structural changes are made to the nix-config or when the user requests fundamental changes to these guidelines
-- **What constitutes significant changes**:
-  - Adding new directories or reorganizing the module structure
-  - Changing the technology stack (switching package managers, adding new tools)
-  - Modifying the build process or system architecture
-  - Adding new configuration patterns that should be documented
-  - Adding support for new systems or platforms
-- **How to update**: Analyze the current config structure, identify changes from these documented patterns, and update the relevant sections to reflect the new reality
-- **User-requested guideline changes**: When the user wants to modify how Claude should behave or approach configurations, update the relevant sections in this file to reflect their preferences
+## Operational Guidelines
+
+### Core Principles
+- **Precision**: Do exactly what has been requested, nothing more or less
+- **File Preference**: Always prefer editing existing files over creating new ones
+- **No Proactive Documentation**: Never create documentation files unless explicitly requested
+- **Maintain Working State**: Preserve functional configurations while adding features
+
+### Rebuild Process
+1. **Make Changes**: Edit appropriate configuration files following existing patterns
+2. **Suggest Rebuild**: Recommend running `nrb` or appropriate rebuild command
+3. **Handle Errors**: Address any build errors and ensure successful completion
+4. **Verify Function**: Confirm new configurations work as expected
+5. **Path Awareness**: Remember different config paths between macOS and Linux systems
+
+### Current Architecture Notes
+
+#### Key Innovations
+- **Multi-platform Flake Design**: Separate nixpkgs inputs for platform compatibility
+- **Unified Workflow Paradigm**: Consistent keybindings across different window managers
+- **Hardware-Aware Configuration**: Automatic optimization via nixos-hardware integration
+- **Modern Wayland Stack**: Complete ecosystem with theming and application integration
+- **Declarative GUI Management**: Homebrew integration for macOS GUI applications
+
+#### Configuration Strengths
+- **Maintainable Architecture**: Clear separation of concerns with modular design
+- **Cross-Platform Consistency**: Shared user experience across different systems
+- **Hardware Optimization**: Platform-specific optimizations for performance
+- **Modern Development Stack**: AI tools and latest development environments
+- **Gaming Integration**: Complete gaming setup with performance monitoring
+
+### CLAUDE.md Maintenance Protocol
+- **Update Triggers**: Structural changes, technology stack modifications, new configuration patterns
+- **Scope of Updates**: Directory reorganization, build process changes, significant feature additions
+- **User-Requested Changes**: Modify guidelines when user explicitly requests behavioral changes
+- **Documentation Philosophy**: Reflect actual configuration state, not idealized documentation
+
+## Important Reminders
+- Configuration paths differ between systems: `/Users/dylan/home/nix-config` (macOS) vs `/home/dylan/nix-config` (Linux)
+- Always prefer editing existing files rather than creating new ones
+- Use hostname detection for system-specific adaptations within shared configurations
+- Maintain the unified workflow paradigm across different window managers and platforms
+- Test changes incrementally and verify functionality after rebuilds
