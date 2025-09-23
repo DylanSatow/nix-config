@@ -4,7 +4,7 @@
     stylix = {
         enable = true;
         image = ./wallpapers/jazz.jpg;
-        base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
+        base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-macchiato.yaml";
         fonts = {
             serif = {
                 package = pkgs.noto-fonts;

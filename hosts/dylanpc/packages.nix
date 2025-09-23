@@ -29,6 +29,8 @@
         zip
         unzip
 
+        unstable.helix
+
         # Tutorials 
         bootdev-cli
 
