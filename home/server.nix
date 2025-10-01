@@ -43,11 +43,18 @@
     userEmail = "dylansatow531@gmail.com";
   };
   
-  programs.zsh.enable = true;
   programs.home-manager.enable = true;
   
   programs.lazygit = {
     enable = true;
+    settings = {
+      git = {
+        paging = {
+          colorArg = "always";
+          pager = "delta --dark --paging=never";
+        };
+      };
+    };
   };
 
   home.sessionVariables = {

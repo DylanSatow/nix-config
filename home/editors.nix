@@ -43,7 +43,7 @@
                 
                 "python.defaultInterpreterPath" = "/usr/bin/python3";
                 "python.formatting.provider" = "black";
-                
+                "leetcode.workspaceFolder" = "/Users/dylan/.leetcode";
                 "go.formatTool" = "goimports";
                 "go.useLanguageServer" = true;
                 
