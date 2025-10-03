@@ -4,10 +4,7 @@
         ./apps/git.nix
         ./apps/nvim.nix
         ./apps/shell.nix
-        ./linux/hypr
-        ./linux/waybar
-        ./linux/rofi
-        ./linux/kitty
+        ./linux/kitty/default.nix
     ];
 
     home = {
