@@ -37,6 +37,7 @@
     outputs = {
         self,
         nixpkgs,
+        home-manager,
         nixpkgs-unstable,
         ...
     }@inputs:
@@ -53,8 +54,16 @@
                         (overlays.unstable-overlay "x86_64-linux")
                     ];
                 }
+                home-manager.nixosModules.home-manager 
+                {
+                    nixpkgs.overlays = [ (overlays.unstable-overlay "x86_64-linux") ];
+                    nixpkgs.config.allowUnfree = true;
+                    home-manager.useGlobalPkgs = true;
+                    home-manager.useUserPackages = true;
+                }
+
             ];
-            specialArgs = { inherit inputs; };
+            specialArgs = { inherit inputs; };                
         };
     };
 }
