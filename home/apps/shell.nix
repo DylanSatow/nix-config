@@ -8,7 +8,7 @@
         };
         shellAliases = {
             nrb = "sudo nixos-rebuild switch --flake ~/nix-config#dylanpc";
-        }
+        };
     };
     programs.direnv = {
         enable = true; 
