@@ -92,7 +92,5 @@
             # Lock screen
             "$mod, BackSpace, exec, hyprlock"
         ];
-
-        
     };
 }

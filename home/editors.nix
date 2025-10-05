@@ -16,7 +16,14 @@
                 ms-vscode-remote.remote-ssh
                 ms-vscode-remote.remote-wsl
                 ms-vscode-remote.vscode-remote-extensionpack
-                
+
+                # Jupyter Notebooks 
+                ms-toolsai.jupyter
+                ms-toolsai.vscode-jupyter-slideshow
+                ms-toolsai.vscode-jupyter-cell-tags
+                ms-toolsai.jupyter-renderers
+                ms-toolsai.jupyter-keymap
+
                 pkief.material-icon-theme
                 pkief.material-product-icons
                 

@@ -21,5 +21,19 @@
         lua
         typescript
 
+        # LSPs/Formatters
+        lua-language-server
+        stylua
+        pyright
+        clang-tools
+        nil
+        lua-language-server
+        gopls
+
+        # Telescope
+        ripgrep
+        fzf
+        fd
+        lazygit
     ];
 }

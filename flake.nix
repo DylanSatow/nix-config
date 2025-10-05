@@ -2,13 +2,13 @@
     description = "Multi-system nix configuration for macOS and NixOS";
 
     inputs = {
-        nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-25.05-darwin";
+        nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-25.05-darwin";
         nixpkgs-linux.url = "github:NixOS/nixpkgs/nixos-25.05";
         nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
         
         nix-darwin = {
             url = "github:nix-darwin/nix-darwin/nix-darwin-25.05";
-            inputs.nixpkgs.follows = "nixpkgs";
+            inputs.nixpkgs.follows = "nixpkgs-darwin";
         };
 
         nix-homebrew.url = "github:zhaofengli/nix-homebrew";
@@ -21,9 +21,9 @@
             flake = false;
         };
 
-        home-manager = {
+        home-manager-darwin = {
             url = "github:nix-community/home-manager/release-25.05";
-            inputs.nixpkgs.follows = "nixpkgs";
+            inputs.nixpkgs.follows = "nixpkgs-darwin";
         };
         home-manager-linux = {
             url = "github:nix-community/home-manager/release-25.05";
@@ -36,21 +36,21 @@
 
     outputs = { 
         self,
-        nixpkgs,
+        nixpkgs-darwin,
         nixpkgs-linux,
         nixpkgs-unstable,
         nix-darwin, 
         nix-homebrew, 
         homebrew-core, 
         homebrew-cask,
-        home-manager,
+        home-manager-darwin,
         home-manager-linux,
         stylix,
         nixos-hardware,
         ...
     }:
     let
-        overlaysModule = import ./shared/overlays.nix { inherit nixpkgs-unstable; };
+        overlaysModule = import ./overlays.nix { inherit nixpkgs-unstable; };
     in
     {
         darwinConfigurations.dylanix = nix-darwin.lib.darwinSystem {
@@ -63,7 +63,7 @@
                 ./shared/default.nix
                 ./hosts/dylanix
                 nix-homebrew.darwinModules.nix-homebrew 
-                home-manager.darwinModules.home-manager
+                home-manager-darwin.darwinModules.home-manager
                 {
                     users.users.dylan = {
                         name = "dylan";
