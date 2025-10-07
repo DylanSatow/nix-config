@@ -16,6 +16,8 @@
                 ms-vscode-remote.remote-ssh
                 ms-vscode-remote.remote-wsl
                 ms-vscode-remote.vscode-remote-extensionpack
+
+                james-yu.latex-workshop
                 
                 pkief.material-icon-theme
                 pkief.material-product-icons
@@ -46,6 +48,8 @@
                 "leetcode.workspaceFolder" = "/Users/dylan/.leetcode";
                 "go.formatTool" = "goimports";
                 "go.useLanguageServer" = true;
+
+                "latex-workshop.latex.autoClean.run" = "onBuilt";
                 
                 "C_Cpp.default.cppStandard" = "c++17";
                 "C_Cpp.default.cStandard" = "c11";

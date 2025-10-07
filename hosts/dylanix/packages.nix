@@ -9,6 +9,8 @@
         pkgs.direnv
         pkgs.nnn
         pkgs.skhd
+        
+        pkgs.texliveFull
 
         pkgs.unstable.claude-code
     ];
