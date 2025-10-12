@@ -10,6 +10,7 @@
         networkmanagerapplet
         surge-XT 
         alacritty
+        kitty
 
         # Core system utils 
         zip
