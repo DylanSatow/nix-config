@@ -28,9 +28,12 @@
     };
 
     services.xserver.enable = true; # allow window managers 
+
+    # Enable gnome 
     services.xserver.displayManager.gdm.enable = true;
     services.xserver.desktopManager.gnome.enable = true;
 
+    # Enable declarative gnome config 
     programs.dconf.enable = true;
 
     xdg.portal = {

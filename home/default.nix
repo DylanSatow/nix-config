@@ -1,8 +1,14 @@
-{ pkgs, ... }: {
+{ pkgs, catppuccin, ... }: {
     imports = [
         ./apps
-        ./gnome.nix
+        ./gnome
     ];
+
+    catppuccin = {
+        enable = true;
+        flavor = "mocha";
+        accent = "lavender";
+    };
 
     home = {
         username = "dylan";

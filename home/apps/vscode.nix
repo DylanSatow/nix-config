@@ -3,9 +3,6 @@
         enable = true;
         profiles.default = {
             extensions = with pkgs.vscode-extensions; [
-                catppuccin.catppuccin-vsc
-                catppuccin.catppuccin-vsc-icons
-                
                 vscodevim.vim
                 
                 ms-vscode-remote.remote-containers
@@ -29,10 +26,10 @@
             ];
             
             userSettings = {
-                "workbench.colorTheme" = "Catppuccin Mocha";
-                "workbench.iconTheme" = "catppuccin-mocha";
                 "workbench.sideBar.location" = "right";
                 
+                "terminal.integrated.stickyScroll.enabled" = false;
+
                 "vim.useSystemClipboard" = true;
                 "vim.hlsearch" = true;
                 

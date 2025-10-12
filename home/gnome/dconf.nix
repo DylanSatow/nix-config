@@ -201,10 +201,6 @@ with lib.hm.gvariant;
       last-folder-path = "/home/dylan/nix-config/assets";
     };
 
-    "org/gnome/portal/filechooser/org/gnome/Settings" = {
-      last-folder-path = "/home/dylan/nix-config/assets";
-    };
-
     "org/gnome/settings-daemon/plugins/color" = {
       night-light-schedule-automatic = false;
     };
@@ -252,7 +248,7 @@ with lib.hm.gvariant;
       restore-attach-modal-dialogs = "";
       restore-edge-tiling = "";
       restore-keybinds = ''
-        {}\\n\n
+        {}\n
       '';
       restore-workspaces-only-on-primary = "";
       selection-border-size = 9;

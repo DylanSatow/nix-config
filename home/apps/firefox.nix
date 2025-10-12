@@ -1,7 +1,6 @@
 { config, pkgs, ... }: {
     programs.firefox = {
         enable = true;
-        
         profiles.dylan = {
             isDefault = true;
             
@@ -72,6 +71,7 @@
             extensions = {
                 packages = with pkgs; [
                 ];
+                force = true;
             };
             
             settings = {

@@ -15,8 +15,10 @@
             url = "github:nix-community/stylix";
             inputs.nixpkgs.follows = "nixpkgs";
         };
-        catppuccin.url = "github:catppuccin/nix";
-
+        catppuccin = {
+            url = "github:catppuccin/nix/release-25.05";
+            inputs.nixpkgs.follows = "nixpkgs-unstable";
+        };
 
         # Mac Stuff 
         nix-darwin = {
@@ -39,8 +41,9 @@
         nixpkgs,
         home-manager,
         nixpkgs-unstable,
+        catppuccin,
         ...
-    }@inputs:
+    } @ inputs:
     let
         overlays = import ./overlays.nix { inherit nixpkgs-unstable; };
     in
@@ -54,13 +57,17 @@
                         (overlays.unstable-overlay "x86_64-linux")
                     ];
                 }
-                home-manager.nixosModules.home-manager 
+                catppuccin.nixosModules.catppuccin
+                home-manager.nixosModules.home-manager
                 {
                     nixpkgs.overlays = [ (overlays.unstable-overlay "x86_64-linux") ];
                     nixpkgs.config.allowUnfree = true;
                     home-manager.useGlobalPkgs = true;
                     home-manager.useUserPackages = true;
-                    home-manager.users.dylan.imports = [ ./home ];
+                    home-manager.users.dylan.imports = [
+                        ./home
+                        catppuccin.homeModules.catppuccin
+                    ];
                 }
 
             ];
