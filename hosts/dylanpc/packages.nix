@@ -11,10 +11,12 @@
         surge-XT 
         alacritty
         kitty
+        vscode
 
         # Core system utils 
         zip
         unzip
+        dconf2nix
 
         unstable.helix
 

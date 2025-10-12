@@ -28,10 +28,10 @@
     };
 
     services.xserver.enable = true; # allow window managers 
-    # services.xserver.displayManager.gdm.enable = true;
-    # services.xserver.desktopManager.gnome.enable = true;
+    services.xserver.displayManager.gdm.enable = true;
+    services.xserver.desktopManager.gnome.enable = true;
 
-    programs.niri.enable = true;
+    programs.dconf.enable = true;
 
     xdg.portal = {
         enable = true;

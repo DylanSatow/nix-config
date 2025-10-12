@@ -1,7 +1,7 @@
 { pkgs, ... }: {
     imports = [
-        ./apps 
-        ./linux
+        ./apps
+        ./gnome.nix
     ];
 
     home = {

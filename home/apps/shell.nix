@@ -7,7 +7,10 @@
             theme = "robbyrussell";
         };
         shellAliases = {
-            nrb = "sudo nixos-rebuild switch --flake ~/nix-config#dylanpc";
+            nrb = ''
+                dconf dump / | dconf2nix > ~/nix-config/home/gnome.nix
+                sudo nixos-rebuild switch --flake ~/nix-config#dylanpc
+            '';
         };
     };
     programs.direnv = {
