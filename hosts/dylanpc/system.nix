@@ -27,14 +27,11 @@
         LC_TIME = "en_US.UTF-8";
     };
 
-    services.xserver.enable = true;
-    services.xserver.displayManager.gdm.enable = true;
-    services.xserver.desktopManager.gnome.enable = true;
+    services.xserver.enable = true; # allow window managers 
+    # services.xserver.displayManager.gdm.enable = true;
+    # services.xserver.desktopManager.gnome.enable = true;
 
-    programs.hyprland = {
-        enable = true;
-        xwayland.enable = true;
-    };
+    programs.niri.enable = true;
 
     xdg.portal = {
         enable = true;

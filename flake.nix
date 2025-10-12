@@ -60,7 +60,7 @@
                     nixpkgs.config.allowUnfree = true;
                     home-manager.useGlobalPkgs = true;
                     home-manager.useUserPackages = true;
-                    home-manager.users.dylan = import ./home;
+                    home-manager.users.dylan.imports = [ ./home ];
                 }
 
             ];

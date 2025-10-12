@@ -1,10 +1,7 @@
 { pkgs, ... }: {
     imports = [
-        ./apps/firefox.nix
-        ./apps/git.nix
-        ./apps/nvim.nix
-        ./apps/shell.nix
-        ./linux/kitty/default.nix
+        ./apps 
+        ./linux
     ];
 
     home = {

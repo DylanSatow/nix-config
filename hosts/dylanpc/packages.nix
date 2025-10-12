@@ -9,6 +9,7 @@
         btop
         networkmanagerapplet
         surge-XT 
+        alacritty
 
         # Core system utils 
         zip
