@@ -42,6 +42,12 @@
         home-manager,
         nixpkgs-unstable,
         catppuccin,
+
+        # mac 
+        nix-darwin, 
+        nix-homebrew, 
+        homebrew-core, 
+        homebrew-cask,
         ...
     } @ inputs:
     let
@@ -72,6 +78,34 @@
 
             ];
             specialArgs = { inherit inputs; };                
+        };
+
+        darwinConfigurations.dylanix = nix-darwin.lib.darwinSystem {
+            system = "aarch64-darwin";
+            modules = [ 
+                {
+                    nixpkgs.overlays = [ (overlaysModule.unstable-overlay "aarch64-darwin") ];
+                    nixpkgs.config.allowUnfree = true;
+                }
+                ./shared/default.nix
+                ./hosts/dylanix
+                nix-homebrew.darwinModules.nix-homebrew 
+                home-manager.darwinModules.home-manager
+                {
+                    users.users.dylan = {
+                        name = "dylan";
+                        home = "/Users/dylan";
+                    };
+                    home-manager.useGlobalPkgs = true;
+                    home-manager.useUserPackages = true;
+                    home-manager.backupFileExtension = null;
+                    home-manager.users.dylan = import ./home/darwin.nix;
+                    home-manager.extraSpecialArgs = { hostname = "dylanix"; };
+                }
+            ];
+            specialArgs = { 
+                inherit self homebrew-core homebrew-cask; 
+            };
         };
     };
 }
