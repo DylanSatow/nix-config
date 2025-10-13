@@ -21,6 +21,16 @@ with lib.hm.gvariant;
       window-height = 1008;
     };
 
+    "org/gnome/Music" = {
+      window-maximized = true;
+    };
+
+    "org/gnome/Snapshot" = {
+      is-maximized = false;
+      window-height = 640;
+      window-width = 800;
+    };
+
     "org/gnome/calendar" = {
       active-view = "month";
       window-maximized = true;
@@ -28,8 +38,8 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/control-center" = {
-      last-panel = "keyboard";
-      window-state = mkTuple [ 980 640 true ];
+      last-panel = "wifi";
+      window-state = mkTuple [ 980 640 false ];
     };
 
     "org/gnome/desktop/app-folders" = {
@@ -86,10 +96,12 @@ with lib.hm.gvariant;
 
     "org/gnome/desktop/interface" = {
       color-scheme = "prefer-dark";
+      gtk-theme = "Catppuccin-Mocha";
+      icon-theme = "Papirus-Dark";
     };
 
     "org/gnome/desktop/notifications" = {
-      application-children = [ "firefox" "kitty" "org-gnome-epiphany" "gnome-power-panel" ];
+      application-children = [ "firefox" "kitty" "org-gnome-epiphany" "gnome-power-panel" "spotify" ];
     };
 
     "org/gnome/desktop/notifications/application/firefox" = {
@@ -106,6 +118,11 @@ with lib.hm.gvariant;
 
     "org/gnome/desktop/notifications/application/org-gnome-epiphany" = {
       application-id = "org.gnome.Epiphany.desktop";
+      enable = false;
+    };
+
+    "org/gnome/desktop/notifications/application/spotify" = {
+      application-id = "spotify.desktop";
     };
 
     "org/gnome/desktop/peripherals/touchpad" = {
@@ -121,6 +138,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/desktop/search-providers" = {
+      disabled = [ "org.gnome.Epiphany.desktop" ];
       sort-order = [ "org.gnome.Settings.desktop" "org.gnome.Contacts.desktop" "org.gnome.Nautilus.desktop" ];
     };
 
@@ -248,7 +266,7 @@ with lib.hm.gvariant;
       restore-attach-modal-dialogs = "";
       restore-edge-tiling = "";
       restore-keybinds = ''
-        {}\n
+        {}\\\\n\\n\n
       '';
       restore-workspaces-only-on-primary = "";
       selection-border-size = 9;

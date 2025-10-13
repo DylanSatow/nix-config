@@ -4,7 +4,6 @@
         settings = {
             editor = {
                 line-number = "relative";
-                whitespace.render = "all";
                 cursor-shape = {
                     insert = "bar";
                     normal = "block";

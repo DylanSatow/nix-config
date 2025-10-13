@@ -33,16 +33,28 @@
     services.xserver.displayManager.gdm.enable = true;
     services.xserver.desktopManager.gnome.enable = true;
 
-    # Enable declarative gnome config 
-    programs.dconf.enable = true;
+    environment.gnome.excludePackages = (with pkgs; [
+        gnome-photos
+        gnome-tour
+        gnome-music
+        gedit # text editor
+        epiphany # web browser
+        geary # email reader
+        gnome-characters
+        tali # poker game
+        iagno # go game
+        hitori # sudoku game
+        atomix # puzzle game
+        yelp # Help view
+        gnome-contacts
+        gnome-initial-setup
 
-    xdg.portal = {
-        enable = true;
-        extraPortals = with pkgs; [ 
-            xdg-desktop-portal-hyprland 
-            xdg-desktop-portal-gtk
-        ];
-    };
+    ]);
+
+    programs.dconf.enable = true;
+    environment.systemPackages = with pkgs; [
+        gnome-tweaks
+    ];
 
     services.xserver.xkb = {
         layout = "us";
