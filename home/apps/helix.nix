@@ -1,6 +1,7 @@
 { ... } : {
     programs.helix = {
         enable = true;
+        defaultEditor = true;
         settings = {
             editor = {
                 line-number = "relative";
@@ -16,9 +17,15 @@
             language = [
                 {
                     name = "nix";
-                    formatter = {command = "alejandra";};
-                    auto-format = true;
-                }  
+                    language-servers = [ "nil" ];
+                }
+                {
+                    name = "python";
+                    language-servers = [ "pyright" ];
+                }
+                {
+                    name = "rust";
+                }
             ];
         };
     };

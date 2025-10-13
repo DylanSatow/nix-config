@@ -32,5 +32,26 @@
         # AI tools
         unstable.claude-code
         unstable.gemini-cli
+
+        # cli tools
+        zellij
+        yazi
+
+        # Dev Stuff
+        # python
+        python3
+        pyright
+        # nix 
+        nil
+        alejandra
+        # rust
+        rustc
+        rust-analyzer
+        # go
+        go
+        gopls 
+        # c
+        gcc
+                
     ];
 }
