@@ -72,6 +72,7 @@
                         ./home
                         catppuccin.homeModules.catppuccin
                     ];
+                    home-manager.extraSpecialArgs = { hostname = "dylanpc"; };
                 }
 
             ];
@@ -98,7 +99,9 @@
                     home-manager.useUserPackages = true;
                     home-manager.users.dylan.imports = [
                         ./home
+                        catppuccin.homeModules.catppuccin
                     ];
+                    home-manager.extraSpecialArgs = { hostname = "dylanmac"; };
                 }
             ];
             specialArgs = { 

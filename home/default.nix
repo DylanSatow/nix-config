@@ -1,19 +1,19 @@
-{ pkgs, catppuccin, ... }: {
+{ lib, catppuccin, hostname, ... }: {
     imports = [
         ./apps
-        ./gnome
-    ];
+    ] ++ lib.optional (hostname == "dylanpc") ./gnome;
 
     catppuccin = {
         enable = true;
         flavor = "mocha";
         accent = "lavender";
     };
-
+    
     home = {
+        stateVersion = "25.05"; 
+    } // lib.optionalAttrs(hostname == "dylanpc") {
         username = "dylan";
         homeDirectory = "/home/dylan";
-        stateVersion = "25.05"; 
     };
     programs.home-manager.enable = true; 
 }
