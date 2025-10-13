@@ -26,6 +26,10 @@
                 {
                     name = "rust";
                 }
+                {
+                    name = "markdown";
+                    language-servers = [ "markdown-oxide" ];
+                }
             ];
         };
     };

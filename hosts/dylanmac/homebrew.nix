@@ -19,9 +19,10 @@
             "nordvpn"
             "superhuman"
             "surge-xt"
-            # "docker"
             "remarkable"
             "warp"
+            "alt-tab"
+            "rectangle"
         ];
     };
 

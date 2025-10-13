@@ -42,5 +42,7 @@
         gopls 
         # c
         gcc
+        # markdown
+        markdown-oxide 
     ];
 }
