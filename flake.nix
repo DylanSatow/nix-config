@@ -59,9 +59,7 @@
             modules = [
                 ./hosts/dylanpc
                 {
-                    nixpkgs.overlays = [
-                        (overlays.unstable-overlay "x86_64-linux")
-                    ];
+                    nixpkgs.overlays = [(overlays.unstable-overlay "x86_64-linux")];
                 }
                 catppuccin.nixosModules.catppuccin
                 home-manager.nixosModules.home-manager
@@ -80,27 +78,27 @@
             specialArgs = { inherit inputs; };                
         };
 
-        darwinConfigurations.dylanix = nix-darwin.lib.darwinSystem {
+        darwinConfigurations.dylanmac = nix-darwin.lib.darwinSystem {
             system = "aarch64-darwin";
             modules = [ 
+                ./hosts/dylanmac
                 {
-                    nixpkgs.overlays = [ (overlaysModule.unstable-overlay "aarch64-darwin") ];
-                    nixpkgs.config.allowUnfree = true;
+                    nixpkgs.overlays = [ (overlays.unstable-overlay "aarch64-darwin") ];
                 }
-                ./shared/default.nix
-                ./hosts/dylanix
                 nix-homebrew.darwinModules.nix-homebrew 
                 home-manager.darwinModules.home-manager
                 {
                     users.users.dylan = {
                         name = "dylan";
                         home = "/Users/dylan";
-                    };
+                    };                   
+                    nixpkgs.overlays = [ (overlays.unstable-overlay "aarch64-darwin") ];
+                    nixpkgs.config.allowUnfree = true;
                     home-manager.useGlobalPkgs = true;
                     home-manager.useUserPackages = true;
-                    home-manager.backupFileExtension = null;
-                    home-manager.users.dylan = import ./home/darwin.nix;
-                    home-manager.extraSpecialArgs = { hostname = "dylanix"; };
+                    home-manager.users.dylan.imports = [
+                        ./home
+                    ];
                 }
             ];
             specialArgs = { 
