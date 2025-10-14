@@ -25,6 +25,8 @@
         zellij
         yazi
         zoxide
+        tdf
+        unstable.bootdev-cli
 
         # Dev Stuff
         # python
