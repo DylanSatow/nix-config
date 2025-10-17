@@ -17,6 +17,7 @@
         zip
         unzip
         dconf2nix
+        seatd
 
         unstable.helix
 

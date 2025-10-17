@@ -1,7 +1,7 @@
 { lib, catppuccin, hostname, ... }: {
     imports = [
         ./apps
-    ] ++ lib.optional (hostname == "dylanpc") ./gnome;
+    ] ++ lib.optional (hostname == "dylanpc") ./niri;
 
     catppuccin = {
         enable = true;
