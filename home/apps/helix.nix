@@ -11,6 +11,7 @@
                     select = "underline";
                 };
             };
+            keys.normal.space.q = ":write-quit";
         };
 
         languages = {

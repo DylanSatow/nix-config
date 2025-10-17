@@ -48,6 +48,7 @@
         # rust
         rustc
         rust-analyzer
+        cargo
         # go
         go
         gopls 

@@ -23,7 +23,16 @@
 
     programs.zellij = {
         enable = true;
-        enableZshIntegration = true;  
+        enableZshIntegration = true;
+        settings = {
+            keybinds = {
+                normal = {
+                    "bind \"Alt q\"" = { CloseFocus = {}; };
+                    "bind \"Alt t\"" = { NewTab = {}; };
+                };
+            };
+            show_startup_tips = false;
+        };
     };
 
     programs.zoxide = {
