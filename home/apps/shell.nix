@@ -11,6 +11,8 @@
             nrb = ''
                 sudo nixos-rebuild switch --flake ~/nix-config#dylanpc
             '';
+            y = "yazi";
+            lg = "lazygit";
         };
     };
     programs.direnv = {

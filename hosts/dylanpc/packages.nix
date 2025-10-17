@@ -35,6 +35,7 @@
 
         # cli tools
         zellij
+        lazygit
         yazi
 
         # Dev Stuff

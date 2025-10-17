@@ -1,6 +1,6 @@
-{ catppuccin, ... } : {
+{ ... } : {
     imports = [
-        ./dconf.nix 
         ./gtk.nix
+        ./dconf.nix
     ];
 }
