@@ -11,4 +11,17 @@
             macos_option_as_alt = "yes";
         };
     };
+    programs.alacritty = {
+        enable = true;
+        settings = {
+            font = {
+                size = 11;
+                normal = {
+                    family = "JetBrains Mono Nerd Font";
+                    style = "Regular";
+                };
+            };
+            cursor.style.shape = "beam";
+        };
+    };
 }

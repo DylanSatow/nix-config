@@ -35,7 +35,7 @@
         modesetting.enable = true;
 
         # Enable if we are getting crashes after sleeping
-        powerManagement.enable = false;
+        powerManagement.enable = true;
         
         # Use open source drivers 
         open = true;

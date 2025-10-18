@@ -31,6 +31,10 @@
                     name = "markdown";
                     language-servers = [ "markdown-oxide" ];
                 }
+                {
+                    name = "c";
+                    language-servers = [ "clangd" ];
+                }
             ];
         };
     };

@@ -56,6 +56,9 @@
         gnome-tweaks
     ];
 
+    # Enable Docker
+    virtualisation.docker.enable = true;
+
     services.xserver.xkb = {
         layout = "us";
         variant = "";
@@ -76,7 +79,7 @@
     users.users.dylan = {
         isNormalUser = true;
         description = "dylansatow";
-        extraGroups = [ "networkmanager" "wheel" ];
+        extraGroups = [ "networkmanager" "wheel" "docker"];
         shell = pkgs.zsh;
     };
 

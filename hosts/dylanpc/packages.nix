@@ -37,6 +37,9 @@
         zellij
         lazygit
         yazi
+        docker
+        ripgrep
+        ripgrep-all
 
         # Dev Stuff
         # python
@@ -54,6 +57,6 @@
         gopls 
         # c
         gcc
-                
+        clang-tools                
     ];
 }
