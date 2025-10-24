@@ -12,6 +12,7 @@
         alacritty
         kitty
         vscode
+        gnome-pomodoro
 
         # Core system utils 
         zip
