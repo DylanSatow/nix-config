@@ -1,4 +1,4 @@
-{ ... } : {
+{ ... }: {
     programs.helix = {
         enable = true;
         defaultEditor = true;
@@ -10,6 +10,8 @@
                     normal = "block";
                     select = "underline";
                 };
+                continue-comments = false;
+                end-of-line-diagnostics = "hint";
             };
             keys.normal.space.q = ":write-quit";
         };
@@ -34,6 +36,10 @@
                 {
                     name = "c";
                     language-servers = [ "clangd" ];
+                }
+                {
+                    name = "go";
+                    language-servers = [ "gopls" "golangci-lint-lsp" ];
                 }
             ];
         };

@@ -55,6 +55,9 @@
         cargo
         # go
         go
+        golangci-lint-langserver
+        delve
+        golangci-lint
         gopls 
         # c
         gcc
