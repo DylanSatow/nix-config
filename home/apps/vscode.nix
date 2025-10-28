@@ -34,6 +34,7 @@
                 "vim.useSystemClipboard" = true;
                 "vim.hlsearch" = true;
                 
+                "editor.fontFamily" = "JetBrainsMono Nerd Font";
                 "editor.lineNumbers" = "on";
                 "editor.minimap.enabled" = true;
                 
