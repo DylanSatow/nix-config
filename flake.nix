@@ -10,6 +10,12 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
+        # Editors
+        nix4vscode = {
+            url = "github:nix-community/nix4vscode";
+            inputs.nixpkgs.follows = "nixpkgs";            
+        };
+
         # THEMING 
         stylix = {
             url = "github:nix-community/stylix";
@@ -39,6 +45,7 @@
     outputs = {
         self,
         nixpkgs,
+        nix4vscode,
         home-manager,
         nixpkgs-unstable,
         catppuccin,
@@ -58,13 +65,13 @@
             system = "x86_64-linux";
             modules = [
                 ./hosts/dylanpc
-                {
-                    nixpkgs.overlays = [(overlays.unstable-overlay "x86_64-linux")];
-                }
                 catppuccin.nixosModules.catppuccin
                 home-manager.nixosModules.home-manager
                 {
-                    nixpkgs.overlays = [ (overlays.unstable-overlay "x86_64-linux") ];
+                    nixpkgs.overlays = [
+                        (overlays.unstable-overlay "x86_64-linux")
+                        nix4vscode.overlays.default
+                    ];
                     nixpkgs.config.allowUnfree = true;
                     home-manager.useGlobalPkgs = true;
                     home-manager.useUserPackages = true;

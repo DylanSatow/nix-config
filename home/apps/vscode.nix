@@ -3,8 +3,6 @@
         enable = true;
         profiles.default = {
             extensions = with pkgs.vscode-extensions; [
-                vscodevim.vim
-                
                 ms-vscode-remote.remote-containers
                 ms-vscode-remote.remote-ssh
                 ms-vscode-remote.remote-wsl
@@ -23,6 +21,9 @@
                 ms-vscode.cpptools
                 ms-vscode.cpptools-extension-pack
                 ms-vscode.cmake-tools
+            ] ++ pkgs.nix4vscode.forVscode [
+                "jasew.vscode-helix-emulation"
+                "ms-vscode.atom-keybindings"
             ];
             
             userSettings = {
