@@ -62,5 +62,7 @@
         # c
         gcc
         clang-tools                
+        #nodejs
+        nodejs-slim
     ];
 }

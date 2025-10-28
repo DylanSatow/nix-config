@@ -24,6 +24,7 @@
             ] ++ pkgs.nix4vscode.forVscode [
                 "jasew.vscode-helix-emulation"
                 "ms-vscode.atom-keybindings"
+                "LeetCode.vscode-leetcode"
             ];
             
             userSettings = {
@@ -40,7 +41,6 @@
                 
                 "python.defaultInterpreterPath" = "/usr/bin/python3";
                 "python.formatting.provider" = "black";
-                "leetcode.workspaceFolder" = "/Users/dylan/.leetcode";
                 "go.formatTool" = "goimports";
                 "go.useLanguageServer" = true;
 
