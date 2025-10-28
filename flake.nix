@@ -90,9 +90,6 @@
             system = "aarch64-darwin";
             modules = [ 
                 ./hosts/dylanmac
-                {
-                    nixpkgs.overlays = [ (overlays.unstable-overlay "aarch64-darwin") ];
-                }
                 nix-homebrew.darwinModules.nix-homebrew 
                 home-manager.darwinModules.home-manager
                 {
@@ -100,7 +97,10 @@
                         name = "dylan";
                         home = "/Users/dylan";
                     };                   
-                    nixpkgs.overlays = [ (overlays.unstable-overlay "aarch64-darwin") ];
+                    nixpkgs.overlays = [
+                        (overlays.unstable-overlay "aarch64-darwin")
+                        nix4vscode.overlays.default
+                    ];
                     nixpkgs.config.allowUnfree = true;
                     home-manager.useGlobalPkgs = true;
                     home-manager.useUserPackages = true;
