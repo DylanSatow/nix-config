@@ -2,10 +2,6 @@
 
 {
   environment.systemPackages = with pkgs.unstable; [
-    # editors
-    helix
-    neovim
-
     zellij
     lazygit
     yazi

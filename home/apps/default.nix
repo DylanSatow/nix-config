@@ -1,10 +1,11 @@
 { ... } : {
     imports = [
-        ./firefox.nix 
-        ./git.nix 
+        ./firefox.nix
+        ./git.nix
         ./shell.nix
         ./vscode.nix
         ./kitty.nix
         ./helix.nix
+        ./neovim.nix
     ];
 }
