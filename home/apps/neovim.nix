@@ -1,4 +1,4 @@
-{ config, ... }: {
+{ ... }: {
   programs.neovim = {
     enable = true;
     defaultEditor = false;  # helix is already set as default
@@ -6,9 +6,9 @@
     vimAlias = true;
   };
 
-  # Symlink the nvim config directory to ~/.config/nvim
-  xdg.configFile.nvim = {
-    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/home/nix-config/home/nvim";
+  # Copy nvim config to ~/.config/nvim
+  xdg.configFile."nvim" = {
+    source = ./nvim;
     recursive = true;
   };
 }

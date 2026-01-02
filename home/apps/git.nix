@@ -1,7 +1,11 @@
 { ... } : {
     programs.git = {
         enable = true;
-        userName = "DylanSatow";
-        userEmail = "dylansatow531@gmail.com";
+        settings = {
+            user = {
+                name = "DylanSatow";
+                email = "dylansatow531@gmail.com";
+            };
+        };
     };
 }
