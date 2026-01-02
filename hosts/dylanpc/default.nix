@@ -1,7 +1,8 @@
 {
     imports = [
-        ./hardware.nix 
-        ./system.nix 
+        ../common
+        ./hardware.nix
+        ./system.nix
         ./packages.nix
     ];
 }

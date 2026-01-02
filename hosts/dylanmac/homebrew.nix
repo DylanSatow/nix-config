@@ -23,6 +23,9 @@
             "warp"
             "alt-tab"
             "rectangle"
+            "docker"
+            "tomatobar"
+            "claude-code"
         ];
     };
 

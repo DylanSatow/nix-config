@@ -8,6 +8,8 @@
                 ms-vscode-remote.remote-wsl
                 ms-vscode-remote.vscode-remote-extensionpack
 
+                vscodevim.vim
+
                 james-yu.latex-workshop
                 
                 pkief.material-icon-theme
@@ -22,7 +24,6 @@
                 ms-vscode.cpptools-extension-pack
                 ms-vscode.cmake-tools
             ] ++ pkgs.nix4vscode.forVscode [
-                "jasew.vscode-helix-emulation"
                 "ms-vscode.atom-keybindings"
                 "LeetCode.vscode-leetcode"
             ];

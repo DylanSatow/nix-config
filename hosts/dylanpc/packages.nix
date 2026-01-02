@@ -1,68 +1,30 @@
 { pkgs, ... }: {
-    environment.systemPackages = with pkgs; [
+    environment.systemPackages = with pkgs.unstable; [
+        # GUI Applications
         spotify
         obsidian
         discord
+        vscode
+        gnome-pomodoro
+        surge-XT
+
+        # Terminal
+        kitty
+
+        # NixOS utilities
+        networkmanagerapplet
+        dconf2nix
+
+        # Gaming
+        mangohud
+        protonup
+
+        # Containers
         docker
         docker-compose
         docker-client
-        btop
-        networkmanagerapplet
-        surge-XT 
-        alacritty
-        kitty
-        vscode
-        gnome-pomodoro
 
-        # Core system utils 
-        zip
-        unzip
-        dconf2nix
-
-        unstable.helix
-
-        # Gaming
-        mangohud 
-        protonup
-
-        # Gpu Programming
+        # Nvidia Development
         cudaPackages.cuda_nvcc
-
-        gh
-
-        # AI tools
-        unstable.claude-code
-        unstable.gemini-cli
-
-        # cli tools
-        zellij
-        lazygit
-        yazi
-        docker
-        ripgrep
-        ripgrep-all
-
-        # Dev Stuff
-        # python
-        python3
-        pyright
-        # nix 
-        nil
-        alejandra
-        # rust
-        rustc
-        rust-analyzer
-        cargo
-        # go
-        go
-        golangci-lint-langserver
-        delve
-        golangci-lint
-        gopls 
-        # c
-        gcc
-        clang-tools                
-        #nodejs
-        nodejs-slim
     ];
 }
