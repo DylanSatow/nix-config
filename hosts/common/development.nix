@@ -9,6 +9,11 @@
     # Python
     python3
     pyright
+    poetry
+    uv
+
+    # Javascript
+    pnpm
 
     # Rust
     rustc
@@ -24,7 +29,12 @@
 
     # C
     gcc
-
     clang-tools
+
+    # Markdown
+    markdown-oxide
+
+    # Tex
+    texliveFull
   ];
 }
