@@ -23,10 +23,12 @@
                 ms-vscode.cpptools
                 ms-vscode.cpptools-extension-pack
                 ms-vscode.cmake-tools
-            ] ++ pkgs.nix4vscode.forVscode [
-                "ms-vscode.atom-keybindings"
-                "LeetCode.vscode-leetcode"
             ];
+
+            # ++ pkgs.nix4vscode.forVscode [
+            #     "ms-vscode.atom-keybindings"
+            #     "LeetCode.vscode-leetcode"
+            # ];
             
             userSettings = {
                 "workbench.sideBar.location" = "right";
@@ -47,8 +49,6 @@
 
                 "latex-workshop.latex.autoClean.run" = "onBuilt";
                 "latex-workshop.latex.autoBuild.run" = "onSave";
-                "C_Cpp.default.cppStandard" = "c++17";
-                "C_Cpp.default.cStandard" = "c11";
             };
         };
     };
