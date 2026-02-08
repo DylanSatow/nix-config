@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 {
     programs.neovim = {
         enable = true;
@@ -123,7 +123,7 @@
     };
 
     # https://github.com/nvim-treesitter/nvim-treesitter#i-get-query-error-invalid-node-type-at-position
-    xdg.configFile."nvim/parser".source =
+    xdg.configFile."nvim/parsers".source =
         let
             parsers = pkgs.symlinkJoin {
                 name = "treesitter-parsers";
@@ -141,4 +141,7 @@
 
     # Normal LazyVim config here, see https://github.com/LazyVim/starter/tree/main/lua
     xdg.configFile."nvim/lua".source = ./lua;
+    xdg.configFile."nvim/init.lua".source = ./init.lua;
+    xdg.configFile."nvim/stylua.toml".source = ./stylua.toml;
+
 }
