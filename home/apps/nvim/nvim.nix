@@ -23,6 +23,9 @@
       gopls
       markdown-oxide
 
+      # Markdown CLI
+      markdownlint-cli2
+
       # Telescope
       ripgrep
       fzf
@@ -117,7 +120,7 @@
           # leetcode-nvim
           snacks-nvim
           conform-nvim
-
+          render-markdown-nvim
         ];
         mkEntryFromDrv =
           drv:
