@@ -6,6 +6,6 @@
         ./vscode.nix
         ./kitty.nix
         ./helix.nix
-        ./neovim.nix
+        ./nvim/neovim.nix
     ];
 }
