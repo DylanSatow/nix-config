@@ -1,30 +1,33 @@
-{ pkgs, ... }: {
-    environment.systemPackages = with pkgs.unstable; [
-        # GUI Applications
-        spotify
-        obsidian
-        discord
-        vscode
-        gnome-pomodoro
-        surge-XT
+{ pkgs, ... }:
+{
+  programs.steam.enable = true;
+  environment.systemPackages = with pkgs.unstable; [
+    # GUI Applications
+    spotify
+    obsidian
+    discord
+    vscode
+    gnome-pomodoro
+    surge-XT
 
-        # Terminal
-        kitty
+    # Terminal
+    kitty
+    warp-terminal
 
-        # NixOS utilities
-        networkmanagerapplet
-        dconf2nix
+    # NixOS utilities
+    networkmanagerapplet
+    dconf2nix
 
-        # Gaming
-        mangohud
-        protonup-ng
+    # Gaming
+    mangohud
+    protonup-ng
 
-        # Containers
-        docker
-        docker-compose
-        docker-client
+    # Containers
+    docker
+    docker-compose
+    docker-client
 
-        # Nvidia Development
-        cudaPackages.cuda_nvcc
-    ];
+    # Nvidia Development
+    cudaPackages.cuda_nvcc
+  ];
 }
