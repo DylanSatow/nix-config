@@ -17,7 +17,7 @@
 
         # Gaming
         mangohud
-        protonup
+        protonup-ng
 
         # Containers
         docker
