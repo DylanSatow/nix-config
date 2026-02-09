@@ -124,6 +124,8 @@
           snacks-nvim
           conform-nvim
           render-markdown-nvim
+          dial-nvim
+          yanky-nvim
         ];
         mkEntryFromDrv =
           drv:
@@ -196,5 +198,4 @@
   xdg.configFile."nvim/lua".source = ./lua;
   xdg.configFile."nvim/init.lua".source = ./init.lua;
   xdg.configFile."nvim/stylua.toml".source = ./stylua.toml;
-  xdg.configFile."nvim/lazyvim.json".source = ./lazyvim.json;
 }
