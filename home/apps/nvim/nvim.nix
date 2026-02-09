@@ -23,6 +23,9 @@
       gopls
       markdown-oxide
 
+      # Formatters
+      ruff
+
       # Markdown CLI
       markdownlint-cli2
 

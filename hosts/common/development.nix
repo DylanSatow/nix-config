@@ -8,6 +8,7 @@
 
     # Python
     python3
+    ruff
     pyright
     poetry
     uv
