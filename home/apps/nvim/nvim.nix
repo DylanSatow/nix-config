@@ -120,7 +120,7 @@
           }
 
           # My changes
-          # leetcode-nvim
+          leetcode-nvim
           snacks-nvim
           conform-nvim
           render-markdown-nvim
