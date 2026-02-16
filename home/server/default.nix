@@ -15,5 +15,9 @@
     stateVersion = "25.05";
   };
 
+  programs.zsh.initExtra = ''
+    export PATH="/home/ubuntu/.npm-global/bin:$PATH"
+  '';
+
   programs.home-manager.enable = true;
 }
