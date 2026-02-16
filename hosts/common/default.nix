@@ -1,8 +1,6 @@
 {
   imports = [
-    ./core.nix
-    ./cli-tools.nix
-    ./development.nix
+    ./server.nix
     ./multimedia.nix
   ];
 }

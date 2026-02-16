@@ -61,6 +61,16 @@
         overlays = import ./overlays.nix { inherit nixpkgs-unstable; };
     in
     {
+        homeConfigurations."dylan@dylanserver" = home-manager.lib.homeManagerConfiguration {
+            pkgs = import nixpkgs {
+                system = "aarch64-linux";
+                overlays = [ (overlays.unstable-overlay "aarch64-linux") ];
+                config.allowUnfree = true;
+            };
+            extraSpecialArgs = { hostname = "dylanserver"; };
+            modules = [ ./home/server ];
+        };
+
         nixosConfigurations.dylanpc = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
             modules = [
