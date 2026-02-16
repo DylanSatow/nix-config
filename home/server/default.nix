@@ -10,8 +10,8 @@
   ];
 
   home = {
-    username = "dylan";
-    homeDirectory = "/home/dylan";
+    username = "ubuntu";
+    homeDirectory = "/home/ubuntu";
     stateVersion = "25.05";
   };
 

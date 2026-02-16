@@ -3,7 +3,7 @@
 {
   home.packages = with pkgs.unstable; [
     # CLI tools (mirrors hosts/common/cli-tools.nix)
-    zellij
+    # zellij is provided by programs.zellij in shell.nix
     lazygit
     yazi
     ripgrep
