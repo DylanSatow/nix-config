@@ -11,9 +11,7 @@
     fd
     gh
 
-    # AI tools
     claude-code
-    gemini-cli
 
     tree-sitter
   ];
