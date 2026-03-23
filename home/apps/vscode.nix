@@ -1,57 +1,57 @@
-{ pkgs, ... } : {
-    catppuccin.vscode.enable = false;
+{ pkgs, ... }:
+{
+  # catppuccin.vscode.enable = false;
+  programs.vscode = {
+    enable = true;
+    profiles.default = {
+      extensions = with pkgs.vscode-extensions; [
+        ms-vscode-remote.remote-containers
+        ms-vscode-remote.remote-ssh
+        ms-vscode-remote.remote-wsl
+        ms-vscode-remote.vscode-remote-extensionpack
 
-    programs.vscode = {
-        enable = true;
-        profiles.default = {
-            extensions = with pkgs.vscode-extensions; [
-                ms-vscode-remote.remote-containers
-                ms-vscode-remote.remote-ssh
-                ms-vscode-remote.remote-wsl
-                ms-vscode-remote.vscode-remote-extensionpack
+        vscodevim.vim
 
-                vscodevim.vim
+        james-yu.latex-workshop
 
-                james-yu.latex-workshop
-                
-                pkief.material-icon-theme
-                pkief.material-product-icons
-                
-                ms-python.python
-                ms-python.pylint
-                ms-python.black-formatter
-                bbenoist.nix
-                golang.go
-                ms-vscode.cpptools
-                ms-vscode.cpptools-extension-pack
-                ms-vscode.cmake-tools
-            ];
+        pkief.material-icon-theme
+        pkief.material-product-icons
 
-            # ++ pkgs.nix4vscode.forVscode [
-            #     "ms-vscode.atom-keybindings"
-            #     "LeetCode.vscode-leetcode"
-            # ];
-            
-            userSettings = {
-                "workbench.sideBar.location" = "right";
-                
-                "terminal.integrated.stickyScroll.enabled" = false;
+        ms-python.python
+        ms-python.pylint
+        ms-python.black-formatter
+        bbenoist.nix
+        golang.go
+        ms-vscode.cpptools
+        ms-vscode.cpptools-extension-pack
+        ms-vscode.cmake-tools
+      ];
 
-                "vim.useSystemClipboard" = true;
-                "vim.hlsearch" = true;
-                
-                "editor.fontFamily" = "JetBrainsMono Nerd Font";
-                "editor.lineNumbers" = "on";
-                "editor.minimap.enabled" = true;
-                
-                "python.defaultInterpreterPath" = "/usr/bin/python3";
-                "python.formatting.provider" = "black";
-                "go.formatTool" = "goimports";
-                "go.useLanguageServer" = true;
+      # ++ pkgs.nix4vscode.forVscode [
+      #     "ms-vscode.atom-keybindings"
+      #     "LeetCode.vscode-leetcode"
+      # ];
 
-                "latex-workshop.latex.autoClean.run" = "onBuilt";
-                "latex-workshop.latex.autoBuild.run" = "onSave";
-            };
-        };
+      userSettings = {
+        "workbench.sideBar.location" = "right";
+
+        "terminal.integrated.stickyScroll.enabled" = false;
+
+        "vim.useSystemClipboard" = true;
+        "vim.hlsearch" = true;
+
+        "editor.fontFamily" = "JetBrainsMono Nerd Font";
+        "editor.lineNumbers" = "on";
+        "editor.minimap.enabled" = true;
+
+        "python.defaultInterpreterPath" = "/usr/bin/python3";
+        "python.formatting.provider" = "black";
+        "go.formatTool" = "goimports";
+        "go.useLanguageServer" = true;
+
+        "latex-workshop.latex.autoClean.run" = "onBuilt";
+        "latex-workshop.latex.autoBuild.run" = "onSave";
+      };
     };
+  };
 }

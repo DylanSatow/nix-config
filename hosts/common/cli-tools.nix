@@ -12,6 +12,7 @@
     gh
 
     claude-code
+    gemini-cli
 
     tree-sitter
   ];

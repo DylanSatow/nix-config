@@ -31,6 +31,7 @@
     # C
     gcc
     clang-tools
+    pkgs.valgrind-light
 
     # Markdown
     markdown-oxide
