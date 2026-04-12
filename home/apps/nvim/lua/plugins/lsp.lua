@@ -11,12 +11,6 @@ return {
             },
         },
     },
-    {
-        "mason-org/mason.nvim",
-        opts = {
-            ensure_installed = {},
-        },
-    },
     -- {
     --     "neovim/nvim-lspconfig",
     --     opts = function(_, opts)
