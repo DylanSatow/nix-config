@@ -9,6 +9,7 @@
   environment.systemPackages = with pkgs.unstable; [
     # GUI Applications
     # spotify
+    code-cursor
     obsidian
     discord
     vscode

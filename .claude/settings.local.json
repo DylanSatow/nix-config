@@ -5,7 +5,10 @@
       "WebFetch(domain:wiki.nixos.org)",
       "WebFetch(domain:github.com)",
       "WebFetch(domain:raw.githubusercontent.com)",
-      "Bash(rm:*)"
+      "Bash(rm:*)",
+      "Read(//home/dylan/**)",
+      "Bash(golangci-lint run:*)",
+      "Bash(echo \"EXIT: $?\")"
     ],
     "deny": [],
     "ask": []
