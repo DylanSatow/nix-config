@@ -1,14 +1,20 @@
 { pkgs, ... }:
 {
   programs.steam.enable = true;
+  programs.steam.gamescopeSession.enable = true;
+  programs.gamemode.enable = true;
+
+  services.tailscale.enable = true;
+
   environment.systemPackages = with pkgs.unstable; [
     # GUI Applications
-    spotify
+    # spotify
     obsidian
     discord
     vscode
     gnome-pomodoro
     surge-XT
+    keymapp
 
     # Terminal
     kitty
