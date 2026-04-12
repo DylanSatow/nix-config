@@ -120,6 +120,7 @@
           }
 
           # My changes
+          overseer-nvim
           leetcode-nvim
           snacks-nvim
           conform-nvim
