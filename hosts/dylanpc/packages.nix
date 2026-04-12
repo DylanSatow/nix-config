@@ -13,7 +13,7 @@
     discord
     vscode
     gnome-pomodoro
-    surge-XT
+    surge-xt
     keymapp
 
     # Terminal
