@@ -18,7 +18,9 @@
     # Disable runtime power management for WiFi to prevent jitter
     services.udev.extraRules = ''
         ACTION=="add", SUBSYSTEM=="net", KERNEL=="wlp9s0", ATTR{device/power/control}="on"
-        SUBSYSTEM=="usb", ATTR{idVendor}=="3297", ATTR{idProduct}=="1969", GROUP="plugdev"
+        SUBSYSTEM=="usb", ATTR{idVendor}=="3297", ATTR{idProduct}=="1969", GROUP="plugdev", MODE="0660"
+        SUBSYSTEM=="hidraw", ATTRS{idVendor}=="3297", ATTRS{idProduct}=="1969", MODE="0660", GROUP="plugdev"
+        SUBSYSTEM=="usb", ATTR{idVendor}=="0483", ATTR{idProduct}=="df11", GROUP="plugdev", MODE="0660"
     '';
 
     time.timeZone = "America/New_York";
@@ -79,6 +81,8 @@
         alsa.support32Bit = true;
         pulse.enable = true;
     };
+
+    users.groups.plugdev = {};
 
     programs.zsh.enable = true;
     users.users.dylan = {
