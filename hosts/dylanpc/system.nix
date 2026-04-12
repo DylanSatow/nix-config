@@ -7,9 +7,19 @@
     # Fix 144hz monitor support in Hyprland
     boot.kernelParams = [ "nvidia-modeset.hdmi_deepcolor=0" ];
 
+    # Fix WiFi jitter for MediaTek MT7921e driver
+    boot.extraModprobeConfig = ''
+        options mt7921e disable_aspm=Y
+    '';
 
     networking.hostName = "dylanpc";
     networking.networkmanager.enable = true;
+
+    # Disable runtime power management for WiFi to prevent jitter
+    services.udev.extraRules = ''
+        ACTION=="add", SUBSYSTEM=="net", KERNEL=="wlp9s0", ATTR{device/power/control}="on"
+        SUBSYSTEM=="usb", ATTR{idVendor}=="3297", ATTR{idProduct}=="1969", GROUP="plugdev"
+    '';
 
     time.timeZone = "America/New_York";
 
@@ -74,7 +84,7 @@
     users.users.dylan = {
         isNormalUser = true;
         description = "dylansatow";
-        extraGroups = [ "networkmanager" "wheel" "docker"];
+        extraGroups = [ "networkmanager" "wheel" "docker" "plugdev"];
         shell = pkgs.zsh;
     };
 
