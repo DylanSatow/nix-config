@@ -109,6 +109,7 @@
                     };                   
                     nixpkgs.overlays = [
                         (overlays.unstable-overlay "aarch64-darwin")
+                        overlays.direnv-overlay
                         nix4vscode.overlays.default
                     ];
                     nixpkgs.config.allowUnfree = true;
