@@ -8,7 +8,9 @@
       "Bash(rm:*)",
       "Read(//home/dylan/**)",
       "Bash(golangci-lint run:*)",
-      "Bash(echo \"EXIT: $?\")"
+      "Bash(echo \"EXIT: $?\")",
+      "Bash(nix flake:*)",
+      "Bash(test:*)"
     ],
     "deny": [],
     "ask": []
