@@ -5,4 +5,9 @@
                 config.allowUnfree = true;
         };
     };
+    direnv-overlay = final: prev: {
+        direnv = prev.direnv.overrideAttrs (old: {
+            doCheck = false;
+        });
+    };
 }

@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, hostname, lib, ... }:
 {
   programs.zsh = {
     enable = true;
@@ -8,10 +8,10 @@
       theme = "robbyrussell";
     };
     shellAliases = {
-      # dconf dump / | dconf2nix > ~/nix-config/home/gnome/dconf.nix
-      nrb = ''
-        sudo nixos-rebuild switch --flake ~/nix-config#dylanpc
-      '';
+      nrb = if hostname == "dylanmac" then
+        "darwin-rebuild switch --flake ~/nix-config#dylanmac"
+      else
+        "sudo nixos-rebuild switch --flake ~/nix-config#dylanpc";
       y = "yazi";
       lg = "lazygit";
     };
