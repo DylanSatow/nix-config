@@ -19,6 +19,7 @@
       nil
       nixd
       nixpkgs-fmt
+      statix
       lua-language-server
       gopls
       markdown-oxide
@@ -157,8 +158,6 @@
                 -- force enable telescope-fzf-native.nvim
                 { "nvim-telescope/telescope-fzf-native.nvim", enabled = true },
                 -- disable mason.nvim, use programs.neovim.extraPackages
-                { "williamboman/mason-lspconfig.nvim", enabled = false },
-                { "williamboman/mason.nvim", enabled = false },
                 { "mason-org/mason-lspconfig.nvim", enabled = false },
                 { "mason-org/mason.nvim", enabled = false },
                 -- import/override with your plugins
