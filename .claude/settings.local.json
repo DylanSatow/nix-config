@@ -24,7 +24,8 @@
       "Bash(nix-build --impure -E 'with import <nixpkgs> {}; callPackage /home/dylan/nix-config/home/gnome/catppuccin-shell-theme.nix {}')",
       "Bash(alejandra:*)",
       "WebFetch(domain:api.github.com)",
-      "WebFetch(domain:bash.live)"
+      "WebFetch(domain:bash.live)",
+      "WebFetch(domain:gitlab.com)"
     ],
     "deny": [],
     "ask": []

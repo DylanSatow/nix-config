@@ -30,11 +30,19 @@ in {
   home.packages = [
     pkgs.gnomeExtensions.user-themes
     pkgs.gnomeExtensions.dash-to-dock
+    pkgs.gnomeExtensions.arcmenu
+    pkgs.gnomeExtensions.space-bar
+    pkgs.gnomeExtensions.vitals
+    pkgs.gnomeExtensions.blur-my-shell
   ];
   dconf.settings."org/gnome/shell" = {
     enabled-extensions = [
       "user-theme@gnome-shell-extensions.gcampax.github.com"
       "dash-to-dock@micxgx.gmail.com"
+      "arcmenu@arcmenu.com"
+      "space-bar@luchrioh"
+      "Vitals@CoreCoding.com"
+      "blur-my-shell@aunetx"
     ];
   };
   dconf.settings."org/gnome/shell/extensions/user-theme" = {

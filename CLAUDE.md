@@ -14,6 +14,8 @@ Flake-based multi-system Nix config for three hosts:
 
 When in doubt, ask. Multiple rounds of Q&A are better than rework.
 
+**Documentation maintenance:** When adding new files, modules, extensions, or changing import chains, update `.claude/architecture.md` to reflect the changes. Keep the file tree, theming section, and tech debt list current. This should happen as part of the work, not as a separate step.
+
 ## Core Conventions
 
 ### Package Sourcing

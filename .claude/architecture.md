@@ -47,8 +47,10 @@ nix-config/
     │       └── lua/
     │
     ├── gnome/                # GNOME desktop config (dylanpc only)
-    │   ├── default.nix
-    │   └── dconf.nix         # Workspaces, keybindings, theming, extensions
+    │   ├── default.nix       # GTK theme, extensions list, wallpaper
+    │   ├── dconf.nix         # Workspaces, keybindings, theming, extension settings
+    │   ├── colors.nix        # Catppuccin Mocha palette — single source for all extension colors
+    │   └── catppuccin-shell-theme.nix  # Fetches Catppuccin GTK/Shell theme derivation
     │
     └── server/               # Server user config (dylanserver only)
         ├── default.nix       # Ubuntu user, shell setup, npm PATH
@@ -135,11 +137,12 @@ This makes `pkgs.unstable.*` available everywhere. Applied to all three host con
 
 - **System level:** catppuccin NixOS/darwin module
 - **Home level:** `catppuccin.enable = true` in `home/default.nix`
-- **GNOME:** Catppuccin GTK theme + Papirus-Dark icons via dconf
+- **GNOME:** Catppuccin GTK theme + Papirus-Dark icons via dconf. Extension colors sourced from `home/gnome/colors.nix`
+- **GNOME extensions:** Dash to Dock, Arc Menu (Runner/spotlight), Space Bar, Vitals, Blur my Shell — all themed via `colors.nix`
 - **Neovim:** catppuccin-nvim plugin
 - **Terminals:** Catppuccin colors via home-manager integration
 
-All applications should respect this theme. Don't introduce competing color schemes.
+All applications should respect this theme. Don't introduce competing color schemes. When adding new GNOME extensions, source colors from `home/gnome/colors.nix` rather than hardcoding.
 
 ## Known Technical Debt
 
