@@ -105,7 +105,7 @@ with lib.hm.gvariant;
     "org/gnome/desktop/interface" = {
       accent-color = "purple";
       color-scheme = "prefer-dark";
-      gtk-theme = "Catppuccin-Mocha";
+      gtk-theme = "Catppuccin-Lavender-Dark";
       icon-theme = "Papirus-Dark";
     };
 

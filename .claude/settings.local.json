@@ -10,7 +10,19 @@
       "Bash(golangci-lint run:*)",
       "Bash(echo \"EXIT: $?\")",
       "Bash(nix flake:*)",
-      "Bash(test:*)"
+      "Bash(test:*)",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(d['inputs']['catppuccin']['path']\\)\")",
+      "Bash(nix search:*)",
+      "Bash(nix eval:*)",
+      "Bash(nix build:*)",
+      "Bash(alejandra /home/dylan/nix-config/home/gnome/default.nix)",
+      "WebFetch(domain:gjs.guide)",
+      "WebFetch(domain:blogs.gnome.org)",
+      "WebSearch",
+      "Bash(gh api:*)",
+      "Bash(git ls-remote:*)",
+      "Bash(nix-build --impure -E 'with import <nixpkgs> {}; callPackage /home/dylan/nix-config/home/gnome/catppuccin-shell-theme.nix {}')",
+      "Bash(alejandra:*)"
     ],
     "deny": [],
     "ask": []
