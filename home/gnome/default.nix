@@ -1,9 +1,9 @@
 {pkgs, ...}: let
+  colors = import ./colors.nix;
   # Actively maintained Catppuccin theme by Fausto-Korpsvart
   # Provides GTK3, GTK4, and GNOME Shell theming from a single source
   catppuccinTheme = import ./catppuccin-shell-theme.nix {inherit pkgs;};
-  themeName = "Catppuccin-Lavender-Dark";
-  themePath = "${catppuccinTheme}/share/themes/${themeName}";
+  themePath = "${catppuccinTheme}/share/themes/${colors.themeName}";
 in {
   imports = [
     ./dconf.nix
@@ -21,22 +21,28 @@ in {
   gtk = {
     enable = true;
     theme = {
-      name = themeName;
+      name = colors.themeName;
       package = catppuccinTheme;
     };
   };
 
   # GNOME Shell theme via User Themes extension
-  home.packages = [pkgs.gnomeExtensions.user-themes];
+  home.packages = [
+    pkgs.gnomeExtensions.user-themes
+    pkgs.gnomeExtensions.dash-to-dock
+  ];
   dconf.settings."org/gnome/shell" = {
-    enabled-extensions = ["user-theme@gnome-shell-extensions.gcampax.github.com"];
+    enabled-extensions = [
+      "user-theme@gnome-shell-extensions.gcampax.github.com"
+      "dash-to-dock@micxgx.gmail.com"
+    ];
   };
   dconf.settings."org/gnome/shell/extensions/user-theme" = {
-    name = themeName;
+    name = colors.themeName;
   };
 
   # Install the GNOME Shell theme so the extension can find it
-  home.file.".themes/${themeName}/gnome-shell".source = "${themePath}/gnome-shell";
+  home.file.".themes/${colors.themeName}/gnome-shell".source = "${themePath}/gnome-shell";
 
   # Wallpaper
   home.file.".local/share/backgrounds/space.jpg".source = ../../assets/space.jpg;

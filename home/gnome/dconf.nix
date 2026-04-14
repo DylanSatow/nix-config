@@ -1,6 +1,9 @@
 # Generated via dconf2nix: https://github.com/gvolpe/dconf2nix
 { lib, ... }:
 
+let
+  colors = import ./colors.nix;
+in
 with lib.hm.gvariant;
 
 {
@@ -103,9 +106,9 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/desktop/interface" = {
-      accent-color = "purple";
+      accent-color = colors.accentColor;
       color-scheme = "prefer-dark";
-      gtk-theme = "Catppuccin-Lavender-Dark";
+      gtk-theme = colors.themeName;
       icon-theme = "Papirus-Dark";
     };
 
@@ -205,6 +208,28 @@ with lib.hm.gvariant;
 
     "org/gnome/shell" = {
       welcome-dialog-last-shown-version = "48.2";
+    };
+
+    # Dash to Dock — Catppuccin Mocha styled bottom dock
+    "org/gnome/shell/extensions/dash-to-dock" = {
+      dock-position = "BOTTOM";
+      dock-fixed = false;
+      autohide = true;
+      intellihide = true;
+      height-fraction = 0.9;
+      dash-max-icon-size = 48;
+      custom-background-color = true;
+      background-color = colors.base;
+      background-opacity = 0.8;
+      transparency-mode = "FIXED";
+      custom-theme-shrink = true;
+      show-trash = false;
+      show-mounts = false;
+      click-action = "minimize-or-previews";
+      scroll-action = "cycle-windows";
+      apply-custom-theme = false;
+      running-indicator-style = "DOTS";
+      running-indicator-dominant-color = true;
     };
 
     "org/gnome/shell/app-switcher" = {
