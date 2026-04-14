@@ -12,6 +12,8 @@
         "darwin-rebuild switch --flake ~/nix-config#dylanmac"
       else
         "sudo nixos-rebuild switch --flake ~/nix-config#dylanpc";
+      vim = "nvim";
+      nv = "nvim";
       y = "yazi";
       lg = "lazygit";
     };
