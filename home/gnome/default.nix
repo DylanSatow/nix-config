@@ -37,4 +37,7 @@ in {
 
   # Install the GNOME Shell theme so the extension can find it
   home.file.".themes/${themeName}/gnome-shell".source = "${themePath}/gnome-shell";
+
+  # Wallpaper
+  home.file.".local/share/backgrounds/space.jpg".source = ../../assets/space.jpg;
 }

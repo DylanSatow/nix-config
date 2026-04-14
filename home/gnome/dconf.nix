@@ -73,8 +73,8 @@ with lib.hm.gvariant;
     "org/gnome/desktop/background" = {
       color-shading-type = "solid";
       picture-options = "zoom";
-      picture-uri = "file:///home/dylan/.local/share/backgrounds/2025-10-12-14-17-12-catppuccin-mocha.png";
-      picture-uri-dark = "file:///home/dylan/.local/share/backgrounds/2025-10-12-14-17-12-catppuccin-mocha.png";
+      picture-uri = "file:///home/dylan/.local/share/backgrounds/space.jpg";
+      picture-uri-dark = "file:///home/dylan/.local/share/backgrounds/space.jpg";
       primary-color = "#000000000000";
       secondary-color = "#000000000000";
     };
@@ -116,7 +116,7 @@ with lib.hm.gvariant;
     "org/gnome/desktop/screensaver" = {
       color-shading-type = "solid";
       picture-options = "zoom";
-      picture-uri = "file:///home/dylan/.local/share/backgrounds/2025-10-12-14-17-12-catppuccin-mocha.png";
+      picture-uri = "file:///home/dylan/.local/share/backgrounds/space.jpg";
       primary-color = "#000000000000";
       secondary-color = "#000000000000";
     };
