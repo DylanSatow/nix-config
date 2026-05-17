@@ -152,6 +152,7 @@ with lib.hm.gvariant;
 
     "org/gnome/desktop/wm/preferences" = {
       num-workspaces = 5;
+      workspace-names = [ "1" "2" "3" "4" "5" ];
     };
 
     "org/gnome/evolution-data-server" = {
@@ -230,6 +231,7 @@ with lib.hm.gvariant;
       apply-custom-theme = false;
       running-indicator-style = "DOTS";
       running-indicator-dominant-color = true;
+      hot-keys = false;
     };
 
     # Arc Menu — Catppuccin Mocha styled spotlight search
