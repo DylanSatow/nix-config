@@ -9,9 +9,6 @@ nix-config/
 ├── flake.lock                # Pinned input versions
 ├── overlays.nix              # pkgs.unstable overlay + direnv-overlay
 │
-├── lib/                      # Shared, context-agnostic helpers
-│   └── package-sets.nix      # cliTools + development package lists (single source of truth)
-│
 └── home/                     # All configuration is user-level home-manager
     ├── common.nix            # Shared base: imports modules/{theme,packages,shell,git,helix,nvim}
     │                         #   + stateVersion + home-manager.enable
@@ -22,7 +19,7 @@ nix-config/
     │
     └── modules/              # Composable building blocks — imported explicitly by the above
         ├── theme.nix         # Shared catppuccin settings (mocha/lavender) — CLI tools
-        ├── packages.nix      # home.packages = lib/package-sets.cliTools ++ development
+        ├── packages.nix      # home.packages — the CLI + development toolchain
         ├── git.nix           # Git user/email
         ├── shell.nix         # Zsh + oh-my-zsh, direnv, zellij, zoxide; flag-based nrb alias
         ├── helix.nix         # Helix editor + LSP configs
@@ -39,9 +36,9 @@ nix-config/
 
 | Input | Source | Purpose |
 |-------|--------|---------|
-| nixpkgs | NixOS 25.11 | Primary package source (serves linux + darwin) |
+| nixpkgs | NixOS 26.05 | Primary package source (serves linux + darwin) |
 | nixpkgs-unstable | nixpkgs unstable | Newer packages via overlay |
-| home-manager | release-25.11 | User environment management |
+| home-manager | release-26.05 | User environment management |
 | catppuccin | catppuccin/nix | Catppuccin theming for CLI tools + nvim colorscheme |
 
 ## How Hosts Are Built
@@ -146,10 +143,8 @@ Don't introduce competing color schemes. VS Code theming is now a manually-insta
 These are areas where the current codebase doesn't fully meet the standards in CLAUDE.md. Fix
 them when touching related code:
 
-1. **Almost everything uses `pkgs.unstable`** (see `lib/package-sets.nix`) — packages should be
+1. **Almost everything uses `pkgs.unstable`** (see `home/modules/packages.nix`) — packages should be
    evaluated and moved to stable where a newer version isn't specifically needed.
-2. **`programs.git.delta.enable` deprecation** — a trace warning surfaces on the linux configs
-   (option renamed to `programs.delta.enable`); track down and update when touching git config.
 
 ## Language Support Matrix (Neovim, via Mason)
 

@@ -42,7 +42,10 @@
       "Bash(zellij setup *)",
       "Bash(git rm *)",
       "Bash(command -v alejandra)",
-      "Bash(git mv *)"
+      "Bash(git mv *)",
+      "Read(//Users/dylan/**)",
+      "Read(//private/etc/nix/**)",
+      "Bash(awk '{print $2}')"
     ],
     "deny": [],
     "ask": []

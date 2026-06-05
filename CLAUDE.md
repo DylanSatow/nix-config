@@ -81,13 +81,13 @@ See [`.claude/nix-style-guide.md`](.claude/nix-style-guide.md) for the full Nix 
 
 ```bash
 # macOS (dylanmac)
-home-manager switch --flake ~/nix-config#dylan@dylanmac
+home-manager switch --flake ~/home/nix-config#dylan@dylanmac
 
 # dylanpc (WSL Ubuntu) — run inside WSL
-home-manager switch --flake ~/nix-config#dylan@dylanpc
+home-manager switch --flake ~/home/nix-config#dylan@dylanpc
 
 # Server (dylanserver) — run on the server
-home-manager switch --flake ~/nix-config#ubuntu@dylanserver
+home-manager switch --flake ~/home/nix-config#ubuntu@dylanserver
 
 # On any host, the `nrb` shell alias resolves to the correct switch command.
 

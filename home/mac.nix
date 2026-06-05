@@ -1,7 +1,7 @@
 # dylanmac — Apple Silicon mac, standalone home-manager (user "dylan").
 # Nix manages the CLI/dev toolchain and dotfiles only. GUI apps (kitty, VS Code, etc.)
 # are installed by hand; we just link their config. Built with:
-#   home-manager switch --flake ~/nix-config#dylan@dylanmac
+#   home-manager switch --flake ~/home/nix-config#dylan@dylanmac
 {pkgs, ...}: {
   imports = [
     ./common.nix

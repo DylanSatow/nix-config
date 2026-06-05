@@ -161,4 +161,4 @@ Don't change the colorscheme without considering the global theme.
 2. **Don't put keymaps in `init.lua`.** Use `lua/config/keymaps.lua` or plugin spec `keys` fields.
 3. **Don't scatter options across files.** Core options go in `lua/config/options.lua`.
 4. **Don't add LSP tools to the shared package sets for Neovim's sake.** Mason owns Neovim's
-   toolchain; `lib/package-sets.nix` is for the general dev shell.
+   toolchain; `home/modules/packages.nix` is for the general dev shell.

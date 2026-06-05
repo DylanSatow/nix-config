@@ -4,7 +4,7 @@ Comprehensive guide for writing clean, idiomatic Nix in this configuration. Thes
 
 ## Formatting
 
-- **Formatter:** alejandra (provided by the development set in `lib/package-sets.nix`)
+- **Formatter:** alejandra (provided by `home/modules/packages.nix`)
 - Run `alejandra` on every `.nix` file before committing. No exceptions.
 - Let alejandra handle indentation, line breaks, and spacing — don't fight it.
 
@@ -12,7 +12,7 @@ Comprehensive guide for writing clean, idiomatic Nix in this configuration. Thes
 
 ### Rules
 
-1. **Default to stable** (`pkgs.*`). The flake pins nixpkgs to 25.11.
+1. **Default to stable** (`pkgs.*`). The flake pins nixpkgs to 26.05.
 2. **Unstable is opt-in** (`pkgs.unstable.*`) — only when a newer version is specifically required.
 3. When using unstable, add a brief comment explaining why:
    ```nix
@@ -225,7 +225,7 @@ description = "User " + username + " configuration";
 
 ## Anti-Patterns to Avoid
 
-1. **Package duplication.** Never list the same package in multiple files. Extract to a shared module (e.g. `lib/package-sets.nix`).
+1. **Package duplication.** Never list the same package in multiple files. Extract to a shared module (e.g. `home/modules/packages.nix`).
 2. **Hardcoded paths.** Use `config.home.homeDirectory` or `~/` instead of `/home/dylan` or `/Users/dylan`.
 3. **Hostname string matching.** Use semantic flags (`isDarwin`, `isServer`, `isWsl`) not `hostname == "dylanmac"`.
 4. **`with` for package scoping.** Always use explicit prefix.
@@ -258,7 +258,7 @@ options.dylanix.myModule = {
 
 ## Flake Hygiene
 
-- Pin all inputs to specific branches or releases (e.g., `nixpkgs/release-25.11`), never `main`/`master`.
+- Pin all inputs to specific branches or releases (e.g., `nixpkgs/nixos-26.05`), never `main`/`master`.
 - Use `follows` to deduplicate nixpkgs across inputs when possible.
 - Keep `flake.lock` committed — it ensures reproducible builds.
 - Add new inputs only when they provide real value. Prefer nixpkgs packages over standalone flakes.

@@ -1,16 +1,16 @@
 {
   description = "Dylanix";
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # THEMING — still themes terminal CLI tools and seeds the neovim colorscheme.
     catppuccin = {
-      url = "github:catppuccin/nix/release-25.05";
+      url = "github:catppuccin/nix/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
   };
@@ -62,7 +62,7 @@
 
     # dylanmac — Apple Silicon mac, standalone home-manager (aarch64-darwin, user "dylan").
     # No nix-darwin: nix manages only the CLI/dev toolchain and dotfiles; GUI apps are
-    # installed by hand. Built with: home-manager switch --flake ~/nix-config#dylan@dylanmac
+    # installed by hand. Built with: home-manager switch --flake ~/home/nix-config#dylan@dylanmac
     homeConfigurations."dylan@dylanmac" = home-manager.lib.homeManagerConfiguration {
       pkgs = mkPkgs "aarch64-darwin" [overlays.direnv-overlay];
       extraSpecialArgs = mkFlags {isDarwin = true;};

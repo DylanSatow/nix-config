@@ -7,6 +7,11 @@
   programs.neovim = {
     enable = true;
 
+    # LazyVim + Mason need neither the Ruby nor the Python3 provider. These match the
+    # 26.05 defaults; set explicitly to silence the default-changed warnings.
+    withRuby = false;
+    withPython3 = false;
+
     # Runtime toolchain for lazy.nvim (git), treesitter parser compilation
     # (gcc/make), Mason installers (node/npm, unzip). ripgrep/fd/tree-sitter
     # come from the shared CLI package set and are already on PATH.
