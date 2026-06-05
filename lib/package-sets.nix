@@ -3,7 +3,7 @@
 # server / WSL home configs no longer duplicate the host package lists.
 #
 # NOTE: zellij is intentionally excluded from cliTools — it is owned by programs.zellij
-# in home/apps/shell.nix everywhere, and listing it here would collide in home configs.
+# in home/modules/shell.nix everywhere, and listing it here would collide in home configs.
 # texliveFull is excluded from development — only the system hosts opt into it.
 {pkgs}: {
   cliTools = [

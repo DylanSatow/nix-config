@@ -1,13 +1,16 @@
 # Dylanix — Nix Configuration
 
-Flake-based multi-system Nix config for four configurations:
+Flake-based Nix config for three machines, all **standalone home-manager** (no NixOS, no
+nix-darwin). Nix manages the CLI/dev toolchain and dotfiles only; GUI apps are installed by
+hand on each host.
 
-- **dylanpc** — Windows 11 + WSL Ubuntu, standalone home-manager on x86_64-linux (user `dylan`, interactive dev box, kitty as only GUI)
-- **dylanmac** — nix-darwin aarch64-darwin (Homebrew casks, macOS defaults)
-- **dylanserver** — standalone home-manager on Ubuntu aarch64-linux (user `ubuntu`, headless)
-- **nixos-pc** — NixOS x86_64-linux (GNOME desktop, NVIDIA, gaming) — **archived**; the physical machine became dylanpc (WSL). Kept buildable in case NixOS is reinstalled.
+- **dylanmac** — Apple Silicon mac, home-manager on aarch64-darwin (user `dylan`). GUI apps
+  (kitty, VS Code, etc.) installed manually; nix only links their config.
+- **dylanpc** — Windows 11 + WSL Ubuntu, home-manager on x86_64-linux (user `dylan`, interactive dev box)
+- **dylanserver** — Ubuntu home-manager on aarch64-linux (user `ubuntu`, headless)
 
-Host-specific code uses semantic flags (`isDesktop`, `isDarwin`, `isServer`, `isWsl`) passed via `(extra)specialArgs` — see the `mkFlags` helper in `flake.nix`. Never compare hostnames.
+Host-specific code uses semantic flags (`isDarwin`, `isServer`, `isWsl`) passed via
+`extraSpecialArgs` — see the `mkFlags` helper in `flake.nix`. Never compare hostnames.
 
 ## Workflow Discipline
 
@@ -43,17 +46,24 @@ Use semantic boolean flags via `specialArgs`/`extraSpecialArgs` — not hostname
 
 ```nix
 # GOOD — semantic intent is clear
-lib.mkIf isDesktop { ... }
+lib.mkIf isDarwin { ... }
 
 # BAD — brittle, doesn't convey meaning
-lib.mkIf (hostname == "dylanpc") { ... }
+lib.mkIf (hostname == "dylanmac") { ... }
 ```
 
-Preferred flags: `isDesktop`, `isDarwin`, `isServer`, `hasNvidia`, `hasGaming`.
+Preferred flags: `isDarwin`, `isServer`, `isWsl`.
+
+### GUI Apps
+
+Nix never installs GUI apps. Install them by hand (Homebrew/App Store on mac, apt on WSL).
+For apps we configure (kitty, VS Code), home-manager only **links the config file** —
+`xdg.configFile` for XDG-compliant apps, `home.file."Library/Application Support/…"` for
+macOS apps. Do not use `programs.kitty` / `programs.vscode` (they install the binary).
 
 ### Module Structure
 
-- **Feature-toggleable modules** (gaming, desktop environment, development categories): use proper NixOS module system with `mkEnableOption`/`mkOption` and `config` section.
+- **Feature-toggleable modules** (development categories): use proper module system with `mkEnableOption`/`mkOption` and a `config` section.
 - **Simple package lists and settings:** flat config with imports is fine.
 - Never duplicate package lists across files. Extract shared packages into a common module and import it.
 
@@ -70,19 +80,16 @@ See [`.claude/nix-style-guide.md`](.claude/nix-style-guide.md) for the full Nix 
 ## Build Commands
 
 ```bash
+# macOS (dylanmac)
+home-manager switch --flake ~/nix-config#dylan@dylanmac
+
 # dylanpc (WSL Ubuntu) — run inside WSL
 home-manager switch --flake ~/nix-config#dylan@dylanpc
-
-# macOS (dylanmac)
-darwin-rebuild switch --flake ~/nix-config#dylanmac
 
 # Server (dylanserver) — run on the server
 home-manager switch --flake ~/nix-config#ubuntu@dylanserver
 
-# nixos-pc (archived NixOS desktop)
-sudo nixos-rebuild switch --flake ~/nix-config#nixos-pc
-
-# On any host, the `nrb` shell alias resolves to the correct rebuild command.
+# On any host, the `nrb` shell alias resolves to the correct switch command.
 
 # Format all nix files
 find . -name '*.nix' -exec alejandra {} +

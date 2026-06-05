@@ -1,7 +1,7 @@
 # dylanserver — headless Ubuntu aarch64, standalone home-manager (user "ubuntu").
 {...}: {
   imports = [
-    ../common
+    ./common.nix
   ];
 
   home.username = "ubuntu";

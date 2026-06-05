@@ -2,8 +2,8 @@
 # Nix package manager only (no NixOS). Built with: home-manager switch --flake ~/nix-config#dylan@dylanpc
 {pkgs, ...}: {
   imports = [
-    ../common
-    ../apps/kitty.nix
+    ./common.nix
+    ./modules/kitty.nix
   ];
 
   home.username = "dylan";

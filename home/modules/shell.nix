@@ -1,6 +1,5 @@
 {
   isDarwin,
-  isDesktop,
   isWsl,
   isServer,
   ...
@@ -15,9 +14,7 @@
     shellAliases = {
       nrb =
         if isDarwin
-        then "darwin-rebuild switch --flake ~/nix-config#dylanmac"
-        else if isDesktop
-        then "sudo nixos-rebuild switch --flake ~/nix-config#nixos-pc"
+        then "home-manager switch --flake ~/nix-config#dylan@dylanmac"
         else if isWsl
         then "home-manager switch --flake ~/nix-config#dylan@dylanpc"
         else if isServer

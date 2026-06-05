@@ -39,7 +39,10 @@
       "Read(//nix/store/**)",
       "Bash(kitty --config ~/.config/kitty/kitty.conf -o 'confirm_os_window_close=0' kitty +runpy 'print\\(\"loaded\"\\)')",
       "Bash(zellij --version)",
-      "Bash(zellij setup *)"
+      "Bash(zellij setup *)",
+      "Bash(git rm *)",
+      "Bash(command -v alejandra)",
+      "Bash(git mv *)"
     ],
     "deny": [],
     "ask": []
