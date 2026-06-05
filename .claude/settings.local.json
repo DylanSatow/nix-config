@@ -25,7 +25,21 @@
       "Bash(alejandra:*)",
       "WebFetch(domain:api.github.com)",
       "WebFetch(domain:bash.live)",
-      "WebFetch(domain:gitlab.com)"
+      "WebFetch(domain:gitlab.com)",
+      "Read(//tmp/**)",
+      "Bash(zsh -ic 'cd /tmp/zoxide-test-dir 2>/dev/null || \\(mkdir -p /tmp/zoxide-test-dir && cd /tmp/zoxide-test-dir\\); cd /home/dylan/nix-config; cd /tmp; echo \"=== db after cd ===\"; zoxide query -l')",
+      "Bash(zoxide init *)",
+      "Bash(zsh -ic 'cd /home/dylan/nix-config; cd /tmp; z nix-config; echo \"landed in: $PWD\"')",
+      "Bash(home-manager switch *)",
+      "Bash(timeout 8 kitty --debug-gl -o linux_display_server=wayland kitty +runpy 'print\\(\"OK\"\\)')",
+      "Bash(timeout 8 kitty --debug-gl -o linux_display_server=x11 kitty +runpy 'print\\(\"OK\"\\)')",
+      "Bash(LIBGL_ALWAYS_SOFTWARE=1 timeout 8 kitty -o linux_display_server=wayland kitty +runpy 'print\\(\"OK\"\\)')",
+      "Bash(timeout 120 nix run --impure github:nix-community/nixGL -- kitty kitty +runpy 'print\\(\"KITTY_GL_OK\"\\)')",
+      "Bash(kitty --version)",
+      "Read(//nix/store/**)",
+      "Bash(kitty --config ~/.config/kitty/kitty.conf -o 'confirm_os_window_close=0' kitty +runpy 'print\\(\"loaded\"\\)')",
+      "Bash(zellij --version)",
+      "Bash(zellij setup *)"
     ],
     "deny": [],
     "ask": []

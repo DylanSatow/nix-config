@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   # catppuccin.vscode.enable = false;
   programs.vscode = {
     enable = true;

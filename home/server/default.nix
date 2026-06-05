@@ -1,23 +1,13 @@
-{ ... }:
-
-{
+# dylanserver — headless Ubuntu aarch64, standalone home-manager (user "ubuntu").
+{...}: {
   imports = [
-    ./packages.nix
-    ../apps/shell.nix
-    ../apps/git.nix
-    ../apps/helix.nix
-    ../apps/nvim/nvim.nix
+    ../common
   ];
 
-  home = {
-    username = "ubuntu";
-    homeDirectory = "/home/ubuntu";
-    stateVersion = "25.05";
-  };
+  home.username = "ubuntu";
+  home.homeDirectory = "/home/ubuntu";
 
-  programs.zsh.initExtra = ''
+  programs.zsh.initContent = ''
     export PATH="/home/ubuntu/.npm-global/bin:$PATH"
   '';
-
-  programs.home-manager.enable = true;
 }

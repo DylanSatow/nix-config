@@ -1,5 +1,10 @@
-{ pkgs, hostname, lib, ... }:
 {
+  isDarwin,
+  isDesktop,
+  isWsl,
+  isServer,
+  ...
+}: {
   programs.zsh = {
     enable = true;
 
@@ -8,16 +13,21 @@
       theme = "robbyrussell";
     };
     shellAliases = {
-      nrb = if hostname == "dylanmac" then
-        "darwin-rebuild switch --flake ~/nix-config#dylanmac"
-      else
-        "sudo nixos-rebuild switch --flake ~/nix-config#dylanpc";
+      nrb =
+        if isDarwin
+        then "darwin-rebuild switch --flake ~/nix-config#dylanmac"
+        else if isDesktop
+        then "sudo nixos-rebuild switch --flake ~/nix-config#nixos-pc"
+        else if isWsl
+        then "home-manager switch --flake ~/nix-config#dylan@dylanpc"
+        else if isServer
+        then "home-manager switch --flake ~/nix-config#ubuntu@dylanserver"
+        else "echo 'nrb: unknown host'";
       vim = "nvim";
       nv = "nvim";
       y = "yazi";
       lg = "lazygit";
     };
-
   };
   programs.direnv = {
     enable = true;
@@ -32,10 +42,10 @@
       keybinds = {
         normal = {
           "bind \"Alt q\"" = {
-            CloseFocus = { };
+            CloseFocus = {};
           };
           "bind \"Alt t\"" = {
-            NewTab = { };
+            NewTab = {};
           };
         };
       };

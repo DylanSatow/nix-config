@@ -1,13 +1,13 @@
-{ nixpkgs-unstable }: {
-    unstable-overlay = system: final: prev: {
-        unstable = import nixpkgs-unstable {
-                inherit system;
-                config.allowUnfree = true;
-        };
+{nixpkgs-unstable}: {
+  unstable-overlay = system: final: prev: {
+    unstable = import nixpkgs-unstable {
+      inherit system;
+      config.allowUnfree = true;
     };
-    direnv-overlay = final: prev: {
-        direnv = prev.direnv.overrideAttrs (old: {
-            doCheck = false;
-        });
-    };
+  };
+  direnv-overlay = final: prev: {
+    direnv = prev.direnv.overrideAttrs (old: {
+      doCheck = false;
+    });
+  };
 }

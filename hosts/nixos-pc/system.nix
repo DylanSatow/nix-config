@@ -1,18 +1,20 @@
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Fix 144hz monitor support in Hyprland
-  boot.kernelParams = [ "nvidia-modeset.hdmi_deepcolor=0" ];
+  boot.kernelParams = ["nvidia-modeset.hdmi_deepcolor=0"];
 
   # Fix WiFi jitter for MediaTek MT7921e driver
   boot.extraModprobeConfig = ''
     options mt7921e disable_aspm=Y
   '';
 
-  networking.hostName = "dylanpc";
+  networking.hostName = "nixos-pc";
   networking.networkmanager.enable = true;
 
   # Disable runtime power management for WiFi to prevent jitter
@@ -46,8 +48,7 @@
   services.desktopManager.gnome.enable = true;
 
   environment.gnome.excludePackages = (
-    with pkgs;
-    [
+    with pkgs; [
       gnome-tour
       gnome-music
       gedit # text editor
@@ -85,7 +86,7 @@
     pulse.enable = true;
   };
 
-  users.groups.plugdev = { };
+  users.groups.plugdev = {};
 
   programs.zsh.enable = true;
   users.users.dylan = {

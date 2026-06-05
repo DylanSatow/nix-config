@@ -1,10 +1,13 @@
 # Dylanix — Nix Configuration
 
-Flake-based multi-system Nix config for three hosts:
+Flake-based multi-system Nix config for four configurations:
 
-- **dylanpc** — NixOS x86_64-linux (GNOME desktop, NVIDIA, gaming)
+- **dylanpc** — Windows 11 + WSL Ubuntu, standalone home-manager on x86_64-linux (user `dylan`, interactive dev box, kitty as only GUI)
 - **dylanmac** — nix-darwin aarch64-darwin (Homebrew casks, macOS defaults)
-- **dylanserver** — standalone home-manager on Ubuntu aarch64-linux (headless)
+- **dylanserver** — standalone home-manager on Ubuntu aarch64-linux (user `ubuntu`, headless)
+- **nixos-pc** — NixOS x86_64-linux (GNOME desktop, NVIDIA, gaming) — **archived**; the physical machine became dylanpc (WSL). Kept buildable in case NixOS is reinstalled.
+
+Host-specific code uses semantic flags (`isDesktop`, `isDarwin`, `isServer`, `isWsl`) passed via `(extra)specialArgs` — see the `mkFlags` helper in `flake.nix`. Never compare hostnames.
 
 ## Workflow Discipline
 
@@ -67,14 +70,19 @@ See [`.claude/nix-style-guide.md`](.claude/nix-style-guide.md) for the full Nix 
 ## Build Commands
 
 ```bash
-# NixOS (dylanpc)
-sudo nixos-rebuild switch --flake ~/nix-config#dylanpc
+# dylanpc (WSL Ubuntu) — run inside WSL
+home-manager switch --flake ~/nix-config#dylan@dylanpc
 
 # macOS (dylanmac)
 darwin-rebuild switch --flake ~/nix-config#dylanmac
 
 # Server (dylanserver) — run on the server
 home-manager switch --flake ~/nix-config#ubuntu@dylanserver
+
+# nixos-pc (archived NixOS desktop)
+sudo nixos-rebuild switch --flake ~/nix-config#nixos-pc
+
+# On any host, the `nrb` shell alias resolves to the correct rebuild command.
 
 # Format all nix files
 find . -name '*.nix' -exec alejandra {} +

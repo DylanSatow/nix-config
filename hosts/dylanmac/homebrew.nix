@@ -3,8 +3,7 @@
   homebrew-core,
   homebrew-cask,
   ...
-}:
-{
+}: {
   homebrew = {
     enable = true;
     onActivation.cleanup = "zap";
