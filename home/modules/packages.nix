@@ -1,12 +1,15 @@
-# Shared package lists, consumed by both system modules (environment.systemPackages)
-# and standalone home-manager modules (home.packages). Single source of truth so the
-# server / WSL home configs no longer duplicate the host package lists.
+# The CLI + development toolchain installed on every host. zellij is intentionally
+# absent — it is owned by programs.zellij in shell.nix, and listing it here would
+# collide. Most packages use pkgs.unstable; migrate to stable where a newer version
+# isn't specifically needed (see .claude/architecture.md tech debt).
 #
-# NOTE: zellij is intentionally excluded from cliTools — it is owned by programs.zellij
-# in home/apps/shell.nix everywhere, and listing it here would collide in home configs.
-# texliveFull is excluded from development — only the system hosts opt into it.
-{pkgs}: {
-  cliTools = [
+# NOTE: the language servers below (nil, pyright, rust-analyzer, gopls, clang-tools,
+# markdown-oxide, golangci-lint-langserver) are here for HELIX, which reads LSPs off
+# PATH. Neovim does NOT use these — it installs its own via Mason. Don't remove them
+# expecting nvim to cover Helix.
+{pkgs, ...}: {
+  home.packages = [
+    # CLI tools
     pkgs.unstable.lazygit
     pkgs.unstable.yazi
     pkgs.unstable.ripgrep
@@ -14,14 +17,10 @@
     pkgs.unstable.fzf
     pkgs.unstable.fd
     pkgs.unstable.gh
-
     pkgs.unstable.claude-code
     pkgs.unstable.gemini-cli
-
     pkgs.unstable.tree-sitter
-  ];
 
-  development = [
     # Nix
     pkgs.unstable.nil
     pkgs.unstable.alejandra

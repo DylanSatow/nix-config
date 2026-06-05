@@ -1,156 +1,75 @@
 {
   description = "Dylanix";
   inputs = {
-    nixpkgs-darwin-pkgs.url = "github:NixOS/nixpkgs/nixpkgs-25.11-darwin";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Editors
-    nix4vscode = {
-      url = "github:nix-community/nix4vscode";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # THEMING
-    stylix = {
-      url = "github:nix-community/stylix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # THEMING — still themes terminal CLI tools and seeds the neovim colorscheme.
     catppuccin = {
-      url = "github:catppuccin/nix/release-25.05";
+      url = "github:catppuccin/nix/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
-
-    # Mac Stuff
-    nix-darwin = {
-      url = "github:nix-darwin/nix-darwin/nix-darwin-25.11";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nix-homebrew.url = "github:zhaofengli/nix-homebrew";
-    homebrew-core = {
-      url = "github:homebrew/homebrew-core";
-      flake = false;
-    };
-    homebrew-cask = {
-      url = "github:homebrew/homebrew-cask";
-      flake = false;
     };
   };
   outputs = {
-    self,
     nixpkgs,
-    nix4vscode,
     home-manager,
     nixpkgs-unstable,
     catppuccin,
-    # mac
-    nix-darwin,
-    nix-homebrew,
-    homebrew-core,
-    homebrew-cask,
     ...
-  } @ inputs: let
+  }: let
     overlays = import ./overlays.nix {inherit nixpkgs-unstable;};
 
-    # Semantic host flags passed to every home configuration via (extra)specialArgs.
+    # Semantic host flags passed to every home configuration via extraSpecialArgs.
     # Exactly one is expected to be true per host. Replaces hostname string comparison.
     mkFlags = {
-      isDesktop ? false,
       isDarwin ? false,
       isServer ? false,
       isWsl ? false,
     }: {
-      inherit isDesktop isDarwin isServer isWsl;
+      inherit isDarwin isServer isWsl;
     };
-  in {
-    homeConfigurations."ubuntu@dylanserver" = home-manager.lib.homeManagerConfiguration {
-      pkgs = import nixpkgs {
-        system = "aarch64-linux";
-        overlays = [(overlays.unstable-overlay "aarch64-linux")];
+
+    mkPkgs = system: extraOverlays:
+      import nixpkgs {
+        inherit system;
+        overlays = [(overlays.unstable-overlay system)] ++ extraOverlays;
         config.allowUnfree = true;
       };
+  in {
+    # dylanserver — headless Ubuntu aarch64, standalone home-manager (user "ubuntu").
+    homeConfigurations."ubuntu@dylanserver" = home-manager.lib.homeManagerConfiguration {
+      pkgs = mkPkgs "aarch64-linux" [];
       extraSpecialArgs = mkFlags {isServer = true;};
       modules = [
-        ./home/server
+        ./home/server.nix
         catppuccin.homeModules.catppuccin
       ];
     };
 
     # dylanpc — Windows 11 + WSL Ubuntu, standalone home-manager (x86_64-linux, user "dylan").
     homeConfigurations."dylan@dylanpc" = home-manager.lib.homeManagerConfiguration {
-      pkgs = import nixpkgs {
-        system = "x86_64-linux";
-        overlays = [(overlays.unstable-overlay "x86_64-linux")];
-        config.allowUnfree = true;
-      };
+      pkgs = mkPkgs "x86_64-linux" [];
       extraSpecialArgs = mkFlags {isWsl = true;};
       modules = [
-        ./home/wsl
+        ./home/wsl.nix
         catppuccin.homeModules.catppuccin
       ];
     };
 
-    # nixos-pc — archived NixOS desktop (GNOME / NVIDIA / gaming). The physical machine
-    # now runs Windows + WSL (see homeConfigurations."dylan@dylanpc"); kept buildable.
-    nixosConfigurations.nixos-pc = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
+    # dylanmac — Apple Silicon mac, standalone home-manager (aarch64-darwin, user "dylan").
+    # No nix-darwin: nix manages only the CLI/dev toolchain and dotfiles; GUI apps are
+    # installed by hand. Built with: home-manager switch --flake ~/home/nix-config#dylan@dylanmac
+    homeConfigurations."dylan@dylanmac" = home-manager.lib.homeManagerConfiguration {
+      pkgs = mkPkgs "aarch64-darwin" [overlays.direnv-overlay];
+      extraSpecialArgs = mkFlags {isDarwin = true;};
       modules = [
-        ./hosts/nixos-pc
-        catppuccin.nixosModules.catppuccin
-        home-manager.nixosModules.home-manager
-        {
-          nixpkgs.overlays = [
-            (overlays.unstable-overlay "x86_64-linux")
-            nix4vscode.overlays.default
-          ];
-          nixpkgs.config.allowUnfree = true;
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.users.dylan.imports = [
-            ./home
-            catppuccin.homeModules.catppuccin
-          ];
-          home-manager.extraSpecialArgs = mkFlags {isDesktop = true;};
-        }
+        ./home/mac.nix
+        catppuccin.homeModules.catppuccin
       ];
-      specialArgs = {inherit inputs;};
-    };
-
-    darwinConfigurations.dylanmac = nix-darwin.lib.darwinSystem {
-      system = "aarch64-darwin";
-      modules = [
-        ./hosts/dylanmac
-        nix-homebrew.darwinModules.nix-homebrew
-        home-manager.darwinModules.home-manager
-        {
-          users.users.dylan = {
-            name = "dylan";
-            home = "/Users/dylan";
-          };
-          nixpkgs.overlays = [
-            (overlays.unstable-overlay "aarch64-darwin")
-            overlays.direnv-overlay
-            nix4vscode.overlays.default
-          ];
-          nixpkgs.config.allowUnfree = true;
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.users.dylan.imports = [
-            ./home
-            catppuccin.homeModules.catppuccin
-          ];
-          home-manager.extraSpecialArgs = mkFlags {isDarwin = true;};
-        }
-      ];
-      specialArgs = {
-        inherit self homebrew-core homebrew-cask;
-      };
     };
   };
 }

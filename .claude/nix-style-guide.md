@@ -4,7 +4,7 @@ Comprehensive guide for writing clean, idiomatic Nix in this configuration. Thes
 
 ## Formatting
 
-- **Formatter:** alejandra (installed via `hosts/common/development.nix`)
+- **Formatter:** alejandra (provided by `home/modules/packages.nix`)
 - Run `alejandra` on every `.nix` file before committing. No exceptions.
 - Let alejandra handle indentation, line breaks, and spacing — don't fight it.
 
@@ -12,7 +12,7 @@ Comprehensive guide for writing clean, idiomatic Nix in this configuration. Thes
 
 ### Rules
 
-1. **Default to stable** (`pkgs.*`). The flake pins nixpkgs to 25.11.
+1. **Default to stable** (`pkgs.*`). The flake pins nixpkgs to 26.05.
 2. **Unstable is opt-in** (`pkgs.unstable.*`) — only when a newer version is specifically required.
 3. When using unstable, add a brief comment explaining why:
    ```nix
@@ -40,7 +40,7 @@ Comprehensive guide for writing clean, idiomatic Nix in this configuration. Thes
 
 ### Overlay
 
-The `overlays.nix` file provides a single overlay making `nixpkgs-unstable` available as `pkgs.unstable`. Don't create additional overlays unless building custom derivations.
+The `overlays.nix` file provides `unstable-overlay` (makes `nixpkgs-unstable` available as `pkgs.unstable`, applied everywhere) and `direnv-overlay` (disables direnv's flaky tests, applied on the mac only). Don't create additional overlays unless building custom derivations.
 
 ## Module Patterns
 
@@ -49,40 +49,36 @@ The `overlays.nix` file provides a single overlay making `nixpkgs-unstable` avai
 Use `mkEnableOption`/`mkOption` + `config` for **feature-toggleable functionality**:
 
 ```nix
-# hosts/common/gaming.nix
+# home/modules/datascience.nix
 { config, lib, pkgs, ... }:
 
 let
-  cfg = config.dylanix.gaming;
+  cfg = config.dylanix.datascience;
 in {
-  options.dylanix.gaming = {
-    enable = lib.mkEnableOption "gaming support (Steam, Proton, gamemode)";
+  options.dylanix.datascience = {
+    enable = lib.mkEnableOption "data-science toolchain (jupyter, numpy stack)";
   };
 
   config = lib.mkIf cfg.enable {
-    programs.steam = {
-      enable = true;
-      gamescopeSession.enable = true;
-    };
-    environment.systemPackages = [
-      pkgs.gamemode
-      pkgs.mangohud
-      pkgs.unstable.protonup-ng  # needs latest Proton GE support
+    home.packages = [
+      pkgs.unstable.jupyter
+      pkgs.python3Packages.numpy
+      pkgs.python3Packages.pandas
     ];
   };
 }
 ```
 
-Good candidates for full modules: gaming, NVIDIA GPU, desktop environment, development language groups, server services.
+Good candidates for full modules: optional development language groups, heavyweight toolchains a host can opt into.
 
 ### When Flat Config Is Fine
 
 For simple, always-on package lists or settings that don't need toggling:
 
 ```nix
-# hosts/common/core.nix
+# home/modules/packages.nix
 { pkgs, ... }: {
-  environment.systemPackages = [
+  home.packages = [
     pkgs.zip
     pkgs.unzip
   ];
@@ -102,26 +98,23 @@ For simple, always-on package lists or settings that don't need toggling:
 Pass semantic boolean flags, not hostname strings:
 
 ```nix
-# In flake.nix
-extraSpecialArgs = {
-  isDesktop = true;
-  isDarwin = false;
-  isServer = false;
-  hasNvidia = true;
-  hasGaming = true;
+# In flake.nix, via the mkFlags helper
+extraSpecialArgs = mkFlags {
+  isDarwin = true;
+  # isServer / isWsl default to false
 };
 ```
 
 Then use them in modules:
 
 ```nix
-{ lib, isDesktop, hasNvidia, ... }: {
+{ lib, isDarwin, isWsl, ... }: {
   config = lib.mkMerge [
-    (lib.mkIf isDesktop {
-      services.xserver.enable = true;
+    (lib.mkIf isDarwin {
+      home.packages = [ pkgs.unstable.nerd-fonts.jetbrains-mono ];
     })
-    (lib.mkIf hasNvidia {
-      hardware.nvidia.open = true;
+    (lib.mkIf isWsl {
+      fonts.fontconfig.enable = true;
     })
   ];
 }
@@ -160,19 +153,19 @@ config = lib.mkMerge [
 # Conditional list items
 packages = [
   pkgs.coreutils
-] ++ lib.optionals isDesktop [
-  pkgs.firefox
+] ++ lib.optionals isWsl [
+  pkgs.unstable.nerd-fonts.jetbrains-mono
 ];
 
 # Conditional attrset fields
-home = {
-  stateVersion = "25.05";
-} // lib.optionalAttrs isDesktop {
-  username = "dylan";
+settings = {
+  font_size = 20;
+} // lib.optionalAttrs isDarwin {
+  macos_option_as_alt = "yes";
 };
 
 # BAD — don't use if/then/else in attrsets
-home = if isDesktop then { username = "dylan"; } else {};
+settings = if isDarwin then { macos_option_as_alt = "yes"; } else {};
 ```
 
 ### Attribute Access
@@ -232,13 +225,13 @@ description = "User " + username + " configuration";
 
 ## Anti-Patterns to Avoid
 
-1. **Package duplication.** Never list the same package in multiple files. Extract to a shared module.
-2. **Hardcoded paths.** Use `config.home.homeDirectory`, `config.users.users.<name>.home`, or `~/` instead of `/home/dylan` or `/Users/dylan`.
-3. **Hostname string matching.** Use semantic flags (`isDesktop`, `isDarwin`) not `hostname == "dylanpc"`.
+1. **Package duplication.** Never list the same package in multiple files. Extract to a shared module (e.g. `home/modules/packages.nix`).
+2. **Hardcoded paths.** Use `config.home.homeDirectory` or `~/` instead of `/home/dylan` or `/Users/dylan`.
+3. **Hostname string matching.** Use semantic flags (`isDarwin`, `isServer`, `isWsl`) not `hostname == "dylanmac"`.
 4. **`with` for package scoping.** Always use explicit prefix.
 5. **`with lib;`** at module level. Always qualify: `lib.mkIf`, `lib.optional`.
-6. **Mixed auto-generated and manual code.** Keep `hardware.nix` auto-generated. Put manual hardware overrides in a separate file (e.g., `hardware-overrides.nix`).
-7. **Misleading file names.** A file called `server.nix` should contain server-specific config, not "things imported by servers and also desktops."
+6. **Installing GUI apps via nix.** GUI apps are installed by hand; nix only links their config (see CLAUDE.md → GUI Apps).
+7. **Misleading file names.** A file's name should describe its concern, not which hosts happen to import it.
 8. **Unused imports or dead code.** Remove them entirely — no commented-out blocks, no `_unused` variables.
 
 ## Type Annotations (When Writing Module Options)
@@ -265,7 +258,7 @@ options.dylanix.myModule = {
 
 ## Flake Hygiene
 
-- Pin all inputs to specific branches or releases (e.g., `nixpkgs/release-25.11`), never `main`/`master`.
+- Pin all inputs to specific branches or releases (e.g., `nixpkgs/nixos-26.05`), never `main`/`master`.
 - Use `follows` to deduplicate nixpkgs across inputs when possible.
 - Keep `flake.lock` committed — it ensures reproducible builds.
 - Add new inputs only when they provide real value. Prefer nixpkgs packages over standalone flakes.

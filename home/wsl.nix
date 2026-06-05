@@ -1,9 +1,9 @@
 # dylanpc — Windows 11 + WSL Ubuntu, standalone home-manager (x86_64-linux, user "dylan").
-# Nix package manager only (no NixOS). Built with: home-manager switch --flake ~/nix-config#dylan@dylanpc
+# Nix package manager only (no NixOS). Built with: home-manager switch --flake ~/home/nix-config#dylan@dylanpc
 {pkgs, ...}: {
   imports = [
-    ../common
-    ../apps/kitty.nix
+    ./common.nix
+    ./modules/kitty.nix
   ];
 
   home.username = "dylan";
