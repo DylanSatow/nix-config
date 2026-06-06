@@ -25,6 +25,16 @@
       y = "yazi";
       lg = "lazygit";
     };
+
+    # Re-assert a steady vertical-bar cursor before every prompt. nvim/helix
+    # reset the terminal cursor to its default on exit, and Terminal.app can't
+    # restore the prior shape, so we set it ourselves each time we return to a
+    # prompt. DECSCUSR: \e[6 q = steady bar (matches kitty's cursor_shape).
+    initContent = ''
+      autoload -Uz add-zsh-hook
+      _set_cursor_beam() { printf '\e[6 q' }
+      add-zsh-hook precmd _set_cursor_beam
+    '';
   };
   programs.direnv = {
     enable = true;
