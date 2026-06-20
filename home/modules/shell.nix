@@ -18,7 +18,7 @@
         else if isWsl
         then "home-manager switch --flake ~/home/nix-config#dylan@dylanpc"
         else if isServer
-        then "home-manager switch --flake ~/home/nix-config#ubuntu@dylanserver"
+        then "home-manager switch --flake ~/nix-config#ubuntu@dylanserver"
         else "echo 'nrb: unknown host'";
       cld = "claude --dangerously-skip-permissions";
       vim = "nvim";
