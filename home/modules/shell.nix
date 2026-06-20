@@ -20,6 +20,7 @@
         else if isServer
         then "home-manager switch --flake ~/home/nix-config#ubuntu@dylanserver"
         else "echo 'nrb: unknown host'";
+      cld = "claude --dangerously-skip-permissions";
       vim = "nvim";
       nv = "nvim";
       y = "yazi";
