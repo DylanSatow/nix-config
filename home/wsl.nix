@@ -3,26 +3,14 @@
 {pkgs, ...}: {
   imports = [
     ./common.nix
-    ./modules/kitty.nix
+    ./modules/wezterm.nix
   ];
 
   home.username = "dylan";
   home.homeDirectory = "/home/dylan";
 
-  # WSL's login shell is bash (recorded in /etc/passwd) and standalone
-  # home-manager can't change it. Manage bash just enough to hop into the
-  # zsh configured in shell.nix, so interactive terminals land in zsh and
-  # ~/.zshrc (oh-my-zsh, aliases, zoxide's `z`) actually runs.
-  programs.bash = {
-    enable = true;
-    initExtra = ''
-      if [[ $- == *i* && -x ${pkgs.zsh}/bin/zsh ]]; then
-        exec ${pkgs.zsh}/bin/zsh -l
-      fi
-    '';
-  };
-
-  # kitty runs through WSLg — install the nerd font so glyphs render.
+  # wezterm runs through WSLg — install the nerd font so glyphs render.
+  # (The bash→fish hop lives in shell.nix, gated on non-darwin hosts.)
   fonts.fontconfig.enable = true;
   home.packages = [pkgs.unstable.nerd-fonts.jetbrains-mono];
 }

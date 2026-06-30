@@ -7,7 +7,7 @@
   home.username = "ubuntu";
   home.homeDirectory = "/home/ubuntu";
 
-  programs.zsh.initContent = ''
-    export PATH="/home/ubuntu/.npm-global/bin:$PATH"
+  programs.fish.loginShellInit = ''
+    fish_add_path /home/ubuntu/.npm-global/bin
   '';
 }

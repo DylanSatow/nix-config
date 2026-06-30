@@ -1,16 +1,18 @@
+# Interactive shell: fish. Standalone home-manager can't change the OS login
+# shell, so on Linux hosts (WSL, server) bash hops into fish; on mac, wezterm's
+# default_prog launches fish directly. direnv/zoxide use fish integration (on by
+# default in home-manager). Catppuccin themes fish automatically via theme.nix.
 {
+  pkgs,
+  lib,
   isDarwin,
   isWsl,
   isServer,
   ...
 }: {
-  programs.zsh = {
+  programs.fish = {
     enable = true;
 
-    oh-my-zsh = {
-      enable = true;
-      theme = "robbyrussell";
-    };
     shellAliases = {
       nrb =
         if isDarwin
@@ -26,26 +28,15 @@
       y = "yazi";
       lg = "lazygit";
     };
-
-    # Re-assert a steady vertical-bar cursor before every prompt. nvim/helix
-    # reset the terminal cursor to its default on exit, and Terminal.app can't
-    # restore the prior shape, so we set it ourselves each time we return to a
-    # prompt. DECSCUSR: \e[6 q = steady bar (matches kitty's cursor_shape).
-    initContent = ''
-      autoload -Uz add-zsh-hook
-      _set_cursor_beam() { printf '\e[6 q' }
-      add-zsh-hook precmd _set_cursor_beam
-    '';
   };
+
   programs.direnv = {
     enable = true;
-    enableZshIntegration = true;
     nix-direnv.enable = true;
   };
 
   programs.zellij = {
     enable = true;
-    # enableZshIntegration = true;
     settings = {
       keybinds = {
         normal = {
@@ -61,8 +52,17 @@
     };
   };
 
-  programs.zoxide = {
+  programs.zoxide.enable = true;
+
+  # Linux login shells are bash (recorded in /etc/passwd) and standalone
+  # home-manager can't chsh. Manage bash just enough to exec into fish so
+  # interactive terminals land in the fish configured above.
+  programs.bash = lib.mkIf (!isDarwin) {
     enable = true;
-    enableZshIntegration = true;
+    initExtra = ''
+      if [[ $- == *i* && -x ${pkgs.fish}/bin/fish ]]; then
+        exec ${pkgs.fish}/bin/fish -l
+      fi
+    '';
   };
 }

@@ -5,13 +5,13 @@
 {pkgs, ...}: {
   imports = [
     ./common.nix
-    ./modules/kitty.nix
+    ./modules/wezterm.nix
     ./modules/vscode.nix
   ];
 
   home.username = "dylan";
   home.homeDirectory = "/Users/dylan";
 
-  # kitty.conf references this font; home-manager links it into ~/Library/Fonts.
+  # wezterm.lua references this font; home-manager links it into ~/Library/Fonts.
   home.packages = [pkgs.unstable.nerd-fonts.jetbrains-mono];
 }
