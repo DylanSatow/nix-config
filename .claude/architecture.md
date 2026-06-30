@@ -10,7 +10,7 @@ nix-config/
 ├── overlays.nix              # pkgs.unstable overlay + direnv-overlay
 │
 └── home/                     # All configuration is user-level home-manager
-    ├── common.nix            # Shared base: imports modules/{theme,packages,shell,git,helix,nvim}
+    ├── common.nix            # Shared base: imports modules/{theme,packages,shell,starship,zellij,git,helix,nvim}
     │                         #   + stateVersion + home-manager.enable
     │
     ├── mac.nix               # dylanmac entry (aarch64-darwin, dylan): common + kitty + vscode + font
@@ -21,9 +21,11 @@ nix-config/
         ├── theme.nix         # Shared catppuccin settings (mocha/lavender) — CLI tools
         ├── packages.nix      # home.packages — the CLI + development toolchain
         ├── git.nix           # Git user/email
-        ├── shell.nix         # Zsh + oh-my-zsh, direnv, zellij, zoxide; flag-based nrb alias
+        ├── shell.nix         # fish (primary) + zsh fallback w/ shared aliases; direnv, zoxide; bash→fish hop (Linux)
+        ├── starship.nix      # Starship prompt (fish + zsh); default segments, `❯` char + cmd timer, Catppuccin via theme.nix
+        ├── zellij.nix        # Zellij + zjstatus.wasm (fetchurl) custom layout: clean Catppuccin bar replacing the green default
         ├── helix.nix         # Helix editor + LSP configs
-        ├── kitty.nix         # kitty.conf via xdg.configFile (Catppuccin baked in); no programs.kitty
+        ├── wezterm.nix       # wezterm.lua via xdg.configFile (Catppuccin scheme + blur); installed externally
         ├── vscode.nix        # VS Code settings.json via home.file (mac path); no programs.vscode
         └── nvim/             # LazyVim — lazy.nvim + Mason own plugins/LSPs (see neovim-guide.md)
             ├── nvim.nix      # installs neovim + runtime build deps; links init.lua/lua/stylua.toml
@@ -58,7 +60,7 @@ flake.nix
         extraSpecialArgs = mkFlags { isDarwin = true; }
         modules = [
           home/mac.nix                 → home/common.nix (theme + packages + shell/git/helix/nvim)
-                                         + modules/kitty.nix + modules/vscode.nix + nerd font
+                                         + modules/wezterm.nix + modules/vscode.nix + nerd font
           catppuccin.homeModules.catppuccin
         ]
       }
@@ -72,7 +74,7 @@ flake.nix
         pkgs = x86_64-linux + unstable-overlay
         extraSpecialArgs = mkFlags { isWsl = true; }
         modules = [
-          home/wsl.nix                 → home/common.nix + modules/kitty.nix + bash→zsh hop + nerd font
+          home/wsl.nix                 → home/common.nix + modules/wezterm.nix + nerd font (bash→fish hop in shell.nix)
           catppuccin.homeModules.catppuccin
         ]
       }
@@ -105,9 +107,9 @@ flake.nix
 Nix installs **no GUI apps**. They are installed by hand per host (Homebrew/App Store on mac,
 apt on WSL). For the apps we configure, home-manager links only the config file:
 
-- **kitty** → `xdg.configFile."kitty/kitty.conf".text` (true XDG). Catppuccin Mocha (lavender
-  accent) is baked directly into the file, since the catppuccin HM module can only theme kitty
-  through `programs.kitty`, which we don't use.
+- **wezterm** → `xdg.configFile."wezterm/wezterm.lua".text` (true XDG, mac + WSL). Uses wezterm's
+  built-in `Catppuccin Mocha` color scheme. The frosted-glass look is `window_background_opacity`
+  plus `macos_window_background_blur` (mac-only). `default_prog` launches the nix-built fish.
 - **VS Code** → `home.file."Library/Application Support/Code/User/settings.json"`. macOS is not
   XDG, so this lives under `~/Library`, not `~/.config`. Mac-only (imported by `home/mac`).
   Extensions are managed manually inside VS Code (the previous set is listed in `vscode.nix`).
@@ -132,9 +134,9 @@ The old nix-managed approach (`programs.neovim.plugins` linkFarm, `extraPackages
 **Catppuccin Mocha** with **Lavender** accent:
 
 - **Home level:** `catppuccin.enable = true` in `home/modules/theme.nix` (imported by every host) themes
-  terminal CLI tools (bat, btop, fzf, zsh highlighting, etc.).
+  terminal CLI tools (bat, btop, fzf, fish + zsh highlighting, etc.).
 - **Neovim:** catppuccin colorscheme as a lazy plugin (`lua/plugins/colorscheme.lua`).
-- **kitty:** colors baked into `kitty.conf` directly (not via the catppuccin module).
+- **wezterm:** wezterm's built-in `Catppuccin Mocha` color scheme (set in `wezterm.lua`).
 
 Don't introduce competing color schemes. VS Code theming is now a manually-installed extension.
 

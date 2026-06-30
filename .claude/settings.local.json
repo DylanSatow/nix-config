@@ -45,7 +45,8 @@
       "Bash(git mv *)",
       "Read(//Users/dylan/**)",
       "Read(//private/etc/nix/**)",
-      "Bash(awk '{print $2}')"
+      "Bash(awk '{print $2}')",
+      "Bash(home-manager --version)"
     ],
     "deny": [],
     "ask": []
