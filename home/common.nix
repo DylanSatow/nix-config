@@ -5,6 +5,7 @@
     ./modules/theme.nix
     ./modules/packages.nix
     ./modules/shell.nix
+    ./modules/lazygit.nix
     ./modules/starship.nix
     ./modules/zellij.nix
     ./modules/git.nix

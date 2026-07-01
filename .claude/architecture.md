@@ -10,7 +10,7 @@ nix-config/
 ├── overlays.nix              # pkgs.unstable overlay + direnv-overlay
 │
 └── home/                     # All configuration is user-level home-manager
-    ├── common.nix            # Shared base: imports modules/{theme,packages,shell,starship,zellij,git,helix,nvim}
+    ├── common.nix            # Shared base: imports modules/{theme,packages,shell,lazygit,starship,zellij,git,helix,nvim}
     │                         #   + stateVersion + home-manager.enable
     │
     ├── mac.nix               # dylanmac entry (aarch64-darwin, dylan): common + kitty + vscode + font
@@ -21,6 +21,7 @@ nix-config/
         ├── theme.nix         # Shared catppuccin settings (mocha/lavender) — CLI tools
         ├── packages.nix      # home.packages — the CLI + development toolchain
         ├── git.nix           # Git user/email
+        ├── lazygit.nix       # programs.lazygit (owns binary + config) — catppuccin-themed via theme.nix; nvim-remote editPreset; snacks.nvim uses this config (configure=false) so in-editor lazygit matches standalone
         ├── shell.nix         # fish (primary) + zsh fallback w/ shared aliases; direnv, zoxide; bash→fish hop (Linux)
         ├── starship.nix      # Starship prompt (fish + zsh); default segments, `❯` char + cmd timer, Catppuccin via theme.nix
         ├── zellij.nix        # Zellij + zjstatus.wasm (fetchurl) custom layout: clean Catppuccin bar; auto-starts in interactive shells (guarded by $ZELLIJ/$ZELLIJ_NO_AUTO/vscode; server attaches a named session)

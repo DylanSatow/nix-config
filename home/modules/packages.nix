@@ -1,6 +1,8 @@
 # The CLI + development toolchain installed on every host. zellij is intentionally
 # absent — it is owned by programs.zellij in shell.nix, and listing it here would
-# collide. Most packages use pkgs.unstable; migrate to stable where a newer version
+# collide. lazygit is likewise absent — owned by programs.lazygit in lazygit.nix so
+# home-manager manages its config (and catppuccin themes it).
+# Most packages use pkgs.unstable; migrate to stable where a newer version
 # isn't specifically needed (see .claude/architecture.md tech debt).
 #
 # NOTE: the language servers below (nil, pyright, rust-analyzer, gopls, clang-tools,
@@ -10,7 +12,6 @@
 {pkgs, ...}: {
   home.packages = [
     # CLI tools
-    pkgs.unstable.lazygit
     pkgs.unstable.yazi
     pkgs.unstable.ripgrep
     pkgs.unstable.ripgrep-all
