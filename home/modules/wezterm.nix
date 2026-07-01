@@ -28,6 +28,23 @@
     -- Dim inactive split panes.
     config.inactive_pane_hsb = {saturation = 0.0, brightness = 0.5}
 
+    -- Bare-shell window: opens fish with $ZELLIJ_NO_AUTO set so it skips the
+    -- zellij auto-start. Use it to ssh into a host that runs its own zellij —
+    -- the remote session is then the only layer (no local-wraps-remote nesting).
+    config.keys = {
+      {
+        key = 'n',
+        mods = '${
+      if isDarwin
+      then "CMD|SHIFT"
+      else "CTRL|SHIFT"
+    }',
+        action = wezterm.action.SpawnCommandInNewWindow {
+          set_environment_variables = { ZELLIJ_NO_AUTO = '1' },
+        },
+      },
+    }
+
     -- Frosted glass: translucent window over the blurred wallpaper.
     config.window_background_opacity = 0.8
   '';

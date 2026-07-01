@@ -23,9 +23,9 @@ nix-config/
         ├── git.nix           # Git user/email
         ├── shell.nix         # fish (primary) + zsh fallback w/ shared aliases; direnv, zoxide; bash→fish hop (Linux)
         ├── starship.nix      # Starship prompt (fish + zsh); default segments, `❯` char + cmd timer, Catppuccin via theme.nix
-        ├── zellij.nix        # Zellij + zjstatus.wasm (fetchurl) custom layout: clean Catppuccin bar replacing the green default
+        ├── zellij.nix        # Zellij + zjstatus.wasm (fetchurl) custom layout: clean Catppuccin bar; auto-starts in interactive shells (guarded by $ZELLIJ/$ZELLIJ_NO_AUTO/vscode; server attaches a named session)
         ├── helix.nix         # Helix editor + LSP configs
-        ├── wezterm.nix       # wezterm.lua via xdg.configFile (Catppuccin scheme + blur); installed externally
+        ├── wezterm.nix       # wezterm.lua via xdg.configFile (Catppuccin scheme + blur); installed externally; CMD/CTRL+SHIFT+N spawns a bare no-zellij window ($ZELLIJ_NO_AUTO) for ssh
         ├── vscode.nix        # VS Code settings.json via home.file (mac path); no programs.vscode
         └── nvim/             # LazyVim — lazy.nvim + Mason own plugins/LSPs (see neovim-guide.md)
             ├── nvim.nix      # installs neovim + runtime build deps; links init.lua/lua/stylua.toml
