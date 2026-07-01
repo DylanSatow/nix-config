@@ -19,6 +19,12 @@
     config.default_cursor_style = 'SteadyBar'
     config.max_fps = 120
 
+    -- Enable the enhanced (kitty) keyboard protocol; disabled by default in
+    -- wezterm. Without it, modified keys like Shift+Enter collapse to plain
+    -- Enter, so Claude Code's newline-on-Shift+Enter never sees the modifier
+    -- (zellij's support_kitty_keyboard_protocol then has nothing to forward).
+    config.enable_kitty_keyboard = true
+
     -- Launch the fish configured by home-manager.
     config.default_prog = {'${pkgs.fish}/bin/fish', '-l'}
 
