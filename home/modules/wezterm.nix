@@ -49,6 +49,16 @@
           set_environment_variables = { ZELLIJ_NO_AUTO = '1' },
         },
       },
+      -- Work around a wezterm bug: with enable_kitty_keyboard on, the forward
+      -- delete key (fn+delete on mac) is sent as ^H, which zellij reads as its
+      -- Ctrl+h "move mode" bind instead of Del (e.g. delete-session in the
+      -- session manager). Send the correct escape sequence explicitly.
+      -- https://github.com/wezterm/wezterm/issues/4785
+      {
+        key = 'Delete',
+        mods = 'NONE',
+        action = wezterm.action.SendString '\x1b[3~',
+      },
     }
 
     -- Frosted glass: translucent window over the blurred wallpaper.

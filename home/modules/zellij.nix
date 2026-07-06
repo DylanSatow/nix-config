@@ -5,7 +5,9 @@
 # the same file works on every host. The theme itself (catppuccin-mocha) is set
 # by the catppuccin home-manager module via theme.nix.
 {
+  lib,
   pkgs,
+  isDarwin,
   isServer,
   ...
 }: let
@@ -25,45 +27,57 @@
 in {
   programs.zellij = {
     enable = true;
-    settings = {
-      show_startup_tips = false;
-      pane_frames = false;
+    settings =
+      {
+        show_startup_tips = false;
+        pane_frames = false;
 
-      # Forward the enhanced (kitty) keyboard protocol to the running pane.
-      # WezTerm speaks it natively; without this zellij collapses modified keys
-      # like Shift+Enter down to plain Enter, so TUIs inside zellij (e.g. Claude
-      # Code's newline-on-Shift+Enter) never see the modifier. Default is false.
-      support_kitty_keyboard_protocol = true;
+        # Forward the enhanced (kitty) keyboard protocol to the running pane.
+        # WezTerm speaks it natively; without this zellij collapses modified keys
+        # like Shift+Enter down to plain Enter, so TUIs inside zellij (e.g. Claude
+        # Code's newline-on-Shift+Enter) never see the modifier. Default is false.
+        support_kitty_keyboard_protocol = true;
 
-      keybinds = {
-        normal = {
-          # Free Ctrl+g for the foreground app. Zellij binds it (via
-          # shared_except "locked") to enter Locked mode, which swallows it
-          # before the running TUI sees it — this is why Ctrl+g (Claude Code's
-          # "edit prompt in $EDITOR") did nothing inside zellij. Unbinding it
-          # lets it pass through while typing; Locked mode moves to Alt+g below.
-          "unbind \"Ctrl g\"" = {};
-          "bind \"Alt g\"" = {
-            SwitchToMode = "Locked";
+        keybinds = {
+          normal = {
+            # Free Ctrl+g for the foreground app. Zellij binds it (via
+            # shared_except "locked") to enter Locked mode, which swallows it
+            # before the running TUI sees it — this is why Ctrl+g (Claude Code's
+            # "edit prompt in $EDITOR") did nothing inside zellij. Unbinding it
+            # lets it pass through while typing; Locked mode moves to Alt+g below.
+            "unbind \"Ctrl g\"" = {};
+            "bind \"Alt g\"" = {
+              SwitchToMode = "Locked";
+            };
+            "bind \"Alt q\"" = {
+              CloseFocus = {};
+            };
+            "bind \"Alt t\"" = {
+              NewTab = {};
+            };
           };
-          "bind \"Alt q\"" = {
-            CloseFocus = {};
-          };
-          "bind \"Alt t\"" = {
-            NewTab = {};
+          # Lock mode toggles on Alt+g (not Ctrl+g) so that Ctrl+g passes through
+          # to the app even while locked — locking to *use* a Ctrl+g app would be
+          # self-defeating otherwise.
+          locked = {
+            "unbind \"Ctrl g\"" = {};
+            "bind \"Alt g\"" = {
+              SwitchToMode = "Normal";
+            };
           };
         };
-        # Lock mode toggles on Alt+g (not Ctrl+g) so that Ctrl+g passes through
-        # to the app even while locked — locking to *use* a Ctrl+g app would be
-        # self-defeating otherwise.
-        locked = {
-          "unbind \"Ctrl g\"" = {};
-          "bind \"Alt g\"" = {
-            SwitchToMode = "Normal";
-          };
-        };
+      }
+      # Copy selections by shelling out to the OS clipboard tool. The default
+      # mechanism (an OSC 52 escape sequence relayed through the terminal) fails
+      # silently in some terminal/mux combinations, leaving mouse-selection copy
+      # broken. The server keeps the OSC 52 default: it has no local clipboard,
+      # and OSC 52 is the only thing that reaches the local one over SSH.
+      // lib.optionalAttrs (!isServer) {
+        copy_command =
+          if isDarwin
+          then "pbcopy"
+          else "clip.exe"; # WSL: Windows clipboard
       };
-    };
   };
 
   # Custom default layout: a single borderless zjstatus bar at the top replaces

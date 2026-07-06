@@ -25,6 +25,7 @@
     nv = "nvim";
     y = "yazi";
     lg = "lazygit";
+    zj = "zellij";
   };
 in {
   programs.fish = {
