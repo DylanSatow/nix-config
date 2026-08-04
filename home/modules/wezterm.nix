@@ -7,6 +7,7 @@
   pkgs,
   lib,
   isDarwin,
+  isWsl,
   ...
 }: let
   base = ''
@@ -61,8 +62,8 @@
       },
     }
 
-    -- Frosted glass: translucent window over the blurred wallpaper.
-    config.window_background_opacity = 0.8
+    -- Fully opaque window.
+    config.window_background_opacity = 1.0
   '';
 
   darwin = lib.optionalString isDarwin ''
@@ -73,6 +74,17 @@
     -- draggable (by the body) and resizable from the edges.
     config.window_decorations = 'RESIZE'
   '';
+
+  # The native Windows wezterm is pointed at this WSL-side file (via the
+  # WEZTERM_CONFIG_FILE Windows env var). Default new tabs/windows into the WSL
+  # distro so it behaves like a WSL terminal. Guarded on the Windows target
+  # triple so the same file, if ever read by a Linux wezterm under WSLg, skips
+  # the (nonexistent) WSL domain rather than erroring.
+  wsl = lib.optionalString isWsl ''
+    if wezterm.target_triple:find('windows') then
+      config.default_domain = 'WSL:Ubuntu'
+    end
+  '';
 in {
-  xdg.configFile."wezterm/wezterm.lua".text = base + darwin + "\nreturn config\n";
+  xdg.configFile."wezterm/wezterm.lua".text = base + darwin + wsl + "\nreturn config\n";
 }

@@ -26,7 +26,7 @@ nix-config/
         ├── starship.nix      # Starship prompt (fish + zsh); default segments, `❯` char + cmd timer, Catppuccin via theme.nix
         ├── zellij.nix        # Zellij + zjstatus.wasm (fetchurl) custom layout: clean Catppuccin bar; auto-starts in interactive shells (guarded by $ZELLIJ/$ZELLIJ_NO_AUTO/vscode; server attaches a named session)
         ├── helix.nix         # Helix editor + LSP configs
-        ├── wezterm.nix       # wezterm.lua via xdg.configFile (Catppuccin scheme + blur); installed externally; CMD/CTRL+SHIFT+N spawns a bare no-zellij window ($ZELLIJ_NO_AUTO) for ssh
+        ├── wezterm.nix       # wezterm.lua via xdg.configFile (Catppuccin scheme + blur); installed externally; CMD/CTRL+SHIFT+N spawns a bare no-zellij window ($ZELLIJ_NO_AUTO) for ssh. On WSL, sets default_domain='WSL:Ubuntu' (guarded on windows target_triple) so the native Windows wezterm — pointed here via the WEZTERM_CONFIG_FILE env var — defaults into WSL
         ├── vscode.nix        # VS Code settings.json via home.file (mac path); no programs.vscode
         └── nvim/             # LazyVim — lazy.nvim + Mason own plugins/LSPs (see neovim-guide.md)
             ├── nvim.nix      # installs neovim + runtime build deps; links init.lua/lua/stylua.toml
