@@ -1,0 +1,6 @@
+[Unit]
+Description=Reload keyd configuration
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/keyd reload

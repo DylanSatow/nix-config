@@ -1,0 +1,21 @@
+# Home-relative paths tracked by omarchydots.
+# One path per line; globs allowed; lines starting with # are ignored.
+# sync.sh copies these from $HOME into home/, bootstrap.sh copies them back.
+
+.config/hypr/autostart.lua
+.config/hypr/bindings.lua
+.config/hypr/hyprland.lua
+.config/hypr/input.lua
+.config/hypr/looknfeel.lua
+.config/hypr/monitors.lua
+.config/hypr/hyprsunset.conf
+.config/hypr/xdph.conf
+
+.config/omarchy/shell.json
+.config/omarchy/extensions/omarchy-menu.jsonc
+.config/omarchy/branding/about.txt
+.config/omarchy/branding/screensaver.txt
+.config/omarchy/defaults/agent
+.config/omarchy/hooks/*.d/*.hook
+
+.config/keyd/default.conf

@@ -1,0 +1,10 @@
+[Unit]
+Description=Reload keyd when the user config changes
+
+[Path]
+PathModified=/home/dylan/.config/keyd/default.conf
+PathModified=/home/dylan/.config/keyd/
+Unit=keyd-reload.service
+
+[Install]
+WantedBy=multi-user.target
