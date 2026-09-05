@@ -7,6 +7,8 @@
     ./common.nix
     ./modules/wezterm.nix
     ./modules/vscode.nix
+    ./modules/aerospace.nix
+    ./modules/karabiner.nix
   ];
 
   home.username = "dylan";

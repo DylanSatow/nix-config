@@ -28,6 +28,8 @@ nix-config/
         ├── helix.nix         # Helix editor + LSP configs
         ├── wezterm.nix       # wezterm.lua via xdg.configFile (Catppuccin scheme + blur); installed externally; CMD/CTRL+SHIFT+N spawns a bare no-zellij window ($ZELLIJ_NO_AUTO) for ssh. On WSL, sets default_domain='WSL:Ubuntu' (guarded on windows target_triple) so the native Windows wezterm — pointed here via the WEZTERM_CONFIG_FILE env var — defaults into WSL
         ├── vscode.nix        # VS Code settings.json via home.file (mac path); no programs.vscode
+        ├── aerospace.nix     # AeroSpace tiling WM config via xdg.configFile; brew-installed app. Mod=Ctrl+Alt+Cmd (+Shift = move variants), alt left free for zellij. Mac-only (imported by home/mac)
+        ├── karabiner.nix     # Karabiner-Elements karabiner.json via xdg.configFile; brew-installed app. Caps Lock: hold=Ctrl+Alt+Cmd (AeroSpace Mod), tap=Escape. Mac-only (imported by home/mac)
         └── nvim/             # LazyVim — lazy.nvim + Mason own plugins/LSPs (see neovim-guide.md)
             ├── nvim.nix      # installs neovim + runtime build deps; links init.lua/lua/stylua.toml
             ├── init.lua
@@ -61,7 +63,8 @@ flake.nix
         extraSpecialArgs = mkFlags { isDarwin = true; }
         modules = [
           home/mac.nix                 → home/common.nix (theme + packages + shell/git/helix/nvim)
-                                         + modules/wezterm.nix + modules/vscode.nix + nerd font
+                                         + modules/wezterm.nix + modules/vscode.nix
+                                         + modules/aerospace.nix + modules/karabiner.nix + nerd font
           catppuccin.homeModules.catppuccin
         ]
       }
@@ -114,6 +117,14 @@ apt on WSL). For the apps we configure, home-manager links only the config file:
 - **VS Code** → `home.file."Library/Application Support/Code/User/settings.json"`. macOS is not
   XDG, so this lives under `~/Library`, not `~/.config`. Mac-only (imported by `home/mac`).
   Extensions are managed manually inside VS Code (the previous set is listed in `vscode.nix`).
+- **AeroSpace** → `xdg.configFile."aerospace/aerospace.toml"` (native XDG path). Brew cask app,
+  mac-only. All bindings use Mod = `ctrl-alt-cmd` (+Shift for move variants), defined as nix
+  `let` bindings so the whole scheme is a one-line change. Alt is deliberately untouched — it
+  belongs to zellij inside the terminal.
+- **Karabiner-Elements** → `xdg.configFile."karabiner/karabiner.json"` (its real config path).
+  Brew cask app, mac-only. Caps Lock: hold = Ctrl+Alt+Cmd (the AeroSpace Mod), tap = Escape.
+  Caveat: the read-only store symlink means the Karabiner UI can't save — all edits go through
+  `karabiner.nix`.
 
 ## Neovim
 
