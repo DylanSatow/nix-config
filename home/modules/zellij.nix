@@ -15,15 +15,6 @@
     url = "https://github.com/dj95/zjstatus/releases/download/v0.23.0/zjstatus.wasm";
     hash = "sha256-4AaQEiNSQjnbYYAh5MxdF/gtxL+uVDKJW6QfA/E4Yf8=";
   };
-
-  # The command each interactive shell runs to enter zellij. On the server we
-  # attach-or-create a single named session so a dropped SSH connection
-  # reconnects to the same running session (the whole point of a multiplexer on
-  # a headless box). Locally each terminal window gets its own fresh session.
-  autoStartCmd =
-    if isServer
-    then "zellij attach -c main"
-    else "zellij";
 in {
   programs.zellij = {
     enable = true;
@@ -111,29 +102,29 @@ in {
     }
   '';
 
-  # Make zellij the default: auto-start it in interactive shells. Guards:
+  # Auto-start is server-only: attach-or-create a single named session so a
+  # dropped SSH connection reconnects to the same running session (the whole
+  # point of a multiplexer on a headless box). Locally zellij is started by
+  # hand — `zj` for a throwaway session, `zjc` to attach-or-create the named
+  # one (aliases in shell.nix). Guards:
   #   - interactive only.
-  #   - not already inside zellij ($ZELLIJ set) -> never nests on the same host.
-  #     SSH doesn't forward $ZELLIJ, so an ssh'd host still starts its own
-  #     session (giving you real zellij on the server, not a local wrapper).
-  #   - $ZELLIJ_NO_AUTO lets a shell opt out -> the escape hatch for a "bare"
-  #     window used just to ssh into a host that runs its own zellij, avoiding
-  #     the local-wraps-remote nesting. wezterm has a keybind that spawns one.
-  #   - skip VS Code's integrated terminal, which manages its own panes.
-  programs.fish.interactiveShellInit = ''
+  #   - not already inside zellij ($ZELLIJ set) -> never nests.
+  #   - $ZELLIJ_NO_AUTO lets a shell opt out (escape hatch for maintenance).
+  #   - skip VS Code's integrated terminal (Remote-SSH), which manages its own
+  #     panes.
+  programs.fish.interactiveShellInit = lib.mkIf isServer ''
     if status is-interactive
         and not set -q ZELLIJ
         and not set -q ZELLIJ_NO_AUTO
         and test "$TERM_PROGRAM" != vscode
-        ${autoStartCmd}
+        zellij attach -c main
     end
   '';
 
-  # zsh is only the fallback shell (non-wezterm terminals), but keep the default
-  # consistent there too.
-  programs.zsh.initExtra = ''
+  # zsh is only the fallback shell, but keep the default consistent there too.
+  programs.zsh.initExtra = lib.mkIf isServer ''
     if [[ -o interactive && -z "$ZELLIJ" && -z "$ZELLIJ_NO_AUTO" && "$TERM_PROGRAM" != "vscode" ]]; then
-      ${autoStartCmd}
+      zellij attach -c main
     fi
   '';
 }

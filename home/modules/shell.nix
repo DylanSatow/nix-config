@@ -26,11 +26,23 @@
     y = "yazi";
     lg = "lazygit";
     zj = "zellij";
+    zjd = "zellij delete-session"; # zjd <name>: remove an exited session (add --force to kill a live one)
   };
 in {
   programs.fish = {
     enable = true;
     inherit shellAliases;
+
+    # zjc [name]: attach-or-create a zellij session, defaulting to
+    # "unnamed_session". A function rather than an alias so the name argument
+    # is optional (an alias would paste the default name before the argument).
+    functions.zjc = ''
+      if test (count $argv) -gt 0
+          zellij attach -c $argv[1]
+      else
+          zellij attach -c unnamed_session
+      end
+    '';
 
     # Standalone home-manager doesn't install nix's fish PATH hook into
     # /etc/fish/conf.d, so a GUI-launched fish (wezterm via launchd on mac)
@@ -48,6 +60,10 @@ in {
   programs.zsh = {
     enable = true;
     inherit shellAliases;
+    # zsh twin of the fish zjc function above.
+    initExtra = ''
+      zjc() { zellij attach -c "''${1:-unnamed_session}"; }
+    '';
     oh-my-zsh = {
       enable = true;
       theme = "robbyrussell";

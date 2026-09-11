@@ -24,12 +24,12 @@ nix-config/
         ├── lazygit.nix       # programs.lazygit (owns binary + config) — catppuccin-themed via theme.nix; nvim-remote editPreset; snacks.nvim uses this config (configure=false) so in-editor lazygit matches standalone
         ├── shell.nix         # fish (primary) + zsh fallback w/ shared aliases; direnv, zoxide; bash→fish hop (Linux)
         ├── starship.nix      # Starship prompt (fish + zsh); default segments, `❯` char + cmd timer, Catppuccin via theme.nix
-        ├── zellij.nix        # Zellij + zjstatus.wasm (fetchurl) custom layout: clean Catppuccin bar; auto-starts in interactive shells (guarded by $ZELLIJ/$ZELLIJ_NO_AUTO/vscode; server attaches a named session)
+        ├── zellij.nix        # Zellij + zjstatus.wasm (fetchurl) custom layout: clean Catppuccin bar; auto-start is server-only (`zellij attach -c main`, guarded by $ZELLIJ/$ZELLIJ_NO_AUTO/vscode); locally started by hand via `zj`/`zjc` aliases (shell.nix)
         ├── helix.nix         # Helix editor + LSP configs
         ├── wezterm.nix       # wezterm.lua via xdg.configFile (Catppuccin scheme + blur); installed externally; CMD/CTRL+SHIFT+N spawns a bare no-zellij window ($ZELLIJ_NO_AUTO) for ssh. On WSL, sets default_domain='WSL:Ubuntu' (guarded on windows target_triple) so the native Windows wezterm — pointed here via the WEZTERM_CONFIG_FILE env var — defaults into WSL
         ├── vscode.nix        # VS Code settings.json via home.file (mac path); no programs.vscode
         ├── aerospace.nix     # AeroSpace tiling WM config via xdg.configFile; brew-installed app. Mod=Ctrl+Alt+Cmd (+Shift = move variants), alt left free for zellij. Mac-only (imported by home/mac)
-        ├── karabiner.nix     # Karabiner-Elements karabiner.json via xdg.configFile; brew-installed app. Caps Lock: hold=Ctrl+Alt+Cmd (AeroSpace Mod), tap=Escape. Mac-only (imported by home/mac)
+        ├── karabiner.nix     # Karabiner-Elements karabiner.json via xdg.configFile; brew-installed app. Caps Lock: hold=Ctrl+Alt+Cmd (AeroSpace Mod), tap=Escape. Tab: hold=nav layer (hjkl=arrows), tap=Tab. Mac-only (imported by home/mac)
         └── nvim/             # LazyVim — lazy.nvim + Mason own plugins/LSPs (see neovim-guide.md)
             ├── nvim.nix      # installs neovim + runtime build deps; links init.lua/lua/stylua.toml
             ├── init.lua
@@ -123,6 +123,8 @@ apt on WSL). For the apps we configure, home-manager links only the config file:
   belongs to zellij inside the terminal.
 - **Karabiner-Elements** → `xdg.configFile."karabiner/karabiner.json"` (its real config path).
   Brew cask app, mac-only. Caps Lock: hold = Ctrl+Alt+Cmd (the AeroSpace Mod), tap = Escape.
+  Tab: hold = navigation layer (hjkl = arrows, any modifier stacks), tap = Tab. Bare Tab only,
+  so Cmd/Shift/Ctrl+Tab are untouched.
   Caveat: the read-only store symlink means the Karabiner UI can't save — all edits go through
   `karabiner.nix`.
 
