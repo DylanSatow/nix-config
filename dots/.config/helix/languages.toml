@@ -1,0 +1,22 @@
+[[language]]
+language-servers = ["nil"]
+name = "nix"
+
+[[language]]
+language-servers = ["pyright"]
+name = "python"
+
+[[language]]
+name = "rust"
+
+[[language]]
+language-servers = ["markdown-oxide"]
+name = "markdown"
+
+[[language]]
+language-servers = ["clangd"]
+name = "c"
+
+[[language]]
+language-servers = ["gopls", "golangci-lint-lsp"]
+name = "go"

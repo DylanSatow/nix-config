@@ -1,0 +1,28 @@
+// Twin of home/modules/zellij.nix. zjstatus is fetched from its release URL
+// (zellij downloads + caches it on first start). Offline alternative: download
+// the same file and use  location="file:/absolute/path/to/zjstatus.wasm".
+layout {
+    default_tab_template {
+        pane size=1 borderless=true {
+            plugin location="https://github.com/dj95/zjstatus/releases/download/v0.23.0/zjstatus.wasm" {
+                format_left  "{mode} {tabs}"
+                format_right "{datetime}"
+                format_space ""
+
+                border_enabled "false"
+
+                mode_normal          "#[bg=#b4befe,fg=#1e1e2e,bold] NORMAL "
+                mode_locked          "#[bg=#f38ba8,fg=#1e1e2e,bold] LOCKED "
+                mode_default_to_mode "normal"
+
+                tab_normal "#[fg=#6c7086] {index} {name} "
+                tab_active "#[fg=#b4befe,bold] {index} {name} "
+
+                datetime          "#[fg=#9399b2,bold] {format} "
+                datetime_format   "%Y-%m-%d %H:%M"
+                datetime_timezone "America/New_York"
+            }
+        }
+        children
+    }
+}

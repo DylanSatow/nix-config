@@ -9,6 +9,12 @@ nix-config/
 ├── flake.lock                # Pinned input versions
 ├── overlays.nix              # pkgs.unstable overlay + direnv-overlay
 │
+├── dots/                     # Nix-free twin of the generated dotfiles for machines that can't run nix
+│                             #   (work laptop). Layout mirrors $HOME; install.sh symlinks them in.
+│                             #   Hand-maintained: /nix/store paths replaced by PATH lookups, zjstatus
+│                             #   loaded from its release URL, nvim/ is a copy of home/modules/nvim.
+│                             #   NOT a build output — when a module in home/ changes, mirror it here.
+│
 └── home/                     # All configuration is user-level home-manager
     ├── common.nix            # Shared base: imports modules/{theme,packages,shell,lazygit,starship,zellij,git,helix,nvim}
     │                         #   + stateVersion + home-manager.enable
@@ -161,6 +167,9 @@ them when touching related code:
 
 1. **Almost everything uses `pkgs.unstable`** (see `home/modules/packages.nix`) — packages should be
    evaluated and moved to stable where a newer version isn't specifically needed.
+2. **`dots/` is a manual copy, not generated** — it duplicates settings from `home/modules/*` (and
+   the whole `nvim/` tree) and drifts silently. A `dots/sync.sh` that regenerates it from the
+   active home-manager generation and rewrites store paths would remove the duplication.
 
 ## Language Support Matrix (Neovim, via Mason)
 

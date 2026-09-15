@@ -1,0 +1,26 @@
+// mac. On Linux use "wl-copy" (Wayland) or "xclip -selection clipboard" (X11).
+copy_command "pbcopy"
+keybinds {
+	locked {
+		bind "Alt g" {
+			SwitchToMode "Normal"
+		}
+		unbind "Ctrl g"
+	}
+	normal {
+		bind "Alt g" {
+			SwitchToMode "Locked"
+		}
+		bind "Alt q" {
+			CloseFocus
+		}
+		bind "Alt t" {
+			NewTab
+		}
+		unbind "Ctrl g"
+	}
+}
+pane_frames false
+show_startup_tips false
+support_kitty_keyboard_protocol true
+theme "catppuccin-mocha"

@@ -1,0 +1,16 @@
+theme = "catppuccin-mocha"
+
+[editor]
+color-modes = true
+continue-comments = false
+end-of-line-diagnostics = "hint"
+line-number = "relative"
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[keys.normal.space]
+q = ":write-quit"
+
